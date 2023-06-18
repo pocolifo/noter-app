@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { NavItemProps } from '../../interfaces';
 import NavItem from './navitem';
 import Popup from '../popup/popup';
+import { Icon } from '@iconify/react';
 
 interface NavBarProps {
     header: string;
@@ -46,10 +47,7 @@ export default function NavBar(props: NavBarProps){
 
             <div className='navheader'>
                 <p className='navheader-title'> {props.header} </p>
-                <div
-                    className='navheader-button'
-                    onClick={togglePopup}
-                />
+                <Icon icon="fe:plus" className='navheader-button' onClick={togglePopup} color="#FFFFFF" />
             </div>
 
             <div className='nav-list'>

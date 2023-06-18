@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react';
 import './popup.css'
 
 interface PopupProps {
@@ -26,12 +27,10 @@ export default function Popup(props: PopupProps) {
                 
                 <div className='popup-header'>
                     <p className='popup-title'> {props.title} </p>
-                    <div 
-                        className='popup-close'
-                        onClick={() => {
-                            props.closeCallback(false); // anonymous function so it doesn't call before clicked
-                        }}
-                    />
+
+                    <Icon icon="fe:close" color="#FFFFFF" className='popup-close' onClick={() => {
+                        props.closeCallback(false) // anonymous function so it doesn't call before clicked
+                    }} />
                 </div>
 
                 <input
