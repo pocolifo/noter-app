@@ -1,0 +1,55 @@
+.nav {
+    background-color: #202123;
+}
+
+.navheader {
+    display: grid;
+    grid-template-columns: 1fr 0.1fr;
+
+    margin: 10px;
+}
+
+.navheader-title {
+    font-weight: bold;
+    font-size: large;
+    color: white;
+
+    text-align: left;
+}
+
+.navheader-button {
+    background-color: green;
+
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    min-height: 40px;
+
+    display: inline-block;
+    margin-top: auto;
+    margin-bottom: auto;
+
+    cursor: pointer;
+}
+
+.navitem {
+    display: flex;
+    align-items: center;
+
+    height: 50px;
+    margin-top: 5px;
+    
+    cursor: pointer;
+}
+
+.navitem > * {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.navitem-title {
+    color: white;
+
+    height: auto;
+    vertical-align: middle;
+}

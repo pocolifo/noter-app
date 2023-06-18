@@ -1,0 +1,8 @@
+.App {
+  text-align: center;
+
+  display: grid;
+  grid-template-columns: 0.2fr 1fr;
+
+  height: 100vh;
+}
