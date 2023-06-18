@@ -1,11 +1,11 @@
 import './nav.css';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-import { NavItemProps } from '../../interfaces';
-import NavItem from './navitem';
-import Popup from '../popup/popup';
 import { Icon } from '@iconify/react';
+import { NavItemProps } from '../../interfaces';
+import Popup from '../popup/popup';
+import NavItem from './navitem';
 
 interface NavBarProps {
     header: string;
