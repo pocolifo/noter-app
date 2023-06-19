@@ -12,8 +12,10 @@ export default function Popup(props: PopupProps) {
     function handleKeyPress(event: any) {
         if (event.key == 'Enter') {
             const input = (document.getElementById('popup-input') as HTMLInputElement).value; // casting hack
-
+            
             props.state(input);
+        } else if (event.key == 'Escape') {
+            props.closeCallback(false)
         }
     }
 
@@ -37,7 +39,7 @@ export default function Popup(props: PopupProps) {
                     type="text"
                     className='popup-input'
                     id='popup-input'
-                    onKeyPress={handleKeyPress}
+                    onKeyDown={handleKeyPress}
                 />
             </div>
         </div>
