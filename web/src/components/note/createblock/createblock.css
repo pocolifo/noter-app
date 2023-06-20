@@ -1,0 +1,16 @@
+#createblock {
+    margin: auto;
+    text-align: center;
+    width: 90%;
+
+    border: 2px dashed #202123;
+
+    padding: 3%;
+}
+
+#createblock > span {
+    font-size: 24px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
