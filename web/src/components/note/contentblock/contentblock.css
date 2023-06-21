@@ -1,0 +1,13 @@
+.contentblock > h1 {
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.contentblock > p {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.contentblock > img {
+    max-width: 100%;
+}
