@@ -4,8 +4,7 @@
     width: 90%;
 
     border: 2px dashed #202123;
-
-    padding: 3%;
+    background-color: white;
 }
 
 #createblock > span {
@@ -13,4 +12,10 @@
     display: flex;
     gap: 10px;
     justify-content: center;
+
+    margin: 3%;
+}
+
+.draggedover {
+    background-color: #add8e6;
 }
