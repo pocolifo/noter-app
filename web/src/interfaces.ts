@@ -10,11 +10,11 @@ export interface PopupProps {
 }
 
 export interface NoteData {
-    Title: string,
-    Content: ContentBlock[]
+    title: string,
+    content: ContentBlock[]
 }
 
 export interface ContentBlock {
-    Type: string, // as of the moment this is one of the following: text, image, header, table, vocabulary, diagram
-    Data: object
+    type: string, // as of the moment this is one of the following: text, image, header, table, vocabulary, diagram
+    data: any
 }

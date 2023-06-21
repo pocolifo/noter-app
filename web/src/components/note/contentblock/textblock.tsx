@@ -1,9 +1,13 @@
 import "./contentblock.css"
 
-export default function TextBlock(text: string) {
+interface TextBlockProps {
+    text: string;
+}
+
+export default function TextBlock(props: TextBlockProps) {
     return (
         <div className="contentblock">
-            <p className="text">{text}</p>
+            <p className="text">{props.text}</p>
         </div>
     )
 }

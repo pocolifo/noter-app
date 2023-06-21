@@ -1,0 +1,17 @@
+.notebody {
+    text-align: left;
+    margin: 15px;
+}
+
+.noteheader {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.noteheader-title {
+    font-size: 48px;
+    font-weight: bolder;
+
+    margin: 15px;
+    text-align: left;
+}

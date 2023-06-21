@@ -1,13 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './routes/app/App'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+
 import './index.css'
+import App from './routes/app/App'
+import Note from './routes/note/note'
 
 const router = createBrowserRouter([
 	{
-		path: "/",
-		element: <App />
+		path: '/',
+		element: <App />,
+		children: [
+			{
+				path: 'note/:id',
+				element: <Note/>
+			}
+		]
 	}
 ])
 
