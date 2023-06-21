@@ -1,24 +1,37 @@
 import { Icon } from '@iconify/react';
+import { useContext, useState } from 'react';
+
 import './popup.css'
 
-interface PopupProps {
-    title: string;
-    // have to pass in togglePopup into self, can be mitigated using contextprovider
-    closeCallback(v: boolean): void;
-    state(v: any): void;
-}
+//import { PopupContext } from '../../routes/app/App'
+//import { PopupProps } from '../../interfaces';`
 
-export default function Popup(props: PopupProps) {
+import { usePopupContext } from './popupcontext';
+
+export default function Popup() {
+    // const popupContext = useContext(PopupContext) as PopupProps;
+    // const [popupState, setPopupState] = useState(popupContext);
+
+    const popupState = usePopupContext();
+
+    if (!popupState.enabled) {
+        return null;
+    }
+
     function handleKeyPress(event: any) {
         if (event.key == 'Enter') {
             const input = (document.getElementById('popup-input') as HTMLInputElement).value; // casting hack
             
-            props.state(input);
+            //props.state(input);
+
+            // popupState.stateCallback(input);
+            popupState.stateCallback(input);
         } else if (event.key == 'Escape') {
-            props.closeCallback(false)
+
         }
     }
 
+    
     // note: the input is currently just a temporary placeholder
     // popup state will eventually be controlled by a contextprovider so that it can be modified globally
 
@@ -28,10 +41,17 @@ export default function Popup(props: PopupProps) {
             <div className='popup-main'> 
                 
                 <div className='popup-header'>
-                    <p className='popup-title'> {props.title} </p>
+                    <p className='popup-title'> {'test'} </p>
 
                     <Icon icon="fe:close" color="#FFFFFF" className='popup-close' onClick={() => {
-                        props.closeCallback(false) // anonymous function so it doesn't call before clicked
+                        // props.closeCallback(false) // anonymous function so it doesn't call before clicked
+                        
+                        // setPopupState((prevState) => ({
+                        //     ...prevState,
+                        //     enabled: false
+                        // }));
+
+                        popupState.setEnabled(false);
                     }} />
                 </div>
 

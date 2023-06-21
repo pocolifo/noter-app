@@ -1,16 +1,36 @@
+import { useState, createContext, useContext } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import NavBar from '../../components/nav/navbar';
 import './App.css';
 
-export default function App() {
-	return (
-		<div className="App">
-			<NavBar header='test header' />
+import NavBar from '../../components/nav/navbar';
+import Popup from '../../components/popup/popup';
+// import { PopupProps } from '../../interfaces';
 
-			<div id='detail'>
-				<Outlet />
+import { PopupProvider } from '../../components/popup/popupcontext';
+
+// const defaultPopupContextValue = {
+// 	enabled: false,
+// 	title: '',
+
+// 	stateCallback: () => {void 0;}
+// };
+
+// export const PopupContext = createContext<PopupProps>(defaultPopupContextValue);
+
+export default function App() {
+	// const [popupState, setPopupState] = useState<PopupProps>(defaultPopupContextValue);
+
+	return (
+		<PopupProvider>
+			<Popup/>
+			<div className="App">
+				<NavBar header='test header' />
+
+				<div id='detail'>
+					<Outlet />
+				</div>
 			</div>
-		</div>
+		</PopupProvider>
 	);
 }
