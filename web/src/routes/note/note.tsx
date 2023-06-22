@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import './note.css';
 
@@ -10,6 +11,8 @@ import ImageBlock from '../../components/note/contentblock/imageblock';
 import TextBlock from '../../components/note/contentblock/textblock';
 
 export default function Note(props: NoteData) {
+    let { id } = useParams();
+
     const tempData: NoteData = { // temporary props, same format as normal props
         title: 'Sample page',
         content: [
@@ -54,17 +57,16 @@ export default function Note(props: NoteData) {
 
             <div className='notebody'>
                 {blocks.map((blockData, _) => {
-                    if (blockData.type === 'header') {
-                        return <HeaderBlock text={blockData.data.text}/>
-                    }
-                    else if (blockData.type === 'text') {
-                        return <TextBlock text={blockData.data.text}/>
-                    }
-                    else if (blockData.type === 'image') {
-                        return <ImageBlock />
-                    } else {
-                        // TODO: invalid block element/block
-                        console.log('error');
+                    switch (blockData.type) {
+                        case 'header':
+                            return <HeaderBlock text={blockData.data.text}/>
+
+                        case 'text':
+                            return <TextBlock text={blockData.data.text}/>
+                        
+                        case 'image':
+                            // implement proper image handling
+                            return <ImageBlock src={blockData.data.src} alt={'blockData.data.alt'}/>
                     }
                 })}
 

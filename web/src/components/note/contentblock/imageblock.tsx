@@ -1,9 +1,14 @@
 import "./contentblock.css"
 
-export default function ImageBlock(src: string, alt: string) {
+interface ImageBlockProps {
+    src: string;
+    alt: string;
+}
+
+export default function ImageBlock(props: ImageBlockProps) {
     return (
         <div className="contentblock">
-            <img className="image" src={src} alt={alt} />
+            <img className="image" src={props.src} alt={props.alt} />
         </div>
     )
 }
