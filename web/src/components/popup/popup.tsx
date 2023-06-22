@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { useContext, useState } from 'react';
 
-import './popup.css'
+import './popup.css';
 
 import { usePopupContext } from './popupcontext';
 

@@ -1,9 +1,9 @@
 import './nav.css';
 
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Icon } from '@iconify/react';
-import { NavItemProps, PopupProps } from '../../interfaces';
+import { NavItemProps } from '../../interfaces';
 import NavItem from './navitem';
 import { usePopupContext } from '../popup/popupcontext';
 
@@ -47,7 +47,7 @@ export default function NavBar(props: NavBarProps){
             </div>
 
             <div className='nav-list'>
-                {items.map((item, i) => (
+                {items.map((item, _) => (
                     <NavItem title={item.title}/>
                 ))}
             </div>
