@@ -1,16 +1,11 @@
 import { Icon } from '@iconify/react';
-import { useContext, useState } from 'react';
+import { usePopupContext } from './popupcontext';
 
 import './popup.css';
 
-import { usePopupContext } from './popupcontext';
 
 export default function Popup() {
     const popupState = usePopupContext();
-
-    if (!popupState.enabled) {
-        return null;
-    }
 
     function handleKeyPress(event: any) {
         if (event.key == 'Enter') {
@@ -26,11 +21,11 @@ export default function Popup() {
 
     return (
         <>
-            <div className='popup-overlay' onClick={() => popupState.setEnabled(false)}/>
-            <div className='popup-main'> 
-                
+            { popupState.enabled && <div className='popup-overlay' onClick={() => popupState.setEnabled(false)} /> }
+            
+            <div className={'popup-main ' + (!popupState.enabled ? 'inactive' : '') }> 
                 <div className='popup-header'>
-                    <p className='popup-title'> {popupState.title} </p>
+                    <p className='popup-title'>{popupState.title}</p>
 
                     <Icon icon="fe:close" color="#FFFFFF" className='popup-close' onClick={() => {
                         popupState.setEnabled(false);

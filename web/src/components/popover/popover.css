@@ -31,13 +31,11 @@
     position: absolute;
     top: 0;
     left: 50%;
+    transform: translate(-50%, -100%);
     width: 0;
     height: 0;
     border: 15px solid transparent;
     border-bottom-color: #202123;
-    border-top: 0;
-    margin-left: -15px;
-    margin-top: -15px;
 }
 
 .popover-title {
