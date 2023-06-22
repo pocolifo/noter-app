@@ -8,7 +8,7 @@ export default function NavItem(props: NavItemProps) {
     const location = useLocation()
 
     return (
-        <Link to={`/note/${props.uuid}`}>
+        <Link to={`/note/${props.uuid}`} className='navitem-link'>
             <div className={'navitem ' + (location.pathname === `/note/${props.uuid}` ? 'navitem-active' : '')}>
                 <Icon icon="fe:book" color="#FFFFFF" />
                 <p className='navitem-title'>{props.title}</p>

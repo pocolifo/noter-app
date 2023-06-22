@@ -64,3 +64,7 @@
     height: auto;
     vertical-align: middle;
 }
+
+.navitem-link {
+    text-decoration: none;
+}
