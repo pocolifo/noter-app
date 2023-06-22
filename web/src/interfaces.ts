@@ -1,5 +1,6 @@
 export interface NavItemProps {
     title: string;
+    uuid: string; // the UUIDv4 of the relevant note
 }
 
 export interface PopupProps {
@@ -11,6 +12,7 @@ export interface PopupProps {
 
 export interface NoteData {
     title: string,
+    uuid: string,
     content: ContentBlock[]
 }
 

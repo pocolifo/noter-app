@@ -27,7 +27,8 @@ export default function NavBar(props: NavBarProps){
         popupState.setEnabled(false);
         
         const newItemProps: NavItemProps = {
-            title: name
+            title: name,
+            uuid: name // TODO: THIS IS TEMPORARY PLEASE DO NOT PUSH TO PROD
         }; 
 
         setItems([...items, newItemProps]);
@@ -48,7 +49,7 @@ export default function NavBar(props: NavBarProps){
 
             <div className='nav-list'>
                 {items.map((item, _) => (
-                    <NavItem title={item.title}/>
+                    <NavItem title={item.title} uuid={item.uuid} />
                 ))}
             </div>
         </div>

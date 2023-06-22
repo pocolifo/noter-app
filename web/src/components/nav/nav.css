@@ -38,6 +38,15 @@
     margin-top: 5px;
     
     cursor: pointer;
+    margin-left: 10px;
+}
+
+.navitem-active {
+    border-left: 1px solid white;
+}
+
+.navitem-active p {
+    font-weight: 700;
 }
 
 .navitem:hover {
