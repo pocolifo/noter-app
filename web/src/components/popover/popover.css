@@ -1,0 +1,23 @@
+.popover-main {
+    position: relative;
+
+    width: 40vh;
+    height: 20vh;
+
+    border-radius: 10px;
+
+    background-color: #202123;
+}
+
+.popover-title {
+    text-align: left;
+    padding: 10px;
+
+    color: white;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.popover-section {
+    
+}

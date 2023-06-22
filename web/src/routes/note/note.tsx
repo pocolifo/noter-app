@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './note.css';
 
 import { NoteData, ContentBlock } from '../../interfaces';
+import Popover from '../../components/popover/popover';
 import CreateBlock from '../../components/note/createblock/createblock';
 import HeaderBlock from '../../components/note/contentblock/headerblock';
 import ImageBlock from '../../components/note/contentblock/imageblock';
@@ -28,9 +29,14 @@ export default function Note(props: NoteData) {
     };
 
     const [blocks, setBlocks] = useState<ContentBlock[]>(tempData.content); //props.content
+    const [popoverState, setPopoverState] = useState(true);
 
     function addBlock(type: string) {
 
+    }
+
+    function togglePopover() {
+        setPopoverState(!popoverState);
     }
 
     return (
@@ -58,6 +64,7 @@ export default function Note(props: NoteData) {
             </div>
 
             <CreateBlock/>
+            <Popover/>
         </div>
     );
 }
