@@ -34,7 +34,7 @@ export default function Popover(props: PopoverProps) {
 
     return (
         <div class='popover-main'>
-            <p className='popover-title'>Add block</p>
+            <p className='popover-title'> {props.title} </p>
 
             <div className='popover-section'>
                     {buttons.map((buttonData, _) => (
