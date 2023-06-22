@@ -72,7 +72,8 @@ export default function Note(props: NoteData) {
 
             </div>
 
-            <CreateBlock onClick={togglePopover}/>
+            {/* onDrop function empty for now, will fix later */}
+            <CreateBlock onDrop={() => {}} onClick={togglePopover}/>
             {popoverState && <Popover
                 title='Add block' 
                 buttonCallback={addBlock}

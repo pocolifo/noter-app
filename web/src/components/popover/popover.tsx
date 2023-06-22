@@ -9,46 +9,52 @@ interface PopoverProps {
     closeCallback: () => void;
 }
 
-interface ButtonProps {
+interface ButtonInfo {
     text: string;
     icon: string;
+}
+
+interface ButtonProps {
+    info: ButtonInfo;
 
     onClick: () => void;
 }
 
 export default function Popover(props: PopoverProps) {
-    const buttons: ButtonProps[] = [
+    const buttons: ButtonInfo[] = [
         {
             text: 'Header',
-            icon: 'placeholder'
+            icon: 'fe:text-size'
         },
         {
             text: 'Text',
-            icon: 'placeholder'
+            icon: 'fe:text-align-left'
         },
         {
             text: 'Image',
-            icon: 'placeholder'
+            icon: 'fe:picture'
         },
     ]
 
     return (
-        <div class='popover-main'>
-            <p className='popover-title'> {props.title} </p>
+        <>
+            <div className='popover-overlay' onClick={props.closeCallback} />
+            <div className='popover-main'>
+                <p className='popover-title'> {props.title} </p>
 
-            <div className='popover-section'>
-                    {buttons.map((buttonData, _) => (
-                        <Button
-                            text={buttonData.text}
-                            icon={buttonData.icon}
-                            onClick={() => {
-                                props.buttonCallback(buttonData.text.toLowerCase())
-                                props.closeCallback();
-                            }}
-                        />
-                    ))}
+                <div className='popover-section'>
+                        {buttons.map((buttonData, _) => (
+                            <Button
+                                info={buttonData}
+                                onClick={() => {
+                                    props.buttonCallback(buttonData.text.toLowerCase())
+                                    props.closeCallback();
+                                }}
+                            />
+                        ))}
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 
@@ -56,12 +62,12 @@ function Button(props: ButtonProps) {
     return (
         <div className='popoverbutton-main' onClick={props.onClick}>
             <Icon
-                icon='fe:close'
+                icon={props.info.icon}
                 color='#FFFFFF'
                 className='popoverbutton-icon'
             />
 
-            <p className='popoverbutton-text'> {props.text} </p>
+            <p className='popoverbutton-text'> {props.info.text} </p>
         </div>
     );
 }

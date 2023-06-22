@@ -25,8 +25,8 @@ export default function Popup() {
     // note: the input is currently just a temporary placeholder
 
     return (
-        <div>
-            <div className='popup-overlay'/>
+        <>
+            <div className='popup-overlay' onClick={() => popupState.setEnabled(false)}/>
             <div className='popup-main'> 
                 
                 <div className='popup-header'>
@@ -44,6 +44,6 @@ export default function Popup() {
                     onKeyDown={handleKeyPress}
                 />
             </div>
-        </div>
+        </>
     )
 }

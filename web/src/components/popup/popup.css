@@ -17,6 +17,7 @@
     animation-fill-mode: forwards;
 
     background-color: #202123;
+    z-index: 999;
 }
 
 .popup-header {
