@@ -5,6 +5,8 @@
 
     border: 2px dashed #202123;
     background-color: white;
+
+    cursor: pointer;
 }
 
 #createblock > span {

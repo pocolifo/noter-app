@@ -29,10 +29,17 @@ export default function Note(props: NoteData) {
     };
 
     const [blocks, setBlocks] = useState<ContentBlock[]>(tempData.content); //props.content
-    const [popoverState, setPopoverState] = useState(true);
+    const [popoverState, setPopoverState] = useState(false);
 
-    function addBlock(type: string) {
+    function addBlock(blockType: string) {
+        const newBlock: ContentBlock = {
+            type: blockType,
+            data: {
+                text: 'this is a new block'
+            }
+        };
 
+        setBlocks([...blocks, newBlock]);
     }
 
     function togglePopover() {
@@ -46,7 +53,7 @@ export default function Note(props: NoteData) {
             </div>
 
             <div className='notebody'>
-                {blocks.map((blockData, i) => {
+                {blocks.map((blockData, _) => {
                     if (blockData.type === 'header') {
                         return <HeaderBlock text={blockData.data.text}/>
                     }
@@ -63,8 +70,14 @@ export default function Note(props: NoteData) {
 
             </div>
 
-            <CreateBlock/>
-            <Popover/>
+            <CreateBlock onClick={togglePopover}/>
+            {popoverState && <Popover
+                title='Add block' 
+                buttonCallback={addBlock}
+                closeCallback={() => {
+                    setPopoverState(false);
+                }}
+            />}
         </div>
     );
 }
