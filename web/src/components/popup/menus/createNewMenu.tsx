@@ -2,11 +2,14 @@ import { Icon } from '@iconify/react';
 
 import './menus.css'
 
-export default function CreateNewMenu(props: {
+interface CreateNewMenuProps {
     studyguideaction: () => void;
     noteaction: () => void;
     folderaction: () => void;
-}) {
+}
+
+export default function CreateNewMenu(props: CreateNewMenuProps) {
+
     return (
         <div className="create-new">
             <div>

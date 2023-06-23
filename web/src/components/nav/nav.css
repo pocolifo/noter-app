@@ -41,6 +41,11 @@
     margin-left: 10px;
 }
 
+.navitem svg {
+    width: 24px;
+    height: 24px;
+}
+
 .navitem-active {
     border-left: 1px solid white;
 }
