@@ -15,6 +15,7 @@ export default function Note(props: NoteData) {
 
     const tempData: NoteData = { // temporary props, same format as normal props
         title: 'Sample page',
+        uuid: id as string,
         content: [
             {
                 type: 'header',
@@ -66,7 +67,7 @@ export default function Note(props: NoteData) {
                         
                         case 'image':
                             // implement proper image handling
-                            return <ImageBlock src={blockData.data.src} alt={'blockData.data.alt'}/>
+                            return <ImageBlock src={blockData.data.src} alt={blockData.data.alt}/>
                     }
                 })}
 

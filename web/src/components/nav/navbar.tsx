@@ -36,7 +36,8 @@ export default function NavBar(props: NavBarProps){
 
     function handleClick() {
         popupState.setEnabled(true);
-        popupState.setTitle('Item title');
+        popupState.setTitle('Create...');
+        popupState.setType('createNew');
         popupState.setStateCallback(() => setName);
     }
 

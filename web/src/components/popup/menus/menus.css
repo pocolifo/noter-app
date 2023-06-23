@@ -1,0 +1,44 @@
+.popup-main .create-new {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    margin: auto;
+    width: 80%;
+}
+
+.popup-main .create-new div {
+    text-align: center;
+}
+
+.popup-main .create-new button {
+    width: 144px;
+    height: 144px;
+    border-radius: 16px;
+    padding: 10px;
+    font-size: 64px;
+}
+
+.popup-main .create-new p {
+    color: white;
+}
+
+.popup-main .create-new-note {
+    margin: auto;
+    width: 80%;
+}
+
+.popup-main .create-new-note input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
+    font-size: 20px;
+}
+
+.popup-main .create-new-note button {
+    background-color: #DCECFF;
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+}

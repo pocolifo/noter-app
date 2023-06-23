@@ -4,8 +4,9 @@ export interface NavItemProps {
 }
 
 export interface PopupProps {
-    enabled: boolean,
-    title: string,
+    enabled: boolean;
+    title: string;
+    type: string;
 
     stateCallback(v: any): void;
 }
