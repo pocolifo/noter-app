@@ -4,6 +4,9 @@ import './popup.css';
 
 import { usePopupContext } from './popupcontext';
 
+import CreateNewMenu from './menus/createNewMenu';
+import CreateNewNoteMenu from './menus/createNewNoteMenu';
+
 export default function Popup() {
     const popupState = usePopupContext();
 
@@ -11,73 +14,34 @@ export default function Popup() {
         return null;
     }
 
-    function handleKeyPress(event: any) {
-        if (event.key == 'Enter') {
-            const input = (document.getElementById('popup-input') as HTMLInputElement).value; // casting hack
-            
-            popupState.stateCallback(input);
-        } else if (event.key == 'Escape') {
-            popupState.setEnabled(false);
-        }
-    }
-    
     let popupBody: JSX.Element;
 
     switch (popupState.type) {
         case "createNew":
-            popupBody = <div className="create-new">
-                <div>
-                    <button onClick={() => {
-                        popupState.setTitle('Create Study Guide')
-                        popupState.setType('createNewStudyguide')
-                    }} style={{backgroundColor: '#F472B6'}}>
-                        <Icon icon="fe:document" color='#FFFFFF'/>
-                    </button>
-                    <p>Study Guide</p>
-                </div>
-
-                <div>
-                    <button onClick={() => {
-                        popupState.setTitle('Create Note')
-                        popupState.setType('createNewNote')
-                    }} style={{backgroundColor: '#C084FC'}}>
-                        <Icon icon="fe:book" color='#FFFFFF'/>
-                    </button>
-                    <p>Note</p>
-                </div>
-
-                <div>
-                    <button onClick={() => {
-                        popupState.setTitle('Create Folder')
-                        popupState.setType('createNewFolder')
-                    }} style={{backgroundColor: '#60A5FA'}}>
-                        <Icon icon="fe:folder" color='#FFFFFF'/>
-                    </button>
-                    <p>Folder</p>
-                </div>
-            </div>
+            popupBody = <CreateNewMenu
+                studyguideaction={() => {
+                    popupState.setTitle('Create Study Guide')
+                    popupState.setType('createNewStudyguide')
+                }}
+                noteaction={() => {
+                    popupState.setTitle('Create Note')
+                    popupState.setType('createNewNote')
+                }}
+                folderaction={() => {
+                    popupState.setTitle('Create Folder')
+                    popupState.setType('createNewFolder')
+                }}
+            />
             break;
 
         case "createNewNote":
-            popupBody = <div className='createNewNote'>
-                <p>NAME</p>
-               <input
-                    type="text"
-                    className='popup-input'
-                    id='popup-input'
-                    onKeyDown={handleKeyPress}
-                /> 
-                <button onClick={() => {
-                    popupState.stateCallback((document.getElementById('popup-input') as HTMLInputElement).value)
-                }}>
-                    Create
-                </button>
-            </div>
-
+            popupBody = <CreateNewNoteMenu onsubmit={(value) => {
+                popupState.stateCallback(value)
+            }}/>
             break;
     
         default:
-            popupBody = <div></div>
+            popupBody = <div>in progress</div>
 
             break;
     }
