@@ -1,16 +1,22 @@
 .popup-main .create-new {
     display: flex;
-    gap: 3rem;
+    gap: 2rem;
     margin: auto;
     align-items: center;
     justify-content: center;
     width: 70%;
-    padding: 1rem;
-
+    padding-bottom: 2vh;
+    padding-left: 5vh;
+    padding-right: 5vh;
 }
 
 .popup-main .create-new div {
     text-align: center;
+    transition: transform 0.15s ease;
+}
+
+.popup-main .create-new div:active {
+    transform: scale(0.9);
 }
 
 .popup-main .create-new button {
@@ -18,10 +24,14 @@
     height: 144px;
     border-radius: 16px;
     padding: 10px;
-    font-size: 64px;
 
     cursor: pointer;
     border: none;
+}
+
+.popup-main .create-new svg {
+    width: 70%;
+    height: 70%;
 }
 
 .popup-main .create-new p {
@@ -30,7 +40,6 @@
 
 .popup-main .create-new-note {
     margin: auto;
-    width: 80%;
 
     padding-left: 5vh;
     padding-right: 5vh;
@@ -53,8 +62,15 @@
     border-radius: 8px;
     font-size: 16px;
     padding: 10px;
-    margin-top: 5vh;
+    margin-top: 2rem;
     width: 100%;
 
     border: none;
+    cursor: pointer;
+
+    transition: transform 0.15s ease;
+}
+
+.popup-main .create-new-note button:active {
+    transform: scale(0.9);
 }

@@ -43,13 +43,14 @@ export default function Popover(props: PopoverProps) {
                 <p className='popover-title'> {props.title} </p>
 
                 <div className='popover-section'>
-                        {buttons.map((buttonData, _) => (
+                        {buttons.map((buttonData, i) => (
                             <Button
                                 info={buttonData}
                                 onClick={() => {
                                     props.buttonCallback(buttonData.text.toLowerCase())
                                     props.closeCallback();
                                 }}
+                                key={i}
                             />
                         ))}
                 </div>

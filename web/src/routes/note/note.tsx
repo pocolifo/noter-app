@@ -57,17 +57,17 @@ export default function Note(props: NoteData) {
             </div>
 
             <div className='notebody'>
-                {blocks.map((blockData, _) => {
+                {blocks.map((blockData, i) => {
                     switch (blockData.type) {
                         case 'header':
-                            return <HeaderBlock text={blockData.data.text}/>
+                            return <HeaderBlock text={blockData.data.text} key={i} />
 
                         case 'text':
-                            return <TextBlock text={blockData.data.text}/>
+                            return <TextBlock text={blockData.data.text} key={i} />
                         
                         case 'image':
                             // implement proper image handling
-                            return <ImageBlock src={blockData.data.src} alt={blockData.data.alt}/>
+                            return <ImageBlock src={blockData.data.src} alt={blockData.data.alt} key={i} />
                     }
                 })}
 
