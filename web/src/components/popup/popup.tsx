@@ -8,11 +8,6 @@ import { usePopupContext } from './popupcontext';
 
 export default function Popup() {
     const popupState = usePopupContext();
-
-    if (!popupState.enabled) {
-        return null;
-    }
-
     let popupBody: JSX.Element;
 
     switch (popupState.type) {
