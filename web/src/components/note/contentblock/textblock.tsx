@@ -9,19 +9,24 @@ interface TextBlockProps {
 }
 
 export default function TextBlock(props: TextBlockProps) {
-    const [editing, setEditing] = useState(false);
+    const [editing, setEditing] = useState(true);
     const [text, setText] = useState(props.text);
 
     function toggleEditing() {
         setEditing(!editing);
     }
 
+    function handleClick() {
+        
+    }
+
     return (
         <div className="contentblock" onClick={() => {}}>
             {
                 (editing)
-                ? <Editor text={'test'} setText={setText}/>
-                : <p> {text} </p>
+                ? <Editor/>
+                //? <Editor text={'test'} setText={setText}/>
+                : <p onClick={handleClick}> {text} </p>
             }
         </div>
     )

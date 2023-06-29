@@ -1,37 +1,74 @@
-import { useRef } from 'react';
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import { Icon } from '@iconify/react';
 
-import './editor.css'
+import './editor.css';
 
-interface EditorProps {
-    text: string;
-    setText: (_v: string) => void;
+interface ToolbarProps {
+    editor: any;
 }
 
-export default function Editor(props: EditorProps) {
-    // const textArea = document.getElementById('editor-textarea');
-    const textAreaRef = useRef<HTMLTextAreaElement>(null);
+interface ButtonProps {
+    id: string;
+    icon: string;
 
-    function autoResize() {
-        // ta.style.height = 'auto';
-        // ta.style.height = ta.scrollHeight + 'px';
+    callback: () => void;
+}
 
-        const textArea = textAreaRef.current;
-        if (textArea) {
-            textArea.style.height = 'auto';
-            textArea.style.height = textArea.scrollHeight + 'px';
+export default function Editor() {
+    const editor = useEditor({
+        extensions: [
+            StarterKit
+        ],
+    });
 
-            console.log(textArea.scrollHeight)
-        }
+    if (!editor) {
+        return null;
     }
 
     return (
-        <div className='editor-main'>
-            <textarea 
-                id='editor-textarea'
-                onInput={autoResize}
-                ref={textAreaRef}
-                defaultValue={props.text}
-            />
+        <div className='editor-wrapper'>
+            <Toolbar editor={editor}/>
+            <EditorContent className='editor-content' editor={editor}/>
+        </div>
+    );
+}
+
+function Toolbar(props: ToolbarProps) {
+    const buttonList: ButtonProps[] = [
+        {
+            id: 'bold',
+            icon: 'fe:bold',
+            callback: () => props.editor.chain().focus().toggleBold().run()
+        },
+        {
+            id: 'italic',
+            icon: 'fe:italic',
+            callback: () => props.editor.chain().focus().toggleItalic().run()
+        },
+        {
+            id: 'strike',
+            icon: 'mi:strikethrough',
+            callback: () => props.editor.chain().focus().toggleStrike().run()
+        },
+        {
+            id: 'code',
+            icon: 'fe:code',
+            callback: () => props.editor.chain().focus().toggleCode().run()
+        },
+    ];
+
+    return (
+        <div className='editor-toolbar'>
+            {buttonList.map((button, i) => (
+                <Icon
+                    key={i}
+                    icon={button.icon}
+                    color='#FFFFFF'
+                    onClick={button.callback}
+                    className={props.editor.isActive(button.id) ? 'editor-button is-active' : 'editor-button'}
+                />
+            ))}
         </div>
     );
 }
