@@ -41,14 +41,13 @@ export default function Editor(props: EditorProps) {
     }
 
     return (
-        <>
-            
+        <div>
             <div className='editor-wrapper'>
                 <Toolbar editor={editor} closeCallback={saveContent}/>
                 <EditorContent className='editor-content' editor={editor}/>
             </div>
             <div className='editor-overlay' onClick={saveContent}/>
-        </>
+        </div>
     );
 }
 
