@@ -11,3 +11,16 @@
 .contentblock > img {
     max-width: 100%;
 }
+
+.contentblock-border {
+    padding: 1vh;
+
+    border: solid;
+    border-color: white;
+    border-width: 1px;
+    border-radius: 10px;
+}
+
+.contentblock-border:hover {
+    border-color: lightgray;
+}

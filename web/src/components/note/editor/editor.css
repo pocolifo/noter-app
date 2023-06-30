@@ -53,3 +53,29 @@
 .is-active {
     background-color: #383a3d;
 }
+
+.editor-divider {
+    display: inline;
+
+    width: 1px;
+    height: 2vh;
+    margin-left: 8px;
+    margin-right: 8px;
+
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.editor-closebutton {
+    background-color: #202123;
+
+    width: 2.5vh;
+    height: 2.5vh;
+
+    margin: 10px;
+    margin-left: auto;
+
+    border: none;
+    border-radius: 5px;
+
+    cursor: pointer;
+}

@@ -4,8 +4,16 @@ import { Icon } from '@iconify/react';
 
 import './editor.css';
 
+interface EditorProps {
+    htmlContent: string;
+
+    closeCallback: (_content: string) => void;
+}
+
 interface ToolbarProps {
     editor: any;
+
+    closeCallback: () => void;
 }
 
 interface ButtonProps {
@@ -15,20 +23,26 @@ interface ButtonProps {
     callback: () => void;
 }
 
-export default function Editor() {
+export default function Editor(props: EditorProps) {
     const editor = useEditor({
         extensions: [
             StarterKit
         ],
+        content: props.htmlContent
     });
 
     if (!editor) {
         return null;
     }
 
+    function saveContent() {
+        const htmlContent = editor.getHTML();
+        props.closeCallback(htmlContent);
+    }
+
     return (
         <div className='editor-wrapper'>
-            <Toolbar editor={editor}/>
+            <Toolbar editor={editor} closeCallback={saveContent}/>
             <EditorContent className='editor-content' editor={editor}/>
         </div>
     );
@@ -52,23 +66,49 @@ function Toolbar(props: ToolbarProps) {
             callback: () => props.editor.chain().focus().toggleStrike().run()
         },
         {
-            id: 'code',
+            id: 'codeBlock',
             icon: 'fe:code',
-            callback: () => props.editor.chain().focus().toggleCode().run()
+            callback: () => props.editor.chain().focus().toggleCodeBlock().run()
+        },
+        {
+            id: 'divider',
+            icon: 'none',
+            callback: () => {}
+        },
+        {
+            id: 'bulletList',
+            icon: 'fe:list-bullet',
+            callback: () => props.editor.chain().focus().toggleBulletList().run()
+        },
+        {
+            id: 'orderedList',
+            icon: 'fe:list-order',
+            callback: () => props.editor.chain().focus().toggleOrderedList().run()
         },
     ];
 
     return (
         <div className='editor-toolbar'>
-            {buttonList.map((button, i) => (
-                <Icon
-                    key={i}
-                    icon={button.icon}
-                    color='#FFFFFF'
-                    onClick={button.callback}
-                    className={props.editor.isActive(button.id) ? 'editor-button is-active' : 'editor-button'}
-                />
-            ))}
+            {buttonList.map((button, i) => {
+                if (button.id === 'divider') {
+                    return <div className='editor-divider'/>
+                } else {
+                    return <Icon
+                        key={i}
+                        icon={button.icon}
+                        color='#FFFFFF'
+                        onClick={button.callback}
+                        className={props.editor.isActive(button.id) ? 'editor-button is-active' : 'editor-button'}
+                    />
+                }
+            })}
+
+            <Icon
+                icon='fe:close'
+                color='#FFFFFF'
+                onClick={props.closeCallback}
+                className='editor-closebutton'
+            />
         </div>
     );
 }
