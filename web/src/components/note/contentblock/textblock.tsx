@@ -27,7 +27,7 @@ export default function TextBlock(props: TextBlockProps) {
     return (
         <div 
         className={editing ? 'contentblock' : 'contentblock contentblock-border'} 
-        onDoubleClick={handleClick}>
+        onClick={handleClick}>
             {
                 (editing)
                 ? <Editor htmlContent={content} closeCallback={saveContent}/>
