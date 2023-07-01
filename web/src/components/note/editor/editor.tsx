@@ -36,7 +36,7 @@ export default function Editor(props: EditorProps) {
     }
 
     function saveContent() {
-        const htmlContent = editor.getHTML();
+        const htmlContent = editor?.getHTML() as string;
         props.closeCallback(htmlContent);
     }
 
@@ -94,7 +94,7 @@ function Toolbar(props: ToolbarProps) {
         <div className='editor-toolbar'>
             {buttonList.map((button, i) => {
                 if (button.id === 'divider') {
-                    return <div className='editor-divider'/>
+                    return <div className='editor-divider' key={i}/>
                 } else {
                     return <Icon
                         key={i}
