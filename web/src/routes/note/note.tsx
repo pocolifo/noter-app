@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import './note.css';
+import './note.css';{}
 
 import { NoteData, ContentBlock } from '../../interfaces';
 import Popover from '../../components/popover/popover';
@@ -58,7 +58,7 @@ export default function Note(props: NoteData) {
 
             <div className='notebody'>
                 {blocks.map((blockData, i) => {
-                    switch (blockData.type) {
+                    switch (blockData.type) { 
                         case 'header':
                             return <HeaderBlock text={blockData.data.text} key={i} />
 

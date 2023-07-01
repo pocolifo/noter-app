@@ -1,21 +1,95 @@
-.editor-main {
-    border: solid;
-    border-color: lightgray;
-    border-width: 2px;
-    border-radius: 5px;
+.editor-wrapper {
+    position: relative;
+
+    background-color: #202123;
+    border-radius: 10px;
+
+    z-index: 2;
 }
 
-.editor-main > textarea {
-    background-color: red;
+.editor-content {
+    background-color: white;
 
-    width: 100%;
-    height: 100px;
-    margin: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 
-    border: none;
-    outline: none;
-    resize: none;
+    border: solid;
+    border-color: #202123;
+    border-width: 2px;
+    border-radius: 5px;
 
     font-family: 'Inter', sans-serif;
     font-size: 20;
+}
+
+.ProseMirror:focus {
+    outline: none;
+}
+
+.editor-toolbar {
+    display: flex;
+    height: 4vh;
+    align-items: center;
+
+    background-color: #202123;
+
+    border-radius: 10px;
+}
+
+.editor-button {
+    background-color: #202123;
+
+    width: 2.5vh;
+    height: 2.5vh;
+
+    margin: 10px;
+
+    border: none;
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.editor-button:hover {
+    background-color: #383a3d;
+}
+
+.is-active {
+    background-color: #383a3d;
+}
+
+.editor-divider {
+    display: inline;
+
+    width: 1px;
+    height: 2vh;
+    margin-left: 8px;
+    margin-right: 8px;
+
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.editor-closebutton {
+    background-color: #202123;
+
+    width: 2.5vh;
+    height: 2.5vh;
+
+    margin: 10px;
+    margin-left: auto;
+
+    border: none;
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.editor-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    z-index: 1;
 }
