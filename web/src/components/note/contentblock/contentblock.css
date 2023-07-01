@@ -13,7 +13,12 @@
 }
 
 .contentblock > img {
+    max-width: 50%;
+}
+
+.contentblock > img.large {
     max-width: 100%;
+    width: 100%;
 }
 
 .contentblock-border {
@@ -27,4 +32,17 @@
 
 .contentblock-border:hover {
     border-color: lightgray;
+}
+
+.contentblock .select-image {
+    border: 1px dashed rgb(62, 62, 62);
+    padding: 1vh;
+    width: fit-content;
+}
+
+.contentblock .select-image > label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
