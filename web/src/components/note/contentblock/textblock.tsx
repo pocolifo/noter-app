@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import parse from 'html-react-parser';
 
 import "./contentblock.css";
 
@@ -9,19 +10,28 @@ interface TextBlockProps {
 }
 
 export default function TextBlock(props: TextBlockProps) {
-    const [editing, setEditing] = useState(false);
-    const [text, setText] = useState(props.text);
+    const [editing, setEditing] = useState(true);
+    const [content, setContent] = useState<string>('');
 
-    function toggleEditing() {
-        setEditing(!editing);
+    function saveContent(htmlContent: string) {
+        setContent(htmlContent);
+        setEditing(false);
+    }
+
+    function handleClick() {
+        if (!editing) {
+            setEditing(true);
+        }
     }
 
     return (
-        <div className="contentblock" onClick={() => {}}>
+        <div 
+        className={editing ? 'contentblock' : 'contentblock contentblock-border'} 
+        onClick={handleClick}>
             {
                 (editing)
-                ? <Editor text={'test'} setText={setText}/>
-                : <p> {text} </p>
+                ? <Editor htmlContent={content} closeCallback={saveContent}/>
+                : parse(content)
             }
         </div>
     )
