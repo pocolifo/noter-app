@@ -10,7 +10,7 @@ import HeaderBlock from '../../components/note/contentblock/headerblock';
 import ImageBlock from '../../components/note/contentblock/imageblock';
 import TextBlock from '../../components/note/contentblock/textblock';
 
-export default function Note(props: NoteData) {
+export default function Note() {
     let { id } = useParams();
 
     const tempData: NoteData = { // temporary props, same format as normal props

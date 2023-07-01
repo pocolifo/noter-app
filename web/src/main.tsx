@@ -13,7 +13,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: 'note/:id',
-				element: <Note/>
+				element: <Note />
 			}
 		]
 	}

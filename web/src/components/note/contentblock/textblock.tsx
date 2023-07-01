@@ -11,7 +11,7 @@ interface TextBlockProps {
 
 export default function TextBlock(props: TextBlockProps) {
     const [editing, setEditing] = useState(true);
-    const [content, setContent] = useState<string>('');
+    const [content, setContent] = useState<string>(props.text);
 
     function saveContent(htmlContent: string) {
         setContent(htmlContent);

@@ -9,7 +9,7 @@ interface ImageBlockProps {
 
 export default function ImageBlock(props: ImageBlockProps) {
     const [imageSrc, setImageSrc] = useState(props.src)
-    const [imageAlt, setImageAlt] = useState(props.alt)
+    const [imageAlt, _] = useState(props.alt)
 
     const [isLarge, setIsLarge] = useState(false)
 
