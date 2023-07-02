@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import "./contentblock.css"
+import "./imageblock.css"
 import { Icon } from '@iconify/react'
 
 interface ImageBlockProps {
@@ -39,7 +40,10 @@ export default function ImageBlock(props: ImageBlockProps) {
                     </label>
                 </div>
             :
-                <img className={isLarge ? 'image large' : 'image'} src={imageSrc} alt={imageAlt} onClick={() => setIsLarge(!isLarge)} />
+                <div className={isLarge ? 'image-container large' : 'image-container'}>
+                    <img className='image' src={imageSrc} alt={imageAlt} onClick={() => setIsLarge(!isLarge)} />
+                    <input className="image-caption" placeholder="Add a caption" />
+                </div>
             }
         </div>
     )
