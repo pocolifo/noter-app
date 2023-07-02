@@ -1,5 +1,6 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import "./contentblock.css"
+import "./imageblock.css"
 import { Icon } from '@iconify/react'
 
 interface ImageBlockProps {
@@ -9,19 +10,17 @@ interface ImageBlockProps {
 
 export default function ImageBlock(props: ImageBlockProps) {
     const [imageSrc, setImageSrc] = useState(props.src)
-    const [imageAlt, _] = useState(props.alt)
+    const [imageAlt, setImageAlt] = useState(props.alt)
 
     const [isLarge, setIsLarge] = useState(false)
 
-    const inputElement = useRef<HTMLInputElement>(null)
-
     return (
-        <div className="contentblock">
+        <div className="contentblock contentblock-border">
             {imageSrc == undefined ?
                 <div className="select-image">
                     <label htmlFor="imageupload">
-                        <input id='imageupload' type="file" accept='image/*' ref={inputElement} style={{display: 'none'}} onChange={() => {
-                            let [file] = inputElement.current?.files as FileList
+                        <input id='imageupload' type="file" accept='image/*' style={{display: 'none'}} onChange={(e) => {
+                            let [file] = e.target.files as FileList
                             let reader = new FileReader()
                             reader.onload = () => {
                                 setImageSrc(reader.result as string)
@@ -39,7 +38,10 @@ export default function ImageBlock(props: ImageBlockProps) {
                     </label>
                 </div>
             :
-                <img className={isLarge ? 'image large' : 'image'} src={imageSrc} alt={imageAlt} onClick={() => setIsLarge(!isLarge)} />
+                <div className={isLarge ? 'image-container large' : 'image-container'}>
+                    <img className='image' src={imageSrc} alt={imageAlt} onClick={() => setIsLarge(!isLarge)} />
+                    <input className="image-caption" placeholder="Add a caption" onChange={(e) => setImageAlt(e.target.value)} />
+                </div>
             }
         </div>
     )

@@ -35,12 +35,10 @@ export default function Note() {
     const [blocks, setBlocks] = useState<ContentBlock[]>(tempData.content); //props.content
     const [popoverState, setPopoverState] = useState(false);
 
-    function addBlock(blockType: string) {
+    function addBlock(blockType: string, data?: object) {
         const newBlock: ContentBlock = {
             type: blockType,
-            data: {
-                text: 'this is a new block'
-            }
+            data: (data ? data : {})
         };
 
         setBlocks([...blocks, newBlock]);
@@ -66,15 +64,28 @@ export default function Note() {
                             return <TextBlock text={blockData.data.text} key={i} />
                         
                         case 'image':
-                            // implement proper image handling
                             return <ImageBlock src={blockData.data.src} alt={blockData.data.alt} key={i} />
                     }
                 })}
 
             </div>
 
-            {/* onDrop function empty for now, will fix later */}
-            <CreateBlock onDrop={() => {}} onClick={togglePopover}/>
+            <CreateBlock onDrop={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+
+                let src = ''
+                let [file] = e.dataTransfer.files
+                let reader = new FileReader()
+                reader.onload = () => {
+                    src = (reader.result as string)
+                }
+                if (file) {
+                    reader.readAsDataURL(file)
+                }
+                addBlock("image", {src: src})
+            }} onClick={togglePopover}/>
+
             {popoverState && <Popover
                 title='Add block' 
                 buttonCallback={addBlock}
