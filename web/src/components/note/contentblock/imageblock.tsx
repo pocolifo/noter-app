@@ -6,12 +6,13 @@ import { Icon } from '@iconify/react'
 interface ImageBlockProps {
     src: string;
     alt: string;
+
+    save: (content: object) => void;
 }
 
 export default function ImageBlock(props: ImageBlockProps) {
     const [imageSrc, setImageSrc] = useState(props.src)
     const [imageAlt, setImageAlt] = useState(props.alt)
-
     const [isLarge, setIsLarge] = useState(false)
 
     return (
@@ -19,17 +20,18 @@ export default function ImageBlock(props: ImageBlockProps) {
             {imageSrc == undefined ?
                 <div className="select-image">
                     <label htmlFor="imageupload">
-                        <input id='imageupload' type="file" accept='image/*' style={{display: 'none'}} onChange={(e) => {
+                        <input id='imageupload' type="file" accept='image/*' style={{ display: 'none' }} onChange={(e) => {
                             let [file] = e.target.files as FileList
                             let reader = new FileReader()
                             reader.onload = () => {
                                 setImageSrc(reader.result as string)
+                                props.save({ src: imageSrc, alt: imageAlt })
                             }
                             if (file) {
                                 reader.readAsDataURL(file)
                             }
-                        }}/>
-                        <Icon 
+                        }} />
+                        <Icon
                             icon='fe:picture'
                             color="#000000"
                             className="select-image-icon"
@@ -37,10 +39,16 @@ export default function ImageBlock(props: ImageBlockProps) {
                         Select Image
                     </label>
                 </div>
-            :
+                :
                 <div className={isLarge ? 'image-container large' : 'image-container'}>
                     <img className='image' src={imageSrc} alt={imageAlt} onClick={() => setIsLarge(!isLarge)} />
-                    <input className="image-caption" placeholder="Add a caption" onChange={(e) => setImageAlt(e.target.value)} />
+                    <input
+                        className="image-caption"
+                        placeholder="Add a caption"
+                        value={imageAlt}
+                        onChange={(e) => setImageAlt(e.target.value)}
+                        onBlur={() => props.save({ src: imageSrc, alt: imageAlt })}
+                    />
                 </div>
             }
         </div>
