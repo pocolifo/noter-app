@@ -18,6 +18,10 @@ export default function Note() {
     const [title, setTitle] = useState<string>('');
     const [popoverState, setPopoverState] = useState(false);
 
+    useEffect(() => {
+        document.title = `Noter - ${title}`
+    }, [title])
+
     function addBlock(blockType: string, data?: object) {
         const newBlock: ContentBlock = {
             type: blockType,
