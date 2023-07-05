@@ -11,7 +11,7 @@ export default function App() {
 		<PopupProvider>
 			<Popup/>
 			<div className="App">
-				<NavBar header='test header' />
+				<NavBar header='Noter' />
 
 				<div id='detail'>
 					<Outlet />

@@ -7,6 +7,8 @@ import Editor from '../editor/editor';
 
 interface TextBlockProps {
     text: string;
+
+    save: (content: object) => void;
 }
 
 export default function TextBlock(props: TextBlockProps) {
@@ -16,6 +18,7 @@ export default function TextBlock(props: TextBlockProps) {
     function saveContent(htmlContent: string) {
         setContent(htmlContent);
         setEditing(false);
+        props.save({content: content})
     }
 
     function handleClick() {
@@ -25,13 +28,13 @@ export default function TextBlock(props: TextBlockProps) {
     }
 
     return (
-        <div 
-        className={editing ? 'contentblock' : 'contentblock contentblock-border'} 
-        onClick={handleClick}>
+        <div
+            className={editing ? 'contentblock' : 'contentblock contentblock-border'}
+            onClick={handleClick}>
             {
                 (editing)
-                ? <Editor htmlContent={content} closeCallback={saveContent}/>
-                : parse(content)
+                    ? <Editor htmlContent={content} closeCallback={saveContent} />
+                    : parse(content)
             }
         </div>
     )

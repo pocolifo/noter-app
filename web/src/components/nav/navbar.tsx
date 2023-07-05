@@ -6,16 +6,31 @@ import { Icon } from '@iconify/react';
 import { NavItemProps } from '../../interfaces';
 import NavItem from './navitem';
 import { usePopupContext } from '../popup/popupcontext';
+import { createNote, getNotesByFolder } from '../../api';
 
 interface NavBarProps {
     header: string;
 }
 
-export default function NavBar(props: NavBarProps){
+export default function NavBar(props: NavBarProps) {
     const popupState = usePopupContext();
 
     const [name, setName] = useState("New item");
     const [items, setItems] = useState<NavItemProps[]>([]);
+
+    // goofy ass hack to only run once
+    useEffect(() => {
+        // change the path someday lol
+        getNotesByFolder([])
+        .then((data) => {
+                let tempitems = [] as NavItemProps[]
+                data.forEach(note => {
+                    tempitems.push({ title: note.title, uuid: note.uuid })
+                })
+                setItems(tempitems)
+            })
+        
+    }, [true])
 
     useEffect(() => {
         if (popupState.enabled) {
@@ -25,13 +40,16 @@ export default function NavBar(props: NavBarProps){
 
     function addItem() {
         popupState.setEnabled(false);
-        
-        const newItemProps: NavItemProps = {
-            title: name,
-            uuid: name // TODO: THIS IS TEMPORARY PLEASE DO NOT PUSH TO PROD
-        }; 
 
-        setItems([...items, newItemProps]);
+        // TODO: CHANGE THE PATH
+        let newItemProps = {} as NavItemProps
+
+        createNote(name, []).then(data => {
+            newItemProps.title = data.title
+            newItemProps.uuid = data.uuid
+
+            setItems([...items, newItemProps]);
+        })
     }
 
     function handleClick() {
@@ -49,8 +67,8 @@ export default function NavBar(props: NavBarProps){
             </div>
 
             <div className='nav-list'>
-                {items.map((item, _) => (
-                    <NavItem title={item.title} uuid={item.uuid} />
+                {items.map((item, i) => (
+                    <NavItem title={item.title} uuid={item.uuid} key={i} />
                 ))}
             </div>
         </div>
