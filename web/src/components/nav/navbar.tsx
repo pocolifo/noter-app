@@ -17,11 +17,11 @@ export default function NavBar(props: NavBarProps) {
 
     const [name, setName] = useState("New item");
     const [items, setItems] = useState<NavItemProps[]>([]);
+    const [path, setPath] = useState<string[]>([]);
 
     // goofy ass hack to only run once
     useEffect(() => {
-        // change the path someday lol
-        getNotesByFolder([])
+        getNotesByFolder(path)
         .then((data) => {
                 let tempitems = [] as NavItemProps[]
                 data.forEach(note => {
@@ -30,7 +30,7 @@ export default function NavBar(props: NavBarProps) {
                 setItems(tempitems)
             })
         
-    }, [true])
+    }, [path]);
 
     useEffect(() => {
         if (popupState.enabled) {
@@ -44,12 +44,12 @@ export default function NavBar(props: NavBarProps) {
         // TODO: CHANGE THE PATH
         let newItemProps = {} as NavItemProps
 
-        createNote(name, []).then(data => {
+        createNote(name, path).then(data => {
             newItemProps.title = data.title
             newItemProps.uuid = data.uuid
 
             setItems([...items, newItemProps]);
-        })
+        });
     }
 
     function handleClick() {
