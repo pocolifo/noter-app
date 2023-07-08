@@ -23,10 +23,12 @@ export default function Note() {
     }, [title])
 
     function addBlock(blockType: string, data?: object) {
-        const newBlock: ContentBlock = {
+        let newBlock: ContentBlock = {
             type: blockType,
             data: (data ? data : {})
         };
+
+        blockType === 'text' ? newBlock.data.focus = true : null
 
         setBlocks([...blocks, newBlock]);
     }
@@ -77,6 +79,7 @@ export default function Note() {
                             return <TextBlock
                                 save={(content) => saveBlock(content, i)}
                                 text={blockData.data.content}
+                                focus={blockData.data.focus}
                                 key={i}
                             />
 
@@ -89,7 +92,6 @@ export default function Note() {
                             />
                     }
                 })}
-
             </div>
 
             <CreateBlock onDrop={(e) => {

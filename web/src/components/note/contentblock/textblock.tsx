@@ -7,13 +7,14 @@ import Editor from '../editor/editor';
 
 interface TextBlockProps {
     text: string;
+    focus: boolean;
 
     save: (content: object) => void;
 }
 
 export default function TextBlock(props: TextBlockProps) {
-    const [editing, setEditing] = useState(true);
-    const [content, setContent] = useState<string>(props.text);
+    const [editing, setEditing] = useState(props.focus)
+    const [content, setContent] = useState<string>(props.text === undefined ? '' : props.text);
 
     function saveContent(htmlContent: string) {
         setContent(htmlContent);

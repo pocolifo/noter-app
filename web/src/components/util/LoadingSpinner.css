@@ -1,0 +1,21 @@
+.loading-spinner {
+    margin: auto;
+    border-radius: 50%;
+    border: 3px #ffffff solid;
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    width: 32px;
+    height: 32px;
+
+    animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotateZ(0);
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
