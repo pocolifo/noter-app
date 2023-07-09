@@ -49,7 +49,7 @@ export default function Login() {
     return (
         <div className='login-page'>
             <div className='login-panel'>
-                <div className='login-title'> Login to Noter </div>
+                <div className='login-title'> Login to <strong>Noter.</strong></div>
 
                 <hr/>
 
