@@ -80,10 +80,6 @@ export async function saveNote(note: NoteData): Promise<void> {
 
 export async function userLogin(email: string, password: string): Promise<boolean> {
     try {
-        // let formData = new FormData();
-        // formData.append('email', email);
-        // formData.append('password', password);
-
         const response = await fetch(`${API}/authenticate`, {
             method: 'POST',
             headers: {
@@ -101,5 +97,20 @@ export async function userLogin(email: string, password: string): Promise<boolea
         return Promise.resolve(responseJson.authenticated);
     } catch (error) {
         return Promise.reject(error);
+    }
+}
+
+// check if the user is logged in
+export async function authenticate(): Promise<boolean> {
+    try {
+        const response = await fetch(`${API}/`, {
+            credentials: "include",
+        })
+
+        const responseJson = await response.json()
+
+        return Promise.resolve(responseJson.user !== null)
+    } catch (error) {
+        return Promise.reject(error)
     }
 }
