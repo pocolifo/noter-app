@@ -1,7 +1,7 @@
 .loading-spinner {
     margin: auto;
     border-radius: 50%;
-    border: 3px #ffffff solid;
+    border: 3px currentColor solid;
     border-bottom-color: transparent;
     border-right-color: transparent;
     width: 32px;

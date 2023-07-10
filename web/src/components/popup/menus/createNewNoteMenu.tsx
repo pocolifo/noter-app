@@ -1,23 +1,56 @@
-import './menus.css'
+import { Icon } from '@iconify/react/dist/iconify.js';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { createNote } from '../../../api';
+import LoadingSpinner from '../../util/LoadingSpinner';
+import { usePopupContext } from '../popupcontext';
+import './menus.css';
 
-export default function CreateNewNoteMenu(props: {onsubmit: (value: string) => void}) {
+export default function CreateNewNoteMenu(props: { closePopup: () => void}) {
+    const [creating, setCreating] = useState<boolean>(false);
+    const [errorState, setErrorState] = useState<string | null>(null);
+    const navigate = useNavigate();
+    const popupState = usePopupContext()
+
+    async function handleCreateNote(e: React.FormEvent) {
+        setCreating(true);
+        e.preventDefault();
+        let target = e.currentTarget as HTMLFormElement;
+        let formData = new FormData(target);
+
+        let name = formData.get('name');
+        if (name === null) {
+            setErrorState('Missing name');
+            setCreating(false);
+            return;
+        }
+
+        try {
+            const createdNote = await createNote(name as string, []);
+            props.closePopup();
+            navigate(`/note/${createdNote.uuid}`);
+            popupState.stateCallback(null); // stateCallback is loadNotes, no args should be passed
+        } catch (e) {
+            setErrorState(String(e));
+        } finally {
+            setCreating(false);
+        }
+    }
+
     return (
-        <div className='create-new-note'>
-            <input
-                type="text"
-                className='popup-input'
-                id='popup-input'
-                onKeyDown={(event) => {
-                    if (event.key == "Enter")
-                        props.onsubmit((event.target as HTMLInputElement).value)
-                }}
-                placeholder='Name'
-                /> 
-            <button onClick={
-                () => props.onsubmit((document.getElementById('popup-input') as HTMLInputElement).value)
-            }>
-                Create
+        <form className='create-new-note' onSubmit={ handleCreateNote }>
+            <input type="text" placeholder="Note name" name="name" required />
+            
+            {errorState && 
+                <p className='form-status form-status-error'>
+                    <Icon icon="fe:warning" />
+                    <span>{ errorState }</span>
+                </p>
+            }
+
+            <button disabled={creating} type="submit">
+                { creating ? <LoadingSpinner /> : 'Create' }
             </button>
-        </div>
+        </form>
     )
 }

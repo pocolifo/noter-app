@@ -1,62 +1,47 @@
 import './nav.css';
 
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import { Icon } from '@iconify/react';
 import { NavItemProps } from '../../interfaces';
 import NavItem from './navitem';
 import { usePopupContext } from '../popup/popupcontext';
 import { createNote, getNotesByFolder } from '../../api';
+import LoadingSpinner from '../util/LoadingSpinner';
+
 
 interface NavBarProps {
     header: string;
 }
 
+
 export default function NavBar(props: NavBarProps) {
     const popupState = usePopupContext();
-
-    const [name, setName] = useState("New item");
+    
+    const [loadingNotes, setLoadingNotes] = useState<boolean>(false);
     const [items, setItems] = useState<NavItemProps[]>([]);
     const [path, setPath] = useState<string[]>([]);
-
-    // goofy ass hack to only run once
-    useEffect(() => {
+    
+    function loadNotes() {
+        setLoadingNotes(true);
+    
         getNotesByFolder(path)
         .then((data) => {
-                let tempitems = [] as NavItemProps[]
-                data.forEach(note => {
-                    tempitems.push({ title: note.title, uuid: note.uuid })
-                })
-                setItems(tempitems)
+                setItems(
+                    data.map(item => ({ title: item.title, uuid: item.uuid } as NavItemProps))
+                )
             })
-        
-    }, [path]);
-
-    useEffect(() => {
-        if (popupState.enabled) {
-            addItem();
-        }
-    }, [name]);
-
-    function addItem() {
-        popupState.setEnabled(false);
-
-        // TODO: CHANGE THE PATH
-        let newItemProps = {} as NavItemProps
-
-        createNote(name, path).then(data => {
-            newItemProps.title = data.title
-            newItemProps.uuid = data.uuid
-
-            setItems([...items, newItemProps]);
-        });
+        .finally(() => setLoadingNotes(false));
     }
+    
+    // goofy ass hack to only run once
+    useEffect(loadNotes, [path]);
 
     function handleClick() {
         popupState.setEnabled(true);
         popupState.setTitle('Create...');
         popupState.setType('createNew');
-        popupState.setStateCallback(() => setName);
+        popupState.setStateCallback(() => loadNotes)
     }
 
     return (
@@ -67,9 +52,11 @@ export default function NavBar(props: NavBarProps) {
             </div>
 
             <div className='nav-list'>
-                {items.map((item, i) => (
-                    <NavItem title={item.title} uuid={item.uuid} key={i} />
-                ))}
+                { loadingNotes ? <LoadingSpinner /> :
+                    items.length == 0 ? <p className='notice'><Icon icon="fe:warning" /> Add a note to begin.</p> :
+                    items.map((item, i) => (
+                        <NavItem title={item.title} uuid={item.uuid} key={i} />
+                    ))}
             </div>
         </div>
     );

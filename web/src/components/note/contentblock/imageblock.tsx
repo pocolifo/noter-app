@@ -25,7 +25,9 @@ export default function ImageBlock(props: ImageBlockProps) {
                             let reader = new FileReader()
                             reader.onload = () => {
                                 setImageSrc(reader.result as string)
-                                props.save({ src: imageSrc, alt: imageAlt })
+
+                                // `src` must be set to `reader.result as string` because `imageSrc` isn't updated immediately
+                                props.save({ src: reader.result as string, alt: imageAlt })
                             }
                             if (file) {
                                 reader.readAsDataURL(file)

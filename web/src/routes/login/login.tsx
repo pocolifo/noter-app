@@ -59,7 +59,7 @@ export default function Login() {
 
                     <p>{errorState}</p>
 
-                    <button className='login-button' type='submit'>
+                    <button className='login-button' type='submit' disabled={loggingIn}>
                         { loggingIn ? <LoadingSpinner /> : 'Log in'}
                     </button>
                 </form>

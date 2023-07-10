@@ -29,9 +29,10 @@ export default function Popup() {
             break;
 
         case "createNewNote":
-            popupBody = <CreateNewNoteMenu onsubmit={(value) => {
-                popupState.stateCallback(value)
-            }}/>
+            popupBody = <CreateNewNoteMenu closePopup={ () => {
+                popupState.setEnabled(false);
+             } } />
+
             break;
     
         default:

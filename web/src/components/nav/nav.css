@@ -1,5 +1,14 @@
 .nav {
     background-color: #202123;
+    color: #ffffff;
+}
+
+.nav .notice {
+    color: #aaaaaa;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
 }
 
 .navheader {
