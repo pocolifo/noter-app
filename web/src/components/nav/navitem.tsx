@@ -30,8 +30,8 @@ export default function NavItem(props: NavItemProps) {
                         title='Actions'
                         menu='EditItem'
                         align='left'
-                        inputCallback={() => {}}
-                        buttonCallback={() => {}}
+                        inputCallback={props.setTitle}
+                        buttonCallback={props.delete}
                         closeCallback={() => setShowOptions(false)}
                     />
                 }
