@@ -19,7 +19,7 @@ export default function TextBlock(props: TextBlockProps) {
     function saveContent(htmlContent: string) {
         setContent(htmlContent);
         setEditing(false);
-        props.save({content: content})
+        props.save({content: htmlContent})
     }
 
     function handleClick() {

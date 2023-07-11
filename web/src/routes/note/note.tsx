@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import './note.css';
@@ -12,10 +12,11 @@ import TextBlock from '../../components/note/contentblock/textblock';
 import { getNoteByUUID, saveNote } from '../../api';
 import LoadingSpinner from '../../components/util/LoadingSpinner';
 
+
 export default function Note() {
     let { id } = useParams();
 
-    const [ loadingNote, setLoadingNote ] = useState<boolean>(false);
+    const [loadingNote, setLoadingNote] = useState<boolean>(false);
     const [blocks, setBlocks] = useState<ContentBlock[]>([]);
     const [title, setTitle] = useState<string>('');
     const [popoverState, setPopoverState] = useState(false);
@@ -54,17 +55,22 @@ export default function Note() {
             }).finally(() => setLoadingNote(false));
     }, [id])
 
+    const firstUpdate = useRef(true)
+
     useEffect(() => {
-        saveNote({
-            title: title,
-            uuid: id as string,
-            content: blocks
-        })
+        if (!firstUpdate.current) {
+            saveNote({
+                title: title,
+                uuid: id as string,
+                content: blocks
+            })
+        }
+        firstUpdate.current = false
     }, [blocks])
 
     return (
         <div>
-            { loadingNote ? <LoadingSpinner /> :
+            {loadingNote ? <LoadingSpinner /> :
                 <>
                     <div className='noteheader'>
                         <p className='noteheader-title'>{title}</p>
@@ -117,7 +123,10 @@ export default function Note() {
 
                     {popoverState && <Popover
                         title='Add block'
-                        buttonCallback={addBlock}
+                        menu='CreateNew'
+                        align='top'
+                        inputCallback={addBlock}
+                        buttonCallback={() => {}}
                         closeCallback={() => {
                             setPopoverState(false);
                         }} />}

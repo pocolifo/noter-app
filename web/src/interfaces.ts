@@ -1,6 +1,9 @@
 export interface NavItemProps {
     title: string;
     uuid: string; // the UUIDv4 of the relevant note
+
+    setTitle: (title: string) => void;
+    delete: () => void;
 }
 
 export interface PopupProps {

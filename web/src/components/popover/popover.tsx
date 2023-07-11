@@ -1,74 +1,60 @@
-import { Icon } from '@iconify/react';
+import PopoverCreateNew from './menus/createnew';
+import PopoverEditItem from './menus/edititem';
+
+import { Icon } from '@iconify/react'
 
 import './popover.css';
 
-interface PopoverProps {
+
+export interface PopoverProps {
     title: string;
-    
-    buttonCallback: (_v: string) => void;
+
+    // name of menu to render (at the moment is CreateNew or EditItem)
+    menu: "CreateNew" | "EditItem";
+
+    // where the arrow is relative to the popover body
+    align: 'top' | 'right' | 'bottom' | 'left';
+
+    inputCallback: (_v: string) => void;
+    buttonCallback: () => void;
     closeCallback: () => void;
 }
 
-interface ButtonInfo {
-    text: string;
-    icon: string;
-}
-
-interface ButtonProps {
-    info: ButtonInfo;
-
-    onClick: () => void;
-}
 
 export default function Popover(props: PopoverProps) {
-    const buttons: ButtonInfo[] = [
-        {
-            text: 'Header',
-            icon: 'fe:text-size'
-        },
-        {
-            text: 'Text',
-            icon: 'fe:text-align-left'
-        },
-        {
-            text: 'Image',
-            icon: 'fe:picture'
-        },
-    ]
+    let popoverBody = <></>
+
+    switch (props.menu) {
+        case "CreateNew":
+            popoverBody = <PopoverCreateNew {...props} />
+            break;
+
+        case 'EditItem':
+            popoverBody = <PopoverEditItem {...props} />
+            break;
+
+        default:
+            popoverBody = <></>
+            break;
+    }
 
     return (
         <>
             <div className='popover-overlay' onClick={props.closeCallback} />
-            <div className='popover-main'>
-                <p className='popover-title'> {props.title} </p>
-
+            <div className={`popover-main popover-${props.align}`}>
+                <p className='popover-title'> {props.title}
+                    <Icon
+                        className='popover-close'
+                        icon="fe:close"
+                        color='#FFFFFF'
+                        onClick={() => props.closeCallback()}
+                    />
+                </p>
                 <div className='popover-section'>
-                        {buttons.map((buttonData, i) => (
-                            <Button
-                                info={buttonData}
-                                onClick={() => {
-                                    props.buttonCallback(buttonData.text.toLowerCase())
-                                    props.closeCallback();
-                                }}
-                                key={i}
-                            />
-                        ))}
+                    {popoverBody}
                 </div>
             </div>
         </>
     );
 }
 
-function Button(props: ButtonProps) {
-    return (
-        <div className='popoverbutton-main' onClick={props.onClick}>
-            <Icon
-                icon={props.info.icon}
-                color='#FFFFFF'
-                className='popoverbutton-icon'
-            />
-
-            <p className='popoverbutton-text'> {props.info.text} </p>
-        </div>
-    );
-}

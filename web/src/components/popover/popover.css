@@ -9,13 +9,8 @@
 
 .popover-main {
     position: relative;
-    top: 50%;
-    left: 50%;
-
-    transform: translate(-50%, -15%);
 
     width: fit-content;
-    height: 20vh;
 
     border-radius: 10px;
 
@@ -24,9 +19,16 @@
     animation-name: fade-in;
     animation-duration: 0.25s;
     animation-fill-mode: forwards;
+
+    box-shadow: black 0 0 20px;
 }
 
-.popover-main::after {
+.popover-top {
+    top: 50%;
+    left: 50%;
+}
+
+.popover-top::after {
     content: '';
     position: absolute;
     top: 0;
@@ -36,6 +38,23 @@
     height: 0;
     border: 15px solid transparent;
     border-bottom-color: #202123;
+}
+
+.popover-left {
+    top: calc(-100% - 10px); /* youngermax: calc magic, 10px works */ /*vimpro is still the OG css hacker tho*/
+    left: 140%;
+}
+
+.popover-left::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-100%, -100%);
+    width: 0;
+    height: 0;
+    border: 15px solid transparent;
+    border-right-color: #202123;
 }
 
 .popover-title {
@@ -51,7 +70,15 @@
     display: flex;
 }
 
-.popoverbutton-main {
+.popover-close {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    float: right;
+}
+
+
+.popovermenu-createnew {
     display: grid;
     grid-template-rows: 0.8fr 0.2fr;
     align-items: center;
@@ -67,7 +94,7 @@
     cursor: pointer;
 }
 
-.popoverbutton-icon {
+.popovermenu-createnew .popoverbutton-icon {
     width: 5vh;
     height: 5vh;
 
@@ -76,10 +103,49 @@
     margin-right: auto;
 }
 
-.popoverbutton-text {
+.popovermenu-createnew .popoverbutton-text {
     color: white;
 
     margin: 10px;
+}
+
+.popovermenu-edititem {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+.popovermenu-edititem button {
+    outline: none;
+    border: none;
+    padding: 5px;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    font-weight: 800;
+    
+    cursor: pointer;
+}
+
+.popovermenu-edititem .delete-item {
+    background-color: #FB4B4B;
+}
+
+.popovermenu-edititem .save-name {
+    background-color: #3a946b;
+}
+
+.popovermenu-edititem input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
+    font-size: 16px;
+
+    outline: none;
+    margin-bottom: 20px;
 }
 
 @keyframes fade-in {
