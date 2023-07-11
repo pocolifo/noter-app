@@ -1,12 +1,12 @@
 import './nav.css';
 
-import { createContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Icon } from '@iconify/react';
 import { NavItemProps } from '../../interfaces';
 import NavItem from './navitem';
 import { usePopupContext } from '../popup/popupcontext';
-import { createNote, getNotesByFolder } from '../../api';
+import { getNotesByFolder } from '../../api';
 import LoadingSpinner from '../util/LoadingSpinner';
 
 
@@ -20,7 +20,7 @@ export default function NavBar(props: NavBarProps) {
     
     const [loadingNotes, setLoadingNotes] = useState<boolean>(false);
     const [items, setItems] = useState<NavItemProps[]>([]);
-    const [path, setPath] = useState<string[]>([]);
+    const [path, _] = useState<string[]>([]);
     
     function loadNotes() {
         setLoadingNotes(true);
@@ -55,7 +55,10 @@ export default function NavBar(props: NavBarProps) {
                 { loadingNotes ? <LoadingSpinner /> :
                     items.length == 0 ? <p className='notice'><Icon icon="fe:warning" /> Add a note to begin.</p> :
                     items.map((item, i) => (
-                        <NavItem title={item.title} uuid={item.uuid} key={i} />
+                        <NavItem 
+                            title={item.title} 
+                            uuid={item.uuid} 
+                            key={i} />
                     ))}
             </div>
         </div>

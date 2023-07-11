@@ -6,20 +6,24 @@ import NavBar from '../../components/nav/navbar';
 import Popup from '../../components/popup/popup';
 import { PopupProvider } from '../../components/popup/popupcontext';
 import { authenticate } from '../../api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LoadingSpinner from '../../components/util/LoadingSpinner';
 
 export default function App() {
 	const navigate = useNavigate()
-
-	if (document.cookie === '') navigate('/login')
-
 	const [loggedIn, setLoggedIn] = useState(false)
 
-	authenticate().then(result => {
-		if (result) setLoggedIn(true)
-		else navigate('/login')
-	})
+	useEffect(() => {
+		if (document.cookie === '') {
+			navigate('/login')
+			return
+		}
+		
+		authenticate().then(result => {
+			if (result) setLoggedIn(true)
+			else navigate('/login')
+		})
+	}, [])
 
 	return (
 		<>

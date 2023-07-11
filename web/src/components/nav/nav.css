@@ -40,14 +40,27 @@
 }
 
 .navitem {
-    display: flex;
-    align-items: center;
-
     height: 50px;
     margin-top: 5px;
     
     cursor: pointer;
-    margin-left: 10px;
+}
+
+.navitem-options {
+    display: none;
+    margin-left: auto;
+}
+
+.navitem-active .navitem-options {
+    display: block;
+}
+
+.navitem-content {
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .navitem svg {
@@ -65,11 +78,6 @@
 
 .navitem:hover {
     background-color: #383a3d;
-}
-
-.navitem > * {
-    margin-left: 10px;
-    margin-right: 10px;
 }
 
 .navitem-title {

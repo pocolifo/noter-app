@@ -114,3 +114,33 @@ export async function authenticate(): Promise<boolean> {
         return Promise.reject(error)
     }
 }
+
+export async function updateItem(id: string, name: string, path: string[]): Promise<void> {
+    try {
+        await fetch(`${API}/items/update/metadata?${new URLSearchParams({id: id})}`, {
+            credentials: "include",
+            method: "POST",
+            body: JSON.stringify({
+                name: name,
+                path: path
+            })
+        })
+
+        return Promise.resolve()
+    } catch (error) {
+        return Promise.reject(error)
+    }
+}
+
+export async function deleteItem(id: string): Promise<void> {
+    try {
+        await fetch(`${API}/items/delete?${new URLSearchParams({id: id})}`, {
+            credentials: "include",
+            method: "DELETE"
+        })
+
+        return Promise.resolve()
+    } catch (error) {
+        return Promise.reject(error)
+    }
+}
