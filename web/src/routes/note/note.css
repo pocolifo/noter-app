@@ -15,3 +15,18 @@
     margin: 15px;
     text-align: left;
 }
+
+.drag-icon {
+    height: 30px;
+    width: 30px;
+    display: none;
+}
+
+.drag-icon.hovering {
+    display: unset;
+}
+
+.note-block {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+}

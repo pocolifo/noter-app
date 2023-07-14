@@ -33,7 +33,7 @@ export default function NavBar(props: NavBarProps) {
             })
         .finally(() => setLoadingNotes(false));
     }
-    
+
     // goofy ass hack to only run once
     useEffect(loadNotes, [path]);
 
@@ -51,6 +51,7 @@ export default function NavBar(props: NavBarProps) {
                 return (item.uuid === uuid ? {...item, title: title} : item)
             })
         )
+        navigate(`/`)
     }
 
     function removeItem(uuid: string) {
