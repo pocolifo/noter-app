@@ -5,6 +5,7 @@ import './App.css';
 import NavBar from '../../components/nav/navbar';
 import Popup from '../../components/popup/popup';
 import { PopupProvider } from '../../components/popup/popupcontext';
+import { NavigationProvider } from '../../components/nav/navcontext';
 import { authenticate } from '../../api';
 import { useEffect, useState } from 'react';
 import LoadingSpinner from '../../components/util/LoadingSpinner';
@@ -29,6 +30,7 @@ export default function App() {
 		<>
 			{loggedIn ? 
 				<PopupProvider>
+				<NavigationProvider>
 					<Popup/>
 					<div className="App">
 						<NavBar header='Noter' />
@@ -37,6 +39,7 @@ export default function App() {
 							<Outlet />
 						</div>
 					</div>
+				</NavigationProvider>
 				</PopupProvider>
 			: <LoadingSpinner/>}
 		</>
