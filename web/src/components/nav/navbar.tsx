@@ -12,11 +12,7 @@ import { deleteItem, getItemsByFolder, updateItem } from '../../api';
 import LoadingSpinner from '../util/LoadingSpinner';
 import { useNavigate } from 'react-router-dom';
 
-interface NavBarProps {
-    header: string;
-}
-
-export default function NavBar(props: NavBarProps) {
+export default function NavBar() {
     const popupState = usePopupContext();
     const navState = useNavigationContext();
 
@@ -44,10 +40,11 @@ export default function NavBar(props: NavBarProps) {
     useEffect(loadNotes, [navState.path]); // make loadnotes run when path changed
 
     function navigateFolder(uuid: string) {
-        //setPath([...path, uuid]);\
         navState.setPath([...navState.path, uuid]);
+    }
 
-        console.log('hi');
+    function navigateBack() {
+        navState.setPath(navState.path.slice(0, -1));
     }
 
     function handleClick() {
@@ -76,10 +73,29 @@ export default function NavBar(props: NavBarProps) {
         navigate('/') //TODO: why is this not working?
     }
 
+    function updateHeader() {
+        // if (navState.path.length === 0) {
+        //     return 'Home';
+        // }
+
+        let pathString: string = '/';
+        navState.path.forEach((item) => {
+            pathString += item + '/';
+        })
+
+        if (pathString.length > 16) {
+            pathString = pathString.slice(-16);
+            pathString = '...' + pathString;
+        }
+
+        return pathString;
+    }
+
     return (
         <div className='nav'>
             <div className='navheader'>
-                <p className='navheader-title'> {props.header} </p>
+                <Icon icon='fe:arrow-left' className='navheader-button' onClick={navigateBack} color='#FFFFFF'/>
+                <p className='navheader-title'> {updateHeader()} </p>
                 <Icon icon="fe:plus" className='navheader-button' onClick={handleClick} color="#FFFFFF" />
             </div>
 
