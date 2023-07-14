@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createNote } from '../../../api';
+import { createFolder, createNote } from '../../../api';
 import LoadingSpinner from '../../util/LoadingSpinner';
 import { usePopupContext } from '../popupcontext';
 import { useNavigationContext } from '../../nav/navcontext';
@@ -28,9 +28,9 @@ export default function CreateNewNoteMenu(props: { closePopup: () => void}) {
         }
 
         try {
-            const createdNote = await createNote(name as string, navState.path);
+            const createdFolder = await createFolder(name as string, navState.path);
             props.closePopup();
-            navigate(`/note/${createdNote.uuid}`);
+            // navigate(`/note/${createdFolder.uuid}`);
             popupState.stateCallback(null); // stateCallback is loadNotes, no args should be passed
         } catch (e) {
             setErrorState(String(e));
@@ -41,7 +41,7 @@ export default function CreateNewNoteMenu(props: { closePopup: () => void}) {
 
     return (
         <form className='create-new-note' onSubmit={ handleCreateNote }>
-            <input type="text" placeholder="Note name" name="name" required />
+            <input type="text" placeholder="Folder name" name="name" required />
             
             {errorState && 
                 <p className='form-status form-status-error'>

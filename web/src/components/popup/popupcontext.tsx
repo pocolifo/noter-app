@@ -53,4 +53,4 @@ export function PopupProvider({ children }: { children: ReactNode }) {
             { children }
         </PopupContext.Provider>
     );
-};
+}

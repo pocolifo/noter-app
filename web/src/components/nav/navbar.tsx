@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 
 import { Icon } from '@iconify/react';
 import { NavItemProps } from '../../interfaces';
-import NavItem from './navitem';
+import Note from './navnote';
+import Folder from './navfolder';
 import { usePopupContext } from '../popup/popupcontext';
-import { deleteItem, getNotesByFolder, updateItem } from '../../api';
+import { useNavigationContext } from './navcontext';
+import { deleteItem, getItemsByFolder, updateItem } from '../../api';
 import LoadingSpinner from '../util/LoadingSpinner';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,26 +18,37 @@ interface NavBarProps {
 
 export default function NavBar(props: NavBarProps) {
     const popupState = usePopupContext();
+    const navState = useNavigationContext();
+
     const navigate = useNavigate()
     
     const [loadingNotes, setLoadingNotes] = useState<boolean>(false);
     const [items, setItems] = useState<NavItemProps[]>([]);
-    const [path, _] = useState<string[]>([]);
+    //const [path, setPath] = useState<string[]>([]);
     
     function loadNotes() {
         setLoadingNotes(true);
     
-        getNotesByFolder(path)
+        console.log(navState.path);
+
+        getItemsByFolder(navState.path)
         .then((data) => {
                 setItems(
-                    data.map(item => ({ title: item.title, uuid: item.uuid } as NavItemProps))
+                    data.map(item => ({ type: item.type, title: item.title, uuid: item.uuid } as NavItemProps))
                 )
             })
         .finally(() => setLoadingNotes(false));
     }
     
     // goofy ass hack to only run once
-    useEffect(loadNotes, [path]);
+    useEffect(loadNotes, [navState.path]); // make loadnotes run when path changed
+
+    function navigateFolder(uuid: string) {
+        //setPath([...path, uuid]);\
+        navState.setPath([...navState.path, uuid]);
+
+        console.log('hi');
+    }
 
     function handleClick() {
         popupState.setEnabled(true);
@@ -73,15 +86,30 @@ export default function NavBar(props: NavBarProps) {
             <div className='nav-list'>
                 { loadingNotes ? <LoadingSpinner /> :
                     items.length == 0 ? <p className='notice'><Icon icon="fe:warning" /> Add a note to begin.</p> :
-                    items.map((item, i) => (
-                        <NavItem 
-                            title={item.title} 
-                            uuid={item.uuid} 
-                            key={i} 
-                            setTitle={(title) => setTitle(item.uuid, title)}
-                            delete={() => removeItem(item.uuid)}
-                            />
-                    ))}
+                    items.map((item, i) => {
+                        switch (item.type) {
+                            case 'note':
+                                return <Note
+                                    type={item.type}
+                                    title={item.title}
+                                    uuid={item.uuid}
+                                    key={i}
+                                    setTitle={(title) => setTitle(item.uuid, title)}
+                                    delete={() => removeItem(item.uuid)}
+                                />
+                            case 'folder':
+                                return <Folder
+                                    title={item.title}
+                                    uuid={item.uuid}
+                                    key={i}
+                                    navigateFolder={navigateFolder}
+                                    setTitle={(title) => setTitle(item.uuid, title)}
+                                    delete={() => removeItem(item.uuid)}
+                                />
+                            default:
+                                return <></>
+                        }
+                    })}
             </div>
         </div>
     );
