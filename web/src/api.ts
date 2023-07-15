@@ -1,4 +1,4 @@
-import { NoteData } from "./interfaces";
+import { FolderData, NoteData } from "./interfaces";
 
 // the base api path
 export const API = "http://localhost:8000"
@@ -18,7 +18,7 @@ export async function getNoteByUUID(uuid: string): Promise<NoteData> {
     }
 }
 
-export async function getNotesByFolder(path: string[]): Promise<NoteData[]> {
+export async function getItemsByFolder(path: string[]): Promise<NoteData[] | FolderData[]> {
     try {
         const response = await fetch(`${API}/items/list`, {
             credentials: "include",
@@ -27,18 +27,61 @@ export async function getNotesByFolder(path: string[]): Promise<NoteData[]> {
         })
         const data = await response.json()
 
-        let notedata: NoteData[] = [];
-        for (let note of data) {
-            notedata.push({
-                title: note.name,
-                uuid: note.id,
-                content: note.blocks
-            });
+        let itemdata: NoteData | FolderData[] = [];
+        for (let item of data) {
+            // notedata.push({
+            //     title: note.name,
+            //     uuid: note.id,
+            //     content: note.blocks
+            // });
+
+            console.log(item);
+
+            if (item.type === 'note') {
+                itemdata.push({
+                    type: item.type,
+                    title: item.name,
+                    uuid: item.id,
+                    content: item.blocks
+                })
+            } else if (item.type === 'folder') {
+                itemdata.push({
+                    type: item.type,
+                    title: item.name,
+                    uuid: item.id,
+                    path: item.path
+                })
+            }
         }
 
-        return Promise.resolve(notedata)
+        return Promise.resolve(itemdata)
     } catch (error) {
         return Promise.reject(error)
+    }
+}
+
+export async function createFolder(name: string, path: string[]): Promise<FolderData> {
+    try {
+        const response = await fetch(`${API}/items/create/folder`, {
+            credentials: "include",
+            method: "POST",
+            body: JSON.stringify({
+                name: name,
+                path: path,
+            })
+        })
+        const data = await response.json();
+
+        console.log(path);
+
+        return Promise.resolve(<FolderData>{
+            type: 'folder',
+            title: name,
+            uuid: data.id,
+            path: ''
+        })
+    } catch (error) {
+        return Promise.reject(error);
     }
 }
 
@@ -51,16 +94,17 @@ export async function createNote(name: string, path: string[]): Promise<NoteData
                 name: name,
                 path: path
             })
-        })
-        const data = await response.json()
+        });
+        const data = await response.json();
 
         return Promise.resolve(<NoteData>{
+            type: 'note',
             title: name,
             uuid: data.id,
             content: data.blocks
-        })
+        });
     } catch (error) {
-        return Promise.reject(error)
+        return Promise.reject(error);
     }
 }
 

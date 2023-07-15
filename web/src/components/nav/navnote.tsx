@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import Popover from '../popover/popover';
 import { useState } from 'react';
 
-export default function NavItem(props: NavItemProps) {
+export default function Note(props: NavItemProps) {
     const location = useLocation()
 
     const [showOptions, setShowOptions] = useState(false)

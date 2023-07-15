@@ -4,6 +4,7 @@ import './popup.css';
 
 import CreateNewMenu from './menus/createNewMenu';
 import CreateNewNoteMenu from './menus/createNewNoteMenu';
+import CreateNewFolderMenu from './menus/createNewFolderMenu';
 import { usePopupContext } from './popupcontext';
 
 export default function Popup() {
@@ -36,7 +37,9 @@ export default function Popup() {
             break;
     
         default:
-            popupBody = <div>in progress</div>
+            popupBody = <CreateNewFolderMenu closePopup={ () => {
+                popupState.setEnabled(false);
+            }}/>
 
             break;
     }
