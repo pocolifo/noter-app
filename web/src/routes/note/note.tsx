@@ -40,20 +40,6 @@ export default function Note() {
         setBlocks([...blocks, newBlock]);
     }
 
-    function moveBlock(oldindex: number, newindex: number) {
-        let newblocks = blocks
-        let block = structuredClone(newblocks[oldindex])
-        newblocks.splice(oldindex, 1)
-        newblocks.splice(newindex, 0, block)
-
-        setBlocks(newblocks)
-        // saveNote({
-        //     title: title,
-        //     uuid: id as string,
-        //     content: blocks
-        // })
-    }
-
     function saveBlock(content: object, uuid: string) {
         setBlocks(blocks.map((block, i) => {
             return (block.uuid === uuid ? { ...block, data: content } : block)
@@ -90,9 +76,15 @@ export default function Note() {
     }, [blocks])
 
     function onDragEnd(result: DropResult) {
-        if (!result.destination) return;
+        if (!result.destination || result.source.index === result.destination.index) {
+            return;
+        }
 
-        moveBlock(result.source.index, result.destination.index);
+        const updatedBlocks = Array.from(blocks);
+        const [reorderedBlock] = updatedBlocks.splice(result.source.index, 1);
+        updatedBlocks.splice(result.destination.index, 0, reorderedBlock);
+
+        setBlocks(updatedBlocks);
     }
 
     function getBlockComponent(blockData: ContentBlock) {

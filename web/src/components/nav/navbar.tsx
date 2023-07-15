@@ -20,7 +20,6 @@ export default function NavBar() {
     
     const [loadingNotes, setLoadingNotes] = useState<boolean>(false);
     const [items, setItems] = useState<NavItemProps[]>([]);
-    //const [path, setPath] = useState<string[]>([]);
     
     function loadNotes() {
         setLoadingNotes(true);
