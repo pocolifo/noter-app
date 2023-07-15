@@ -35,7 +35,7 @@ export default function NavBar() {
             })
         .finally(() => setLoadingNotes(false));
     }
-    
+
     // goofy ass hack to only run once
     useEffect(loadNotes, [navState.path]); // make loadnotes run when path changed
 
@@ -61,6 +61,7 @@ export default function NavBar() {
                 return (item.uuid === uuid ? {...item, title: title} : item)
             })
         )
+        navigate(`/`)
     }
 
     function removeItem(uuid: string) {
