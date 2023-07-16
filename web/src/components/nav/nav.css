@@ -47,12 +47,8 @@
 }
 
 .navitem-options {
-    display: none;
-    margin-left: auto;
-}
-
-.navitem-active .navitem-options {
     display: block;
+    margin-left: auto;
 }
 
 .navitem-content {

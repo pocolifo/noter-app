@@ -41,7 +41,7 @@ export default function Note() {
     }
 
     function saveBlock(content: object, uuid: string) {
-        setBlocks(blocks.map((block, i) => {
+        setBlocks(blocks.map((block, _) => {
             return (block.uuid === uuid ? { ...block, data: content } : block)
         }))
     }
@@ -68,6 +68,7 @@ export default function Note() {
         if (!firstUpdate.current) {
             saveNote({
                 title: title,
+                type: 'note',
                 uuid: id as string,
                 content: blocks
             })
@@ -125,7 +126,7 @@ export default function Note() {
                     <DragDropContext onDragEnd={onDragEnd}>
                         <div className='notebody'>
                             <Droppable droppableId='droppable'>
-                                {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
+                                {(provided: DroppableProvided, _: DroppableStateSnapshot) => (
                                     <div
                                         {...provided.droppableProps}
                                         ref={provided.innerRef}

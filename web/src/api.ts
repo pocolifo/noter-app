@@ -18,7 +18,7 @@ export async function getNoteByUUID(uuid: string): Promise<NoteData> {
     }
 }
 
-export async function getItemsByFolder(path: string[]): Promise<NoteData[] | FolderData[]> {
+export async function getItemsByFolder(path: string[]): Promise<(NoteData | FolderData)[]> {
     try {
         const response = await fetch(`${API}/items/list`, {
             credentials: "include",
@@ -27,7 +27,7 @@ export async function getItemsByFolder(path: string[]): Promise<NoteData[] | Fol
         })
         const data = await response.json()
 
-        let itemdata: NoteData | FolderData[] = [];
+        let itemdata: (NoteData | FolderData)[] = [];
         for (let item of data) {
             // notedata.push({
             //     title: note.name,

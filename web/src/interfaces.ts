@@ -15,8 +15,14 @@ export interface PopupProps {
     stateCallback(v: any): void;
 }
 
+// so we can show the user the name but store the UUID for the API
+export interface PathSegment {
+    title: string;
+    uuid: string
+}
+
 export interface FolderData {
-    type: string;
+    type: string; // so we dont have to do reflection for navbar data
     title: string;
     uuid: string;
     path: string;
