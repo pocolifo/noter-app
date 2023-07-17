@@ -57,7 +57,6 @@ export default function NavBar() {
                 return (item.uuid === uuid ? {...item, title: title} : item)
             })
         )
-        navigate(`/`)
     }
 
     function removeItem(uuid: string) {
@@ -91,9 +90,11 @@ export default function NavBar() {
     return (
         <div className='nav'>
             <div className='navheader'>
-                <Icon icon='fe:arrow-left' className='navheader-button' onClick={navigateBack} color='#FFFFFF'/>
+                {navState.path.length > 0 && 
+                    <Icon icon='fe:arrow-left' className='navheader-button' onClick={navigateBack} color='#FFFFFF'/>
+                }
                 <p className='navheader-title'> {updateHeader()} </p>
-                <Icon icon="fe:plus" className='navheader-button' onClick={handleClick} color="#FFFFFF" />
+                <Icon icon="fe:plus" className='navheader-button' onClick={handleClick} color="#FFFFFF" style={{marginLeft: 'auto'}}/>
             </div>
 
             <div className='nav-list'>

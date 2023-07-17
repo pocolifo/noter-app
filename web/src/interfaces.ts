@@ -25,7 +25,6 @@ export interface FolderData {
     type: string; // so we dont have to do reflection for navbar data
     title: string;
     uuid: string;
-    path: string;
 }
 
 export interface NoteData {

@@ -12,8 +12,7 @@
 }
 
 .navheader {
-    display: grid;
-    grid-template-columns: 0.2fr 1fr 0.1fr;
+    display: flex;
 
     margin: 10px;
 }

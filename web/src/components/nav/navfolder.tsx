@@ -16,27 +16,29 @@ export default function Folder(props: FolderProps) {
     const [showOptions, setShowOptions] = useState(false)
 
     return (
-        <div 
-            className='navitem' 
-            onDoubleClick={() => props.navigateFolder(props.uuid, props.title)} 
+        <div
+            className='navitem'
+        >
+            <div
+                className='navitem-content'
+                onClick={() => props.navigateFolder(props.uuid, props.title)}
             >
-            <div className='navitem-content'>
                 <Icon icon="fe:folder" color="#FFFFFF" />
                 <p className='navitem-title'>{props.title}</p>
 
-                <Icon 
-                    className='navitem-options' 
-                    icon="fe:elipsis-v" 
+                <Icon
+                    className='navitem-options'
+                    icon="fe:elipsis-v"
                     color="#FFFFFF"
                     onClick={(e) => {
-                        e.stopPropagation()
                         setShowOptions(true)
+                        e.stopPropagation()
                     }}
                 />
             </div>
 
-            {showOptions && 
-                <Popover 
+            {showOptions &&
+                <Popover
                     title='Actions'
                     menu='EditItem'
                     align='left'
