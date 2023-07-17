@@ -1,9 +1,9 @@
-import * as React from 'react';
 import { createContext, useState, useContext, ReactNode } from 'react';
+import { PathSegment } from '../../interfaces';
 
 interface NavigationContextProps {
-    path: string[];
-    setPath: (_v: string[]) => void;
+    path: PathSegment[];
+    setPath: (_v: PathSegment[]) => void;
 }
 
 const NavigationContext = createContext<NavigationContextProps>({
@@ -14,7 +14,7 @@ const NavigationContext = createContext<NavigationContextProps>({
 export const useNavigationContext = () => useContext(NavigationContext);
 
 export function NavigationProvider({ children }: { children: ReactNode }) {
-    const [pathState, setPathState] = useState<string[]>([]);
+    const [pathState, setPathState] = useState<PathSegment[]>([]);
 
     return (
         <NavigationContext.Provider value={{

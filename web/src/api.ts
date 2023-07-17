@@ -18,7 +18,7 @@ export async function getNoteByUUID(uuid: string): Promise<NoteData> {
     }
 }
 
-export async function getItemsByFolder(path: string[]): Promise<NoteData[] | FolderData[]> {
+export async function getItemsByFolder(path: string[]): Promise<(NoteData | FolderData)[]> {
     try {
         const response = await fetch(`${API}/items/list`, {
             credentials: "include",
@@ -27,16 +27,8 @@ export async function getItemsByFolder(path: string[]): Promise<NoteData[] | Fol
         })
         const data = await response.json()
 
-        let itemdata: NoteData | FolderData[] = [];
+        let itemdata: (NoteData | FolderData)[] = [];
         for (let item of data) {
-            // notedata.push({
-            //     title: note.name,
-            //     uuid: note.id,
-            //     content: note.blocks
-            // });
-
-            console.log(item);
-
             if (item.type === 'note') {
                 itemdata.push({
                     type: item.type,
@@ -49,7 +41,6 @@ export async function getItemsByFolder(path: string[]): Promise<NoteData[] | Fol
                     type: item.type,
                     title: item.name,
                     uuid: item.id,
-                    path: item.path
                 })
             }
         }
@@ -78,7 +69,6 @@ export async function createFolder(name: string, path: string[]): Promise<Folder
             type: 'folder',
             title: name,
             uuid: data.id,
-            path: ''
         })
     } catch (error) {
         return Promise.reject(error);

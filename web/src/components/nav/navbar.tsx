@@ -24,9 +24,7 @@ export default function NavBar() {
     function loadNotes() {
         setLoadingNotes(true);
     
-        console.log(navState.path);
-
-        getItemsByFolder(navState.path)
+        getItemsByFolder(navState.path.map(path => path.uuid)) // only get the UUIDs, names are irrelevant
         .then((data) => {
                 setItems(
                     data.map(item => ({ type: item.type, title: item.title, uuid: item.uuid } as NavItemProps))
@@ -35,11 +33,10 @@ export default function NavBar() {
         .finally(() => setLoadingNotes(false));
     }
 
-    // goofy ass hack to only run once
     useEffect(loadNotes, [navState.path]); // make loadnotes run when path changed
 
-    function navigateFolder(uuid: string) {
-        navState.setPath([...navState.path, uuid]);
+    function navigateFolder(uuid: string, title: string) {
+        navState.setPath([...navState.path, {title: title, uuid: uuid}]);
     }
 
     function navigateBack() {
@@ -54,13 +51,12 @@ export default function NavBar() {
     }
 
     function setTitle(uuid: string, title: string) {
-        updateItem(uuid, title, []) // TODO: fix temporary pathname
+        updateItem(uuid, title, navState.path.map(path => path.uuid))
         setItems(
             items.map((item, _) => {
                 return (item.uuid === uuid ? {...item, title: title} : item)
             })
         )
-        navigate(`/`)
     }
 
     function removeItem(uuid: string) {
@@ -80,7 +76,7 @@ export default function NavBar() {
 
         let pathString: string = '/';
         navState.path.forEach((item) => {
-            pathString += item + '/';
+            pathString += item.title + '/';
         })
 
         if (pathString.length > 16) {
@@ -94,9 +90,11 @@ export default function NavBar() {
     return (
         <div className='nav'>
             <div className='navheader'>
-                <Icon icon='fe:arrow-left' className='navheader-button' onClick={navigateBack} color='#FFFFFF'/>
+                {navState.path.length > 0 && 
+                    <Icon icon='fe:arrow-left' className='navheader-button' onClick={navigateBack} color='#FFFFFF'/>
+                }
                 <p className='navheader-title'> {updateHeader()} </p>
-                <Icon icon="fe:plus" className='navheader-button' onClick={handleClick} color="#FFFFFF" />
+                <Icon icon="fe:plus" className='navheader-button' onClick={handleClick} color="#FFFFFF" style={{marginLeft: 'auto'}}/>
             </div>
 
             <div className='nav-list'>

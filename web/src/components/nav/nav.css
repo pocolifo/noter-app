@@ -12,8 +12,7 @@
 }
 
 .navheader {
-    display: grid;
-    grid-template-columns: 0.2fr 1fr 0.1fr;
+    display: flex;
 
     margin: 10px;
 }
@@ -47,12 +46,8 @@
 }
 
 .navitem-options {
-    display: none;
-    margin-left: auto;
-}
-
-.navitem-active .navitem-options {
     display: block;
+    margin-left: auto;
 }
 
 .navitem-content {
