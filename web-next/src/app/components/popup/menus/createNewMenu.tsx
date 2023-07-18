@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 
-import './menus.css'
+import styles from './menus.module.css'
 
 interface CreateNewMenuProps {
     studyguideaction: () => void;
@@ -11,35 +11,38 @@ interface CreateNewMenuProps {
 export default function CreateNewMenu(props: CreateNewMenuProps) {
 
     return (
-        <div className="create-new">
-            <div>
+        <div className={styles.createNew}>
+            <div className={styles.createNewOption}>
                 <button 
+                    className={styles.createNewButton}
                     onClick={() => props.studyguideaction()}
                     style={{backgroundColor: '#F472B6'}}
                     >
-                    <Icon icon="fe:document" color='#FFFFFF'/>
+                    <Icon className={styles.icon} icon="fe:document" color='#FFFFFF'/>
                 </button>
-                <p>Study Guide</p>
+                <p className={styles.label}>Study Guide</p>
             </div>
 
-            <div>
+            <div className={styles.createNewOption}>
                 <button
+                    className={styles.createNewButton}
                     onClick={() => props.noteaction()}
                     style={{backgroundColor: '#C084FC'}}
                     >
-                    <Icon icon="fe:book" color='#FFFFFF'/>
+                    <Icon className={styles.icon} icon="fe:book" color='#FFFFFF'/>
                 </button>
-                <p>Note</p>
+                <p className={styles.label}>Note</p>
             </div>
 
-            <div>
+            <div className={styles.createNewOption}>
                 <button
+                    className={styles.createNewButton}
                     onClick={() => props.folderaction()}
                     style={{backgroundColor: '#60A5FA'}}
                     >
-                    <Icon icon="fe:folder" color='#FFFFFF'/>
+                    <Icon className={styles.icon} icon="fe:folder" color='#FFFFFF'/>
                 </button>
-                <p>Folder</p>
+                <p className={styles.label}>Folder</p>
             </div>
         </div>
     )

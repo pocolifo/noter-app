@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 
-import './popup.css';
+import styles from './popup.module.css';
 
 import CreateNewFolderMenu from './menus/createNewFolderMenu';
 import CreateNewMenu from './menus/createNewMenu';
@@ -46,13 +46,13 @@ export default function Popup() {
 
     return (
         <>
-            { popupState.enabled && <div className='popup-overlay' onClick={() => popupState.setEnabled(false)} /> }
+            { popupState.enabled && <div className={styles.popupOverlay} onClick={() => popupState.setEnabled(false)} /> }
             
-            <div className={'popup-main ' + (!popupState.enabled ? 'inactive' : '') }> 
-                <div className='popup-header'>
-                    <p className='popup-title'>{popupState.title}</p>
+            <div className={`${styles.popupMain} ${!popupState.enabled && styles.inactive}`}> 
+                <div className={styles.popupHeader}>
+                    <p className={styles.popupTitle}>{popupState.title}</p>
 
-                    <Icon icon="fe:close" color="#FFFFFF" className='popup-close' onClick={() => {
+                    <Icon icon="fe:close" color="#FFFFFF" className={styles.popupClose} onClick={() => {
                         popupState.setEnabled(false);
                     }} />
                 </div>

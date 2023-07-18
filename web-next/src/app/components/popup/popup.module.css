@@ -1,4 +1,4 @@
-.popup-main {
+.popupMain {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -14,7 +14,7 @@
     transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
-.popup-main.inactive {
+.popupMain.inactive {
     transform: scale(0.8) translate(-50%, -50%);
     opacity: 0;
 
@@ -22,28 +22,28 @@
     pointer-events: none;
 }
 
-.popup-header {
+.popupHeader {
     display: flex;
     align-items: center;
     margin-left: 1rem;
     margin-right: 1rem;
 }
 
-.popup-title {
+.popupTitle {
     text-align: left;
     color: white;
     font-weight: bold;
     font-size: 24px;
 }
 
-.popup-close {
+.popupClose {
     width: 30px;
     height: 30px;
     margin-left: auto;
     cursor: pointer;
 }
 
-.popup-overlay {
+.popupOverlay {
     position: fixed;
     top: 0;
     left: 0;

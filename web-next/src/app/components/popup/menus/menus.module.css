@@ -1,4 +1,4 @@
-.popup-main .create-new {
+.createNew {
     display: flex;
     gap: 2rem;
     margin: auto;
@@ -10,16 +10,16 @@
     padding-right: 5vh;
 }
 
-.popup-main .create-new div {
+.createNewOption {
     text-align: center;
     transition: transform 0.15s ease;
 }
 
-.popup-main .create-new div:active {
+.createNewOption:active {
     transform: scale(0.9);
 }
 
-.popup-main .create-new button {
+.createNewButton {
     width: 144px;
     height: 144px;
     border-radius: 16px;
@@ -29,16 +29,16 @@
     border: none;
 }
 
-.popup-main .create-new svg {
+.icon {
     width: 70%;
     height: 70%;
 }
 
-.popup-main .create-new p {
+.label {
     color: white;
 }
 
-.popup-main .create-new-note {
+.createNewNote {
     margin: auto;
 
     padding-left: 5vh;
@@ -50,7 +50,7 @@
     gap: 1rem;
 }
 
-.popup-main .create-new-note input {
+.createNewNote input {
     width: 100%;
     background-color: transparent;
     border: none;
@@ -61,7 +61,7 @@
     outline: none;
 }
 
-.popup-main .create-new-note button {
+.createNewNote button {
     background-color: #DCECFF;
     border-radius: 8px;
     font-size: 16px;
@@ -74,15 +74,15 @@
     transition: transform 0.15s ease;
 }
 
-.popup-main .create-new-note p {
+.createNewNote p {
     margin: 0;
 }
 
-.popup-main .create-new-note button:active {
+.createNewNote button:active {
     transform: scale(0.9);
 }
 
-.form-status {
+.formStatus {
     border: transparent 2px solid;
     color: #ffffff;
     font-size: 1em;
@@ -96,17 +96,12 @@
     gap: 8px;
 }
 
-.form-status svg {
-    width: 100%;
-    height: 100%;
-}
-
-.form-status-error span::before {
+.formStatusError span::before {
     content: 'Error: ';
     font-weight: bold;
 }
 
-.form-status-error {
+.formStatusError {
     border-color: #ef4444;
     background: #f87171;
 }

@@ -4,7 +4,7 @@ import { createNote } from '../../../lib/api';
 import LoadingSpinner from '../../util/LoadingSpinner';
 import { usePopupContext } from '../popupcontext';
 import { useNavigationContext } from '../../nav/navcontext';
-import './menus.css';
+import styles from './menus.module.css';
 
 export default function CreateNewNoteMenu(props: { closePopup: () => void}) {
     const [creating, setCreating] = useState<boolean>(false);
@@ -39,12 +39,12 @@ export default function CreateNewNoteMenu(props: { closePopup: () => void}) {
     }
 
     return (
-        <form className='create-new-note' onSubmit={ handleCreateNote }>
+        <form className={styles.createNewNote} onSubmit={ handleCreateNote }>
             <input type="text" placeholder="Note name" name="name" required />
             
             {errorState && 
-                <p className='form-status form-status-error'>
-                    <Icon icon="fe:warning" />
+                <p className={`${styles.formStatus} ${styles.formStatusError}`}>
+                    <Icon style={{width: '100%', height: '100%'}} icon="fe:warning" />
                     <span>{ errorState }</span>
                 </p>
             }
