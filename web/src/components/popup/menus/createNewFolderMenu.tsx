@@ -26,9 +26,8 @@ export default function CreateNewNoteMenu(props: { closePopup: () => void}) {
         }
 
         try {
-            const createdFolder = await createFolder(name as string, navState.path.map(path => path.uuid));
+            await createFolder(name as string, navState.path.map(path => path.uuid));
             props.closePopup();
-            navState.setPath([...navState.path, {title: createdFolder.title, uuid: createdFolder.uuid}])
             popupState.stateCallback(null); // stateCallback is loadNotes, no args should be passed
         } catch (e) {
             setErrorState(String(e));

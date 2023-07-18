@@ -63,8 +63,6 @@ export async function createFolder(name: string, path: string[]): Promise<Folder
         })
         const data = await response.json();
 
-        console.log(path);
-
         return Promise.resolve(<FolderData>{
             type: 'folder',
             title: name,
