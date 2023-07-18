@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import './index.css'
-import App from './routes/app/App'
+import App from '../../web-next/src/app/app/App'
 import Note from './routes/note/note'
 import Login from './routes/login/login'
 
