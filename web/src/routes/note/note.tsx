@@ -27,7 +27,7 @@ export default function Note() {
 
     useEffect(() => {
         document.title = `${title} | Noter`
-    }, [title])
+    }, [title, id])
 
     function addBlock(blockType: string, data?: object) {
         let newBlock: ContentBlock = {

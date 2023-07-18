@@ -33,7 +33,7 @@ export default function App() {
 				<NavigationProvider>
 					<Popup/>
 					<div className="App">
-						<NavBar header='Noter' />
+						<NavBar />
 						
 						<div id='detail'>
 							<Outlet />
