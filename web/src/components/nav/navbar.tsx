@@ -26,10 +26,10 @@ export default function NavBar() {
     
         getItemsByFolder(navState.path.map(path => path.uuid)) // only get the UUIDs, names are irrelevant
         .then((data) => {
-                setItems(
-                    data.map(item => ({ type: item.type, title: item.title, uuid: item.uuid } as NavItemProps))
-                )
-            })
+            setItems(
+                data.map(item => ({ type: item.type, title: item.title, uuid: item.uuid } as NavItemProps))
+            )
+        })
         .finally(() => setLoadingNotes(false));
     }
 
@@ -59,21 +59,17 @@ export default function NavBar() {
         )
     }
 
-    function removeItem(uuid: string) {
-        deleteItem(uuid)
+    async function removeItem(uuid: string) {
+        await deleteItem(uuid)
         setItems(
-            items.filter((item, _) => {
-                item.uuid !== uuid
+            items.filter(item => {
+                return item.uuid !== uuid
             })
         )
-        navigate('/') //TODO: why is this not working?
+        navigate('/')
     }
 
     function updateHeader() {
-        // if (navState.path.length === 0) {
-        //     return 'Home';
-        // }
-
         let pathString: string = '/';
         navState.path.forEach((item) => {
             pathString += item.title + '/';
