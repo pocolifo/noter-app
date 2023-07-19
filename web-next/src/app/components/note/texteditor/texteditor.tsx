@@ -35,6 +35,8 @@ export default function TextEditor(props: TextEditorProps) {
         return null;
     }
 
+    editor?.commands.focus('end')
+
     function saveContent() {
         const htmlContent = editor?.getHTML() as string;
         props.closeCallback(htmlContent);

@@ -31,7 +31,7 @@ export default function TextBlock(props: TextBlockProps) {
     return (
         <div
             className={styles.contentBlock}
-            onDoubleClick={handleClick}
+            onClick={handleClick}
         >
             {
                 (editing)
