@@ -24,7 +24,6 @@
 }
 
 .top {
-    top: 50%;
     left: 50%;
 }
 
@@ -41,8 +40,8 @@
 }
 
 .left {
-    top: calc(-100% - 10px); /* youngermax: calc magic, 10px works */ /*vimpro is still the OG css hacker tho*/
-    left: 140%;
+    top: calc(-100% - 50px); /* black magic fuckery */
+    left: calc(100% + 101px + 15px); /* (100% + half the width of the popover + the width of the arrow) - vim "css magician" pro */
 }
 
 .left::after {

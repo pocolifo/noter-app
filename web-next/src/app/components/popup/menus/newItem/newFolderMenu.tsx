@@ -6,7 +6,7 @@ import { Icon } from '@iconify/react/dist/iconify';
 import { useState } from 'react';
 import styles from './newItemMenu.module.css';
 
-export default function CreateNewFolderMenu(props: { closePopup: () => void }) {
+export default function NewFolderMenu(props: { closePopup: () => void }) {
     const [creating, setCreating] = useState<boolean>(false);
     const [errorState, setErrorState] = useState<string | null>(null);
     const popupState = usePopupContext();

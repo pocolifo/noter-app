@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { usePopupContext } from '../../popupcontext';
 import styles from './newItemMenu.module.css';
 
-export default function CreateNewNoteMenu(props: { closePopup: () => void }) {
+export default function NewNoteMenu(props: { closePopup: () => void }) {
     const [creating, setCreating] = useState<boolean>(false);
     const [errorState, setErrorState] = useState<string | null>(null);
     const router = useRouter();

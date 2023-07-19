@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
-import CreateNewFolderMenu from './menus/newItem/newFolderMenu';
+import NewFolderMenu from './menus/newItem/newFolderMenu';
 import CreateNewMenu from './menus/createNewMenu';
-import CreateNewNoteMenu from './menus/newItem/newNoteMenu';
+import NewNoteMenu from './menus/newItem/newNoteMenu';
 import styles from './popup.module.css';
 import { usePopupContext } from './popupcontext';
 
@@ -28,14 +28,14 @@ export default function Popup() {
             break;
 
         case "createNewNote":
-            popupBody = <CreateNewNoteMenu closePopup={ () => {
+            popupBody = <NewNoteMenu closePopup={ () => {
                 popupState.setEnabled(false);
              } } />
 
             break;
     
         default:
-            popupBody = <CreateNewFolderMenu closePopup={ () => {
+            popupBody = <NewFolderMenu closePopup={ () => {
                 popupState.setEnabled(false);
             }}/>
 
