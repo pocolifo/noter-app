@@ -18,14 +18,15 @@ import { ContentBlock, NoteData } from '../../../lib/interfaces';
 
 
 interface NoteEditorProps {
-    note: NoteData;
+    noteId: string;
 }
 
 export default function NoteEditor(props: NoteEditorProps) {
-    const [blocks, setBlocks] = useState<ContentBlock[]>(props.note.content);
-	const [title, setTitle] = useState<string>(props.note.title);
+    const [blocks, setBlocks] = useState<ContentBlock[]>([]);
+	const [title, setTitle] = useState<string>('');
 	const [popoverState, setPopoverState] = useState(false);
-	const [currentHover, setCurrentHover] = useState<string>('')
+	const [currentHover, setCurrentHover] = useState<string>('');
+	const [ isLoading, setLoading ] = useState<boolean>(false);
 
 	function addBlock(blockType: string, data?: object) {
 		let newBlock: ContentBlock = {
@@ -56,12 +57,25 @@ export default function NoteEditor(props: NoteEditorProps) {
 			saveNote({
 				title: title,
 				type: 'note',
-				uuid: props.note.uuid,
+				uuid: props.noteId,
 				content: blocks
 			})
 		}
 		firstUpdate.current = false
-	}, [blocks])
+	}, [blocks]);
+
+	useEffect(() => {
+		getNoteByUUID(props.noteId)
+			.then(note => {
+				for (let block of note.content) {
+					block.uuid = (Math.random() * 100).toString(16)
+				}
+
+				setBlocks(note.content);
+				setTitle(note.title);
+			})
+			.catch(error => console.error(error));  // TODO: handle
+	}, []);
 
 	function onDragEnd(result: DropResult) {
 		if (!result.destination || result.source.index === result.destination.index) {
@@ -103,76 +117,80 @@ export default function NoteEditor(props: NoteEditorProps) {
 	}
 
     return (
-        <>
-			<div className={styles.noteHeader}>
-				<p className={styles.noteHeaderTitle}>{title}</p>
-			</div>
+		<>
+			{ isLoading ? <LoadingSpinner /> :
+				<>
+					<div className={styles.noteHeader}>
+						<p className={styles.noteHeaderTitle}>{title}</p>
+					</div>
 
-			<DragDropContext onDragEnd={onDragEnd}>
-				<div className={styles.noteBody}>
-					<Droppable droppableId='droppable'>
-						{(provided: DroppableProvided, _: DroppableStateSnapshot) => (
-							<div
-								{...provided.droppableProps}
-								ref={provided.innerRef}
-							>
-								{blocks.map((blockData, i) => (
-									<Draggable key={blockData.uuid} draggableId={blockData.uuid} index={i} >
-										{(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
-											<div
-												className={`${styles.noteBlock}`}
-												ref={provided.innerRef}
-												{...provided.draggableProps}
-												onMouseOver={() => setCurrentHover(blockData.uuid)}
-											>
-												<div {...provided.dragHandleProps}>
-													<Icon
-														color='grey'
-														icon='material-symbols:drag-indicator'
-														className={`${styles.dragIcon} ${currentHover && styles.hovering}`}
-													/>
-												</div>
+					<DragDropContext onDragEnd={onDragEnd}>
+						<div className={styles.noteBody}>
+							<Droppable droppableId='droppable'>
+								{(provided: DroppableProvided, _: DroppableStateSnapshot) => (
+									<div
+										{...provided.droppableProps}
+										ref={provided.innerRef}
+									>
+										{blocks.map((blockData, i) => (
+											<Draggable key={blockData.uuid} draggableId={blockData.uuid} index={i} >
+												{(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
+													<div
+														className={`${styles.noteBlock}`}
+														ref={provided.innerRef}
+														{...provided.draggableProps}
+														onMouseOver={() => setCurrentHover(blockData.uuid)}
+													>
+														<div {...provided.dragHandleProps}>
+															<Icon
+																color='grey'
+																icon='material-symbols:drag-indicator'
+																className={`${styles.dragIcon} ${currentHover && styles.hovering}`}
+															/>
+														</div>
 
-												{getBlockComponent(blockData)}
-											</div>
-										)}
-									</Draggable>
-								))}
+														{getBlockComponent(blockData)}
+													</div>
+												)}
+											</Draggable>
+										))}
 
-								{/* 
-									* The placeholder fixes the dimensions of the container when an item is being dragged.
-									* See https://github.com/atlassian/react-beautiful-dnd/issues/462
-									*/}
-								{provided.placeholder}
-							</div>
-						)}
-					</Droppable>
-				</div>
+										{/* 
+											* The placeholder fixes the dimensions of the container when an item is being dragged.
+											* See https://github.com/atlassian/react-beautiful-dnd/issues/462
+											*/}
+										{provided.placeholder}
+									</div>
+								)}
+							</Droppable>
+						</div>
 
-				<CreateBlock onDrop={(e) => {
-					e.preventDefault()
-					e.stopPropagation()
+						<CreateBlock onDrop={(e) => {
+							e.preventDefault()
+							e.stopPropagation()
 
-					let src = ''
-					let file = e.dataTransfer.files.item(0);
-					let reader = new FileReader()
-					reader.onload = () => {
-						src = (reader.result as string)
-					}
-					if (file) {
-						reader.readAsDataURL(file)
-					}
-					addBlock("image", { src: src })
-				}} onClick={togglePopover} />
+							let src = ''
+							let file = e.dataTransfer.files.item(0);
+							let reader = new FileReader()
+							reader.onload = () => {
+								src = (reader.result as string)
+							}
+							if (file) {
+								reader.readAsDataURL(file)
+							}
+							addBlock("image", { src: src })
+						}} onClick={togglePopover} />
 
-				{popoverState && <Popover
-					title='Add block'
-					menu='CreateNew'
-					align='top'
-					inputCallback={addBlock}
-					buttonCallback={() => { }}
-					closeCallback={() => setPopoverState(false)} />}
-			</DragDropContext>
+						{popoverState && <Popover
+							title='Add block'
+							menu='CreateNew'
+							align='top'
+							inputCallback={addBlock}
+							buttonCallback={() => { }}
+							closeCallback={() => setPopoverState(false)} />}
+					</DragDropContext>	
+				</>
+			}
 		</>
     )
 }
