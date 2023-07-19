@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
-import CreateNewFolderMenu from './menus/createNewFolderMenu';
+import CreateNewFolderMenu from './menus/newItem/newFolderMenu';
 import CreateNewMenu from './menus/createNewMenu';
-import CreateNewNoteMenu from './menus/createNewNoteMenu';
+import CreateNewNoteMenu from './menus/newItem/newNoteMenu';
 import styles from './popup.module.css';
 import { usePopupContext } from './popupcontext';
 

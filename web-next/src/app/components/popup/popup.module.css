@@ -14,7 +14,7 @@
     transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
-.popupMain.inactive {
+.inactive {
     transform: scale(0.8) translate(-50%, -50%);
     opacity: 0;
 
@@ -36,6 +36,7 @@
     font-size: 24px;
 }
 
+/* close button icon */
 .popupClose {
     width: 30px;
     height: 30px;

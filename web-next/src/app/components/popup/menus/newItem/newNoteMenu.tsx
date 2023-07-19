@@ -1,18 +1,20 @@
 import { useNavigationContext } from '@/app/components/nav/navcontext';
-import { usePopupContext } from '@/app/components/popup/popupcontext';
 import LoadingSpinner from '@/app/components/util/LoadingSpinner';
-import { createFolder } from '@/app/lib/api';
-import { Icon } from '@iconify/react/dist/iconify';
+import { createNote } from '@/app/lib/api';
+import { Icon } from '@iconify/react/dist/iconify.js';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import styles from './menus.module.css';
+import { usePopupContext } from '../../popupcontext';
+import styles from './newItemMenu.module.css';
 
-export default function CreateNewFolderMenu(props: { closePopup: () => void }) {
+export default function CreateNewNoteMenu(props: { closePopup: () => void }) {
     const [creating, setCreating] = useState<boolean>(false);
     const [errorState, setErrorState] = useState<string | null>(null);
+    const router = useRouter();
     const popupState = usePopupContext();
     const navState = useNavigationContext();
 
-    async function handleCreateFolder(e: React.FormEvent) {
+    async function handleCreateNote(e: React.FormEvent) {
         setCreating(true);
         e.preventDefault();
         let target = e.currentTarget as HTMLFormElement;
@@ -26,8 +28,9 @@ export default function CreateNewFolderMenu(props: { closePopup: () => void }) {
         }
 
         try {
-            await createFolder(name as string, navState.path.map(path => path.uuid));
+            const createdNote = await createNote(name as string, navState.path.map(path => path.uuid));
             props.closePopup();
+            router.push(`/note/${createdNote.uuid}`)
             popupState.stateCallback(null); // stateCallback is loadNotes, no args should be passed
         } catch (e) {
             setErrorState(String(e));
@@ -37,8 +40,8 @@ export default function CreateNewFolderMenu(props: { closePopup: () => void }) {
     }
 
     return (
-        <form className={styles.createNewNote} onSubmit={handleCreateFolder}>
-            <input type="text" placeholder="Folder name" name="name" required />
+        <form className={styles.newItem} onSubmit={handleCreateNote}>
+            <input type="text" placeholder="Note name" name="name" required />
 
             {errorState &&
                 <p className={`${styles.formStatus} ${styles.formStatusError}`}>
