@@ -1,0 +1,38 @@
+.editItem {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+.editItem button {
+    outline: none;
+    border: none;
+    padding: 5px;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    font-weight: 800;
+    
+    cursor: pointer;
+}
+
+.editItem input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
+    font-size: 16px;
+
+    outline: none;
+    margin-bottom: 20px;
+}
+
+.deleteButton {
+    background-color: #FB4B4B;
+}
+
+.saveButton {
+    background-color: #3a946b;
+}

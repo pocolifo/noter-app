@@ -1,0 +1,90 @@
+.editorWrapper {
+    position: relative;
+
+    background-color: #202123;
+    border-radius: 10px;
+
+    z-index: 2;
+}
+
+.editorContent {
+    background-color: white;
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    border: solid;
+    border-color: #202123;
+    border-width: 2px;
+    border-radius: 5px;
+
+    font-size: 20;
+}
+
+.editorToolbar {
+    display: flex;
+    height: 4vh;
+    align-items: center;
+
+    background-color: #202123;
+
+    border-radius: 10px;
+}
+
+.editorButton {
+    background-color: #202123;
+
+    width: 2.5vh;
+    height: 2.5vh;
+
+    margin: 10px;
+
+    border: none;
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.editorButton:hover {
+    background-color: #383a3d;
+}
+
+.isActive {
+    background-color: #383a3d;
+}
+
+.editorDivider {
+    display: inline;
+
+    width: 1px;
+    height: 2vh;
+    margin-left: 8px;
+    margin-right: 8px;
+
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.editorCloseButton {
+    background-color: #202123;
+
+    width: 2.5vh;
+    height: 2.5vh;
+
+    margin: 10px;
+    margin-left: auto;
+
+    border: none;
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.editorOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    z-index: 1;
+}
