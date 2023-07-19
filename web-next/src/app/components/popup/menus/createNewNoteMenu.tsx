@@ -1,15 +1,16 @@
+import { useNavigationContext } from '@/app/components/nav/navcontext';
+import LoadingSpinner from '@/app/components/util/LoadingSpinner';
+import { createNote } from '@/app/lib/api';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { createNote } from '../../../lib/api';
-import LoadingSpinner from '../../util/LoadingSpinner';
 import { usePopupContext } from '../popupcontext';
-import { useNavigationContext } from '../../nav/navcontext';
 import styles from './menus.module.css';
 
 export default function CreateNewNoteMenu(props: { closePopup: () => void}) {
     const [creating, setCreating] = useState<boolean>(false);
     const [errorState, setErrorState] = useState<string | null>(null);
-    // const navigate = useNavigate();
+    const router = useRouter();
     const popupState = usePopupContext();
     const navState = useNavigationContext();
 
@@ -29,7 +30,7 @@ export default function CreateNewNoteMenu(props: { closePopup: () => void}) {
         try {
             const createdNote = await createNote(name as string, navState.path.map(path => path.uuid));
             props.closePopup();
-            // navigate(`/note/${createdNote.uuid}`);
+            router.push(`/note/${createdNote.uuid}`)
             popupState.stateCallback(null); // stateCallback is loadNotes, no args should be passed
         } catch (e) {
             setErrorState(String(e));

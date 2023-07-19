@@ -3,7 +3,7 @@ import PopoverEditItem from './menus/edititem';
 
 import { Icon } from '@iconify/react'
 
-import './popover.css';
+import styles from './popover.module.css';
 
 
 export interface PopoverProps {
@@ -13,7 +13,7 @@ export interface PopoverProps {
     menu: "CreateNew" | "EditItem";
 
     // where the arrow is relative to the popover body
-    align: 'top' | 'right' | 'bottom' | 'left';
+    align: 'top' | 'left';
 
     inputCallback: (_v: string) => void;
     buttonCallback: () => void;
@@ -38,19 +38,26 @@ export default function Popover(props: PopoverProps) {
             break;
     }
 
+    const alignStyle = {
+        'top': styles.top,
+        'left': styles.left
+    };
+
     return (
         <>
-            <div className='popover-overlay' onClick={props.closeCallback} />
-            <div className={`popover-main popover-${props.align}`}>
-                <p className='popover-title'> {props.title}
+            <div className={styles.overlay} onClick={props.closeCallback} />
+            <div className={`${styles.main} ${alignStyle[props.align]}`}>
+                <p className={styles.title}>
+                    {props.title}
+
                     <Icon
-                        className='popover-close'
+                        className={styles.close}
                         icon="fe:close"
                         color='#FFFFFF'
                         onClick={() => props.closeCallback()}
                     />
                 </p>
-                <div className='popover-section'>
+                <div className={styles.section}>
                     {popoverBody}
                 </div>
             </div>

@@ -3,10 +3,12 @@ import { API } from '@/app/lib/api';
 import { NoteData } from '@/app/lib/interfaces';
 import { headers } from 'next/dist/client/components/headers';
 
-async function getNoteData(id: string) {
-	const response = await fetch(`${API}/items/${id}`, {
+export default async function Note({ params }: { params: { id: string } }) {
+	const response = await fetch(`${API}/items/${params.id}`, {
 		headers: headers(),
-		cache: 'no-store'
+		next: {
+			revalidate: 0
+		}
 	});
 
 	const data = await response.json();
@@ -20,11 +22,6 @@ async function getNoteData(id: string) {
 		block.uuid = (Math.random() * 100).toString(16)
 	}
 
-	return note;
-}
-
-export default async function Note({ params }: { params: { id: string } }) {
-	const note = await getNoteData(params.id);
 
 	return <NoteEditor note={note} />;
 }

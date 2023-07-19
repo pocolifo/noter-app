@@ -1,9 +1,9 @@
-import { Icon } from '@iconify/react/dist/iconify.js';
+import { useNavigationContext } from '@/app/components/nav/navcontext';
+import { usePopupContext } from '@/app/components/popup/popupcontext';
+import LoadingSpinner from '@/app/components/util/LoadingSpinner';
+import { createFolder } from '@/app/lib/api';
+import { Icon } from '@iconify/react/dist/iconify';
 import { useState } from 'react';
-import { createFolder } from '../../../lib/api';
-import LoadingSpinner from '../../util/LoadingSpinner';
-import { usePopupContext } from '../popupcontext';
-import { useNavigationContext } from '../../nav/navcontext';
 import styles from './menus.module.css';
 
 export default function CreateNewFolderMenu(props: { closePopup: () => void }) {

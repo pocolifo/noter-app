@@ -1,4 +1,4 @@
-#createblock {
+.createBlock {
     margin: auto;
     text-align: center;
     width: calc(100% - 4vh);
@@ -9,7 +9,7 @@
     cursor: pointer;
 }
 
-#createblock > span {
+.text {
     font-size: 24px;
     display: flex;
     gap: 10px;
@@ -19,6 +19,6 @@
     margin: 3%;
 }
 
-.draggedover {
+.draggedOver {
     background-color: #add8e6;
 }

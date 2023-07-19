@@ -1,10 +1,8 @@
 import { Icon } from '@iconify/react';
-
-import styles from './popup.module.css';
-
 import CreateNewFolderMenu from './menus/createNewFolderMenu';
 import CreateNewMenu from './menus/createNewMenu';
 import CreateNewNoteMenu from './menus/createNewNoteMenu';
+import styles from './popup.module.css';
 import { usePopupContext } from './popupcontext';
 
 export default function Popup() {

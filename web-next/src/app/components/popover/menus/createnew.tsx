@@ -1,6 +1,8 @@
 import { Icon } from '@iconify/react';
 import { PopoverProps } from '../popover'
 
+import styles from "./createnew.module.css";
+
 interface ButtonInfo {
     text: string;
     icon: string;
@@ -48,14 +50,16 @@ export default function PopoverCreateNew(props: PopoverProps) {
 
 function Button(props: ButtonProps) {
     return (
-        <div className='popovermenu-createnew' onClick={props.onClick}>
+        <div className={styles.createNew} onClick={props.onClick}>
             <Icon
                 icon={props.info.icon}
                 color='#FFFFFF'
-                className='popoverbutton-icon'
+                className={styles.buttonIcon}
             />
 
-            <p className='popoverbutton-text'> {props.info.text} </p>
+            <p className={styles.buttonText}>
+                {props.info.text}
+            </p>
         </div>
     );
 }

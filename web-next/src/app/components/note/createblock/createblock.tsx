@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
-import './createblock.css'
 import { useState } from 'react';
+import styles from './createblock.module.css';
 
 interface CreateBlockProps {
     onClick: React.MouseEventHandler<HTMLButtonElement>,
@@ -12,14 +12,13 @@ export default function CreateBlock(props: CreateBlockProps) {
 
     return (
         <button 
-            id="createblock"
             onDragLeave={() => {setDroppedStyle(false)}}
             onDragOver={() => {setDroppedStyle(true)}}
-            className={droppedStyle ? 'draggedover' : ''}
+            className={`${droppedStyle && styles.draggedOver} ${styles.createBlock}`}
             onClick={props.onClick}
             onDrop={props.onDrop}
         >
-            <span>
+            <span className={styles.text}>
                 <Icon icon="fe:plus" color="#202123"></Icon>
                 New block or drop media
             </span>

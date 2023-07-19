@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import parse from 'html-react-parser';
+import { useState } from 'react';
 
-import "./contentblock.css";
+import contentBlockStyles from "./contentblock.module.css";
 
 import Editor from '../texteditor/texteditor';
 
@@ -19,7 +19,7 @@ export default function TextBlock(props: TextBlockProps) {
     function saveContent(htmlContent: string) {
         setContent(htmlContent);
         setEditing(false);
-        props.save({content: htmlContent})
+        props.save({ content: htmlContent })
     }
 
     function handleClick() {
@@ -30,8 +30,9 @@ export default function TextBlock(props: TextBlockProps) {
 
     return (
         <div
-            className={editing ? 'contentblock' : 'contentblock contentblock-border'}
-            onDoubleClick={handleClick}>
+            className={`${contentBlockStyles.contentBlock} ${editing && contentBlockStyles.contentBlockBorder}`}
+            onDoubleClick={handleClick}
+        >
             {
                 (editing)
                     ? <Editor htmlContent={content} closeCallback={saveContent} />

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import "./contentblock.css"
-import "./imageblock.css"
 import { Icon } from '@iconify/react'
+
+import contentBlockStyles from "./contentblock.module.css";
+import imageBlockStyles from "./imageblock.module.css";
 
 interface ImageBlockProps {
     src: string;
@@ -16,36 +17,40 @@ export default function ImageBlock(props: ImageBlockProps) {
     const [isLarge, setIsLarge] = useState(false)
 
     return (
-        <div className="contentblock contentblock-border">
+        <div className={`${contentBlockStyles.contentBlock} ${contentBlockStyles.contentBlockBorder}`}>
             {imageSrc == undefined ?
-                <div className="select-image">
-                    <label htmlFor="imageupload">
-                        <input id='imageupload' type="file" accept='image/*' style={{ display: 'none' }} onChange={(e) => {
-                            let [file] = e.target.files as FileList
-                            let reader = new FileReader()
-                            reader.onload = () => {
-                                setImageSrc(reader.result as string)
+                <div className={imageBlockStyles.selectImage}>
+                    <label htmlFor="imageupload">Select Image</label>
 
-                                // `src` must be set to `reader.result as string` because `imageSrc` isn't updated immediately
-                                props.save({ src: reader.result as string, alt: imageAlt })
-                            }
-                            if (file) {
-                                reader.readAsDataURL(file)
-                            }
-                        }} />
-                        <Icon
-                            icon='fe:picture'
-                            color="#000000"
-                            className="select-image-icon"
-                        />
-                        Select Image
-                    </label>
+                    <input id='imageupload' type="file" accept='image/*' style={{ display: 'none' }} onChange={(e) => {
+                        const files = e.target.files as FileList;
+                        const file = files.item(0);
+                        const reader = new FileReader();
+                        
+                        reader.onload = () => {
+                            setImageSrc(reader.result as string);
+
+                            // `src` must be set to `reader.result as string` because `imageSrc` isn't updated immediately
+                            props.save({ src: reader.result as string, alt: imageAlt });
+                        };
+
+                        if (file) {
+                            reader.readAsDataURL(file);
+                        }
+                    }} />
+                    
+                    <Icon
+                        icon='fe:picture'
+                        color="#000000"
+                        className="select-image-icon"
+                    />
                 </div>
                 :
-                <div className={isLarge ? 'image-container large' : 'image-container'}>
-                    <img className='image' src={imageSrc} alt={imageAlt} onClick={() => setIsLarge(!isLarge)} />
+                <div className={`${imageBlockStyles.imageContainer} ${isLarge && imageBlockStyles.large }`}>
+                    <img className={imageBlockStyles.image} src={imageSrc} alt={imageAlt} onClick={() => setIsLarge(!isLarge)} />
+
                     <input
-                        className="image-caption"
+                        className={imageBlockStyles.imageCaption}
                         placeholder="Add a caption"
                         value={imageAlt}
                         onChange={(e) => setImageAlt(e.target.value)}

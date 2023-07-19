@@ -1,19 +1,19 @@
-.contentblock {
+.contentBlock {
     margin: 2vh;
     background-color: white;
 }
 
-.contentblock > h1 {
+.contentBlock > h1 {
     font-size: 32px;
     font-weight: 700;
 }
 
-.contentblock > p {
+.contentBlock > p {
     font-size: 20px;
     font-weight: 400;
 }
 
-.contentblock-border {
+.contentBlockBorder {
     padding: 1vh;
 
     border: solid;
@@ -22,6 +22,6 @@
     border-radius: 10px;
 }
 
-.contentblock-border:hover {
+.contentBlockBorder:hover {
     border-color: lightgray;
 }

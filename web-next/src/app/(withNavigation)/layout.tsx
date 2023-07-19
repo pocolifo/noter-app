@@ -8,8 +8,6 @@ import { PopupProvider } from "../components/popup/popupcontext";
 
 import styles from "./layout.module.css";
 
-const inter = Inter({ subsets: ['latin'] })
-
 export default function NavigationLayout({ children }: { children: React.ReactNode }) {
     return (
         <PopupProvider>

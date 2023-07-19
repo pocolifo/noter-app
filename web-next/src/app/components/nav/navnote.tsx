@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { NavItemProps } from '../../lib/interfaces';
 import Popover from '../popover/popover';
@@ -7,11 +8,12 @@ import styles from "./nav.module.css";
 
 export default function Note(props: NavItemProps) {
     const [showOptions, setShowOptions] = useState(false)
+    const params = useParams();
 
     return (
         <Link href={`/note/${props.uuid}`} className={styles.navItemLink}>
             {/* window.location.pathname is not reactive, make it reactive */}
-            <div className={`${styles.navItem} ${styles.navItemActive}`}>
+            <div className={`${styles.navItem} ${params.id === props.uuid && styles.navItemActive}`}>
                 <div className={styles.navItemContent}>
                     <Icon icon="fe:book" color="#FFFFFF" />
                     <p className={styles.navItemTitle}>{props.title}</p>

@@ -104,6 +104,7 @@ export default function NavBar() {
                                     setTitle={(title) => setTitle(item.uuid, title)}
                                     delete={() => removeItem(item.uuid)}
                                 />
+
                             case 'folder':
                                 return <Folder
                                     title={item.title}
@@ -113,6 +114,7 @@ export default function NavBar() {
                                     setTitle={(title) => setTitle(item.uuid, title)}
                                     delete={() => removeItem(item.uuid)}
                                 />
+                                
                             default:
                                 return <></>
                         }

@@ -1,21 +1,21 @@
-.contentblock .image {
+.image {
     max-width: 100%;
 }
 
-.contentblock .select-image {
+.selectImage {
     border: 1px dashed rgb(62, 62, 62);
     padding: 1vh;
     width: fit-content;
 }
 
-.contentblock .select-image > label {
+.selectImage > label {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
 
-.contentblock .image-container {
+.imageContainer {
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -23,11 +23,11 @@
     width: 50%;
 }
 
-.contentblock .image-container.large {
+.imageContainer.large {
     width: 100%;
 }
 
-.contentblock .image-container .image-caption {
+.imageCaption {
     font-style: italic;
     font-size: 16px;
     font-weight: 400;
@@ -37,7 +37,7 @@
     outline: none;
 }
 
-.contentblock .image-container .image-caption::placeholder {
+.imageCaption::placeholder {
     color: lightgrey;
     font-weight: 200;
 }
