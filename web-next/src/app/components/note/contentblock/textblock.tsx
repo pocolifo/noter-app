@@ -1,7 +1,7 @@
 import parse from 'html-react-parser';
 import { useState } from 'react';
 
-import contentBlockStyles from "./contentblock.module.css";
+import styles from "./contentblock.module.css";
 
 import Editor from '../texteditor/texteditor';
 
@@ -30,7 +30,7 @@ export default function TextBlock(props: TextBlockProps) {
 
     return (
         <div
-            className={`${contentBlockStyles.contentBlock} ${editing && contentBlockStyles.contentBlockBorder}`}
+            className={styles.contentBlock}
             onDoubleClick={handleClick}
         >
             {

@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Icon } from '@iconify/react'
 
-import contentBlockStyles from "./contentblock.module.css";
-import imageBlockStyles from "./imageblock.module.css";
+import styles from "./contentblock.module.css";
 
 interface ImageBlockProps {
     src: string;
@@ -17,9 +16,9 @@ export default function ImageBlock(props: ImageBlockProps) {
     const [isLarge, setIsLarge] = useState(false)
 
     return (
-        <div className={`${contentBlockStyles.contentBlock} ${contentBlockStyles.contentBlockBorder}`}>
+        <div className={styles.contentBlock}>
             {imageSrc == undefined ?
-                <div className={imageBlockStyles.selectImage}>
+                <div className={styles.selectImage}>
                     <label htmlFor="imageupload">Select Image</label>
 
                     <input id='imageupload' type="file" accept='image/*' style={{ display: 'none' }} onChange={(e) => {
@@ -42,15 +41,14 @@ export default function ImageBlock(props: ImageBlockProps) {
                     <Icon
                         icon='fe:picture'
                         color="#000000"
-                        className="select-image-icon"
                     />
                 </div>
                 :
-                <div className={`${imageBlockStyles.imageContainer} ${isLarge && imageBlockStyles.large }`}>
-                    <img className={imageBlockStyles.image} src={imageSrc} alt={imageAlt} onClick={() => setIsLarge(!isLarge)} />
+                <div className={`${styles.imageContainer} ${isLarge && styles.large}`}>
+                    <img src={imageSrc} alt={imageAlt} onClick={() => setIsLarge(!isLarge)} />
 
                     <input
-                        className={imageBlockStyles.imageCaption}
+                        className={styles.imageCaption}
                         placeholder="Add a caption"
                         value={imageAlt}
                         onChange={(e) => setImageAlt(e.target.value)}

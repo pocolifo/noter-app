@@ -1,6 +1,5 @@
 import { useState } from "react";
-import contentBlockStyles from "./contentblock.module.css"
-import headerBlockStyles from "./headerblock.module.css"
+import styles from "./contentblock.module.css"
 
 interface HeaderProps {
     text: string;
@@ -12,10 +11,10 @@ export default function HeaderBlock(props: HeaderProps) {
     let [headerText, setHeaderText] = useState<string>(props.text == undefined ? '' : props.text);
 
     return (
-        <div className={contentBlockStyles.contentBlock}>
+        <div className={styles.contentBlock}>
             <input
                 type='text'
-                className={headerBlockStyles.headerBlockHeader}
+                className={styles.header}
                 placeholder="Section header..."
                 value={headerText}
                 onChange={(e) => setHeaderText(e.target.value)}
