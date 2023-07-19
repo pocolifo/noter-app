@@ -28,5 +28,23 @@
 
 .noteBlock {
     display: grid;
-    grid-template-columns: 32px 1fr;
+    grid-template-columns: 32px 1fr 32px;
+
+    align-items: center;
+}
+
+.deleteButton {
+    display: contents;
+}
+
+.deleteIcon {
+    color: grey;
+    width: 30px;
+    height: 30px;
+
+    transition: 0.2s ease;
+}
+
+.deleteIcon:hover {
+    color: #FB4B4B;
 }

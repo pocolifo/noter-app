@@ -46,6 +46,12 @@ export default function NoteEditor(props: NoteEditorProps) {
 		}))
 	}
 
+	function deleteBlock(uuid: string) {
+		setBlocks(blocks.filter((block, _) => {
+			return block.uuid !== uuid
+		}))
+	}
+
 	function togglePopover() {
 		setPopoverState(!popoverState);
 	}
@@ -150,6 +156,16 @@ export default function NoteEditor(props: NoteEditorProps) {
 														</div>
 
 														{getBlockComponent(blockData)}
+
+														<button 
+															className={styles.deleteButton} 
+															onClick={() => deleteBlock(blockData.uuid)}
+														>
+															<Icon 
+																icon='fe:trash'
+																className={styles.deleteIcon}
+															/>
+														</button>
 													</div>
 												)}
 											</Draggable>
