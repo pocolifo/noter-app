@@ -1,0 +1,88 @@
+.overlay {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.main {
+    position: relative;
+
+    width: fit-content;
+
+    border-radius: 10px;
+
+    background-color: #202123;
+
+    animation-name: fade-in;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards;
+
+    box-shadow: black 0 0 20px;
+}
+
+.top {
+    left: 50%;
+}
+
+.top::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    width: 0;
+    height: 0;
+    border: 15px solid transparent;
+    border-bottom-color: #202123;
+}
+
+.left {
+    top: calc(-100% - 50px); /* black magic fuckery */
+    left: calc(100% + 101px + 15px); /* (100% + half the width of the popover + the width of the arrow) - vim "css magician" pro */
+}
+
+.left::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-100%, -100%);
+    width: 0;
+    height: 0;
+    border: 15px solid transparent;
+    border-right-color: #202123;
+}
+
+.title {
+    text-align: left;
+    padding: 10px;
+
+    color: white;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.section {
+    display: flex;
+}
+
+.close {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    float: right;
+}
+
+@keyframes fade-in {
+    0% {
+        transform: translate(-50%, -0%);
+        opacity: 0%;
+    }
+    100% {
+        transform: translate(-50%, -15%);
+        opacity: 100%
+    }
+}
