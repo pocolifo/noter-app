@@ -1,16 +1,6 @@
 .contentBlock {
-    margin: 2vh;
     background-color: white;
-    padding: 1vh;
-
-    border: solid;
-    border-color: white;
-    border-width: 1px;
-    border-radius: 10px;
-}
-
-.contentBlock:hover {
-    border-color: lightgray;
+    margin: 10px;
 }
 
 /* header styles */

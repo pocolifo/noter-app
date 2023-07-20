@@ -23,7 +23,7 @@ export default function TextBlock(props: TextBlockProps) {
     }
 
     function handleClick() {
-        if (!editing) {
+        if (!editing && window.getSelection()?.type !== 'Range') {
             setEditing(true);
         }
     }
