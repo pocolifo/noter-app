@@ -16,17 +16,47 @@
     text-align: left;
 }
 
+.content {
+    border: solid;
+    border-color: white;
+    border-width: 1px;
+    border-radius: 10px;
+}
+
+.content.active {
+    border-color: lightgray;
+}
+
 .dragIcon {
     height: 30px;
     width: 30px;
-    display: none;
 }
 
-.dragIcon.hovering {
-    display: unset;
+.hidden {
+    display: none;
 }
 
 .noteBlock {
     display: grid;
-    grid-template-columns: 32px 1fr;
+    grid-template-columns: 32px 1fr 32px;
+    gap: 10px;
+
+    align-items: center;
+    margin: 1em;
+}
+
+.deleteButton {
+    display: contents;
+}
+
+.deleteIcon {
+    color: grey;
+    width: 30px;
+    height: 30px;
+
+    transition: 0.2s ease;
+}
+
+.deleteIcon:hover {
+    color: #FB4B4B;
 }
