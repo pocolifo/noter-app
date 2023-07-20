@@ -133,7 +133,7 @@ export default function NoteEditor(props: NoteEditorProps) {
 					<DragDropContext onDragEnd={onDragEnd}>
 						<div className={styles.noteBody}>
 							<Droppable droppableId='droppable'>
-								{(provided: DroppableProvided, _: DroppableStateSnapshot) => (
+								{(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
 									<div
 										{...provided.droppableProps}
 										ref={provided.innerRef}
@@ -156,7 +156,7 @@ export default function NoteEditor(props: NoteEditorProps) {
 															/>
 														</div>
 
-														<div className={`${styles.content} ${currentHover === blockData.uuid && styles.active}`}>
+														<div className={`${styles.content} ${currentHover === blockData.uuid && !snapshot.isDraggingOver ? styles.active : null}`}>
 															{getBlockComponent(blockData)}
 														</div>
 
