@@ -75,6 +75,10 @@
     background-color: #383a3d;
 }
 
+.draggingOver {
+    background-color: #17abef;
+}
+
 .navItemTitle {
     color: white;
 
