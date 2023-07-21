@@ -1,4 +1,4 @@
-import { FolderData, NoteData } from "./interfaces";
+import { FolderData, NoteData, UserData } from "./interfaces";
 
 // the base api path
 export const API = "http://localhost:8000"
@@ -142,6 +142,31 @@ export async function authenticate(): Promise<boolean> {
         const responseJson = await response.json()
 
         return Promise.resolve(responseJson.user !== null)
+    } catch (error) {
+        return Promise.reject(error)
+    }
+}
+
+export async function getUserData(): Promise<UserData> {
+    try {
+        const response = await fetch(`${API}/`, {
+            credentials: "include",
+        })
+
+        const responseJson = await response.json();
+
+        if (responseJson.user === null) {
+            throw new Error('No user found, probably not authenticated')
+        }
+
+        const userData: UserData = {
+            name: responseJson.name,
+            pfp: responseJson.pfp,
+            email: responseJson.email,
+            password: 'test'
+        }
+
+        return Promise.resolve(userData);
     } catch (error) {
         return Promise.reject(error)
     }

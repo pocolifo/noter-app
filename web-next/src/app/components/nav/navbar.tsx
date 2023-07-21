@@ -10,6 +10,7 @@ import { deleteItem, getItemsByFolder, updateItem } from '../../lib/api';
 import LoadingSpinner from '../util/LoadingSpinner';
 
 import styles from "./nav.module.css";
+import Link from 'next/link';
 
 export default function NavBar() {
     const popupState = usePopupContext();
@@ -119,6 +120,20 @@ export default function NavBar() {
                                 return <></>
                         }
                     })}
+            </div>
+
+            <div className={styles.navFooter}>
+                <hr/>
+
+                <div className={styles.navFooterContent}>
+                    <Link href={'/settings'} className={styles.navItemLink}>
+                        <Icon
+                            icon='clarity:settings-line'
+                            className={styles.navHeaderButton}
+                            color='#FFFFFF'
+                        />
+                    </Link>
+                </div>
             </div>
         </div>
     );

@@ -11,17 +11,18 @@ import styles from "./layout.module.css";
 export default function NavigationLayout({ children }: { children: React.ReactNode }) {
     return (
         <PopupProvider>
-            <NavigationProvider>
-                <Popup />
-                
-                <div className={styles.container}>
-                    <NavBar />
+        <NavigationProvider>
+        
+            <Popup />
+            
+            <div className={styles.container}>
+                <NavBar />
 
-                    <div>
-                        {children}
-                    </div>
+                <div>
+                    {children}
                 </div>
-            </NavigationProvider>
+            </div>
+        </NavigationProvider>
         </PopupProvider>
     )
 }

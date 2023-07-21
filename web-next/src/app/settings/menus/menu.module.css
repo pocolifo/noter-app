@@ -1,0 +1,32 @@
+.content {
+    margin: 40px;
+}
+
+.header {
+    font-size: xx-large;
+    margin: 0;
+}
+
+.textbox {
+    margin-top: 5vh;
+}
+
+.textbox > p {
+    margin: 2px;
+    color: gray;
+}
+
+.textbox > input {
+    height: 20px;
+    width: 200px;
+
+    outline: none;
+    border: solid;
+    border-width: 1px;
+    border-color: gray;
+    border-radius: 5px;
+}
+
+.button {
+    
+}

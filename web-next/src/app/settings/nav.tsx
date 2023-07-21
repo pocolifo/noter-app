@@ -1,7 +1,7 @@
 import styles from './nav.module.css'
 
 interface NavProps {
-    linkList: any; // too lazy to type in actual typename
+    linkList: {[key: string]: JSX.Element};
 
     clickCallback: (_v: string) => void;
 }
@@ -15,9 +15,11 @@ interface NavItemProps {
 export default function Navbar(props: NavProps) {
     return (
         <div className={styles.nav}>
-            {props.linkList.map((item, i) => ( // cant map list of key-value pairs
-                <NavItem link={item} clickCallback={props.clickCallback}/>
-            ))}
+            {
+                Object.entries(props.linkList).map(([key, _v]) => (
+                    <NavItem link={key} clickCallback={props.clickCallback} key={key} />
+                ))
+            }
         </div>
     )
 }
@@ -27,9 +29,13 @@ function NavItem(props: NavItemProps) {
         props.clickCallback(props.link);
     }
 
+    function capitalize(text: string) {
+        return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+
     return (
         <div className={styles.item} onClick={handleClick}>
-
+            <div className={styles.title}> {capitalize(props.link)} </div>
         </div>
     )
 }
