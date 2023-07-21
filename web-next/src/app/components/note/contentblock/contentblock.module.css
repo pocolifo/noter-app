@@ -29,7 +29,7 @@
 
 .selectImage {
     border: 1px dashed rgb(62, 62, 62);
-    padding: 1vh;
+    padding: 1em;
     width: fit-content;
 }
 

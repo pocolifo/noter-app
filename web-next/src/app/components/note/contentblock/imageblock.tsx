@@ -19,13 +19,19 @@ export default function ImageBlock(props: ImageBlockProps) {
         <div className={styles.contentBlock}>
             {imageSrc == undefined ?
                 <div className={styles.selectImage}>
-                    <label htmlFor="imageupload">Select Image</label>
+                    <label htmlFor="imageupload">
+                        <Icon
+                            icon='fe:picture'
+                            color="#000000"
+                        />
+                        Select Image
+                    </label>
 
                     <input id='imageupload' type="file" accept='image/*' style={{ display: 'none' }} onChange={(e) => {
                         const files = e.target.files as FileList;
                         const file = files.item(0);
                         const reader = new FileReader();
-                        
+
                         reader.onload = () => {
                             setImageSrc(reader.result as string);
 
@@ -37,11 +43,8 @@ export default function ImageBlock(props: ImageBlockProps) {
                             reader.readAsDataURL(file);
                         }
                     }} />
-                    
-                    <Icon
-                        icon='fe:picture'
-                        color="#000000"
-                    />
+
+
                 </div>
                 :
                 <div className={`${styles.imageContainer} ${isLarge && styles.large}`}>
