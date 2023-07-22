@@ -1,7 +1,8 @@
 .createBlock {
     margin: auto;
     text-align: center;
-    width: calc(100% - 4vh);
+    width: calc(100% - 2*15px - 2*32px);
+    padding: 4em;
 
     border: 2px dashed #202123;
     background-color: white;
@@ -15,8 +16,6 @@
     gap: 10px;
     justify-content: center;
     align-items: center;
-
-    margin: 3%;
 }
 
 .draggedOver {

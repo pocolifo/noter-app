@@ -18,15 +18,15 @@ import { ContentBlock, NoteData } from '../../../lib/interfaces';
 
 
 interface NoteEditorProps {
-    noteId: string;
+	noteId: string;
 }
 
 export default function NoteEditor(props: NoteEditorProps) {
-    const [blocks, setBlocks] = useState<ContentBlock[]>([]);
+	const [blocks, setBlocks] = useState<ContentBlock[]>([]);
 	const [title, setTitle] = useState<string>('');
 	const [popoverState, setPopoverState] = useState(false);
 	const [currentHover, setCurrentHover] = useState<string>('');
-	const [ isLoading, setLoading ] = useState<boolean>(false);
+	const [isLoading, setLoading] = useState<boolean>(false);
 
 	function addBlock(blockType: string, data?: object) {
 		let newBlock: ContentBlock = {
@@ -43,6 +43,12 @@ export default function NoteEditor(props: NoteEditorProps) {
 	function saveBlock(content: object, uuid: string) {
 		setBlocks(blocks.map((block, _) => {
 			return (block.uuid === uuid ? { ...block, data: content } : block)
+		}))
+	}
+
+	function deleteBlock(uuid: string) {
+		setBlocks(blocks.filter((block, _) => {
+			return block.uuid !== uuid
 		}))
 	}
 
@@ -116,9 +122,9 @@ export default function NoteEditor(props: NoteEditorProps) {
 		}
 	}
 
-    return (
+	return (
 		<>
-			{ isLoading ? <LoadingSpinner /> :
+			{isLoading ? <LoadingSpinner /> :
 				<>
 					<div className={styles.noteHeader}>
 						<p className={styles.noteHeaderTitle}>{title}</p>
@@ -127,29 +133,42 @@ export default function NoteEditor(props: NoteEditorProps) {
 					<DragDropContext onDragEnd={onDragEnd}>
 						<div className={styles.noteBody}>
 							<Droppable droppableId='droppable'>
-								{(provided: DroppableProvided, _: DroppableStateSnapshot) => (
+								{(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
 									<div
 										{...provided.droppableProps}
 										ref={provided.innerRef}
 									>
 										{blocks.map((blockData, i) => (
 											<Draggable key={blockData.uuid} draggableId={blockData.uuid} index={i} >
-												{(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
+												{(provided: DraggableProvided, _: DraggableStateSnapshot) => (
 													<div
 														className={`${styles.noteBlock}`}
 														ref={provided.innerRef}
 														{...provided.draggableProps}
 														onMouseOver={() => setCurrentHover(blockData.uuid)}
+														onMouseLeave={() => setCurrentHover('')}
 													>
 														<div {...provided.dragHandleProps}>
 															<Icon
 																color='grey'
 																icon='material-symbols:drag-indicator'
-																className={`${styles.dragIcon} ${currentHover && styles.hovering}`}
+																className={`${styles.dragIcon} ${currentHover !== blockData.uuid && styles.hidden}`}
 															/>
 														</div>
 
-														{getBlockComponent(blockData)}
+														<div className={`${styles.content} ${currentHover === blockData.uuid && !snapshot.isDraggingOver ? styles.active : null}`}>
+															{getBlockComponent(blockData)}
+														</div>
+
+														<button
+															className={styles.deleteButton}
+															onClick={() => deleteBlock(blockData.uuid)}
+														>
+															<Icon
+																icon='fe:trash'
+																className={`${styles.deleteIcon} ${currentHover !== blockData.uuid && styles.hidden}`}
+															/>
+														</button>
 													</div>
 												)}
 											</Draggable>
@@ -188,9 +207,9 @@ export default function NoteEditor(props: NoteEditorProps) {
 							inputCallback={addBlock}
 							buttonCallback={() => { }}
 							closeCallback={() => setPopoverState(false)} />}
-					</DragDropContext>	
+					</DragDropContext>
 				</>
 			}
 		</>
-    )
+	)
 }

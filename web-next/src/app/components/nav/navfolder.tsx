@@ -6,6 +6,7 @@ import { useState } from 'react';
 export interface FolderProps {
     title: string;
     uuid: string;
+    highlight: boolean;
 
     navigateFolder: (uuid: string, title: string) => void;
     setTitle: (title: string) => void;
@@ -17,7 +18,7 @@ export default function Folder(props: FolderProps) {
 
     return (
         <div className={styles.navItem}>
-            <div className={styles.navItemContent} onClick={() => props.navigateFolder(props.uuid, props.title)}>
+            <div className={`${styles.navItemContent} ${props.highlight && styles.draggingOver}`} onClick={() => props.navigateFolder(props.uuid, props.title)}>
                 <Icon icon="fe:folder" color="#FFFFFF" />
                 <p className={styles.navItemTitle}>{props.title}</p>
 

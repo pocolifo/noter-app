@@ -1,16 +1,7 @@
 .contentBlock {
-    margin: 2vh;
     background-color: white;
-    padding: 1vh;
-
-    border: solid;
-    border-color: white;
-    border-width: 1px;
-    border-radius: 10px;
-}
-
-.contentBlock:hover {
-    border-color: lightgray;
+    margin: 10px;
+    padding: 10px;
 }
 
 /* header styles */
@@ -38,7 +29,7 @@
 
 .selectImage {
     border: 1px dashed rgb(62, 62, 62);
-    padding: 1vh;
+    padding: 1em;
     width: fit-content;
 }
 
