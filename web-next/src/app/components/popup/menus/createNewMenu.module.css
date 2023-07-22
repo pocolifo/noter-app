@@ -1,0 +1,39 @@
+.createNew {
+    display: flex;
+    gap: 2rem;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    padding-bottom: 2vh;
+    padding-left: 5vh;
+    padding-right: 5vh;
+}
+
+.option {
+    text-align: center;
+    transition: transform 0.15s ease;
+}
+
+.option:active {
+    transform: scale(0.9);
+}
+
+.option button {
+    width: 144px;
+    height: 144px;
+    border-radius: 16px;
+    padding: 10px;
+
+    cursor: pointer;
+    border: none;
+}
+
+.option p {
+    color: white;
+}
+
+.icon {
+    width: 70%;
+    height: 70%;
+}

@@ -1,0 +1,109 @@
+.nav {
+    position: relative;
+
+    background-color: #202123;
+    color: #ffffff;
+}
+
+.nav .notice {
+    color: #aaaaaa;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+}
+
+.navHeader {
+    display: flex;
+
+    margin: 10px;
+}
+
+.navHeaderTitle {
+    font-weight: bold;
+    font-size: large;
+    color: white;
+
+    text-align: left;
+}
+
+.navHeaderButton {
+    width: 25px;
+    min-width: 25px;
+    height: 25px;
+    min-height: 25px;
+
+    display: inline-block;
+    margin-top: auto;
+    margin-bottom: auto;
+
+    cursor: pointer;
+}
+
+.navFooter {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+}
+
+.navFooter > hr {
+    margin-left: 8px;
+    margin-right: 8px;
+
+    background-color: #383a3d
+}
+
+.navFooterContent {
+    display: flex;
+    margin: 2vh;
+}
+
+.navItem {
+    height: 50px;
+    margin-top: 5px;
+    
+    cursor: pointer;
+}
+
+.navItemOptions {
+    display: block;
+    margin-left: auto;
+}
+
+.navItemContent {
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navItem svg {
+    width: 24px;
+    height: 24px;
+}
+
+.navItemActive {
+    border-left: 1px solid white;
+}
+
+.navItemActive p {
+    font-weight: 700;
+}
+
+.navItem:hover {
+    background-color: #383a3d;
+}
+
+.navItemTitle {
+    color: white;
+
+    height: auto;
+    vertical-align: middle;
+}
+
+.navItemLink {
+    text-decoration: none;
+}

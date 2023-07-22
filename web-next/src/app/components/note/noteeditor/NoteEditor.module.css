@@ -1,0 +1,32 @@
+.noteBody {
+    text-align: left;
+    margin: 15px;
+}
+
+.noteHeader {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.noteHeaderTitle {
+    font-size: 48px;
+    font-weight: bolder;
+
+    margin: 15px;
+    text-align: left;
+}
+
+.dragIcon {
+    height: 30px;
+    width: 30px;
+    display: none;
+}
+
+.dragIcon.hovering {
+    display: unset;
+}
+
+.noteBlock {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+}
