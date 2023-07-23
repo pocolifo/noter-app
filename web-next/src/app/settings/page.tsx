@@ -24,7 +24,8 @@ export default function Account() {
             <Navbar linkList={pageList} clickCallback={setCurrentPage}/>
 
             <div className={styles.content}>
-                {pageList[currentPage]}
+                {/* {pageList[currentPage]} */}
+                <Profile/>
             </div>
         </div>
         </UserDataProvider>

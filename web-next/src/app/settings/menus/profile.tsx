@@ -1,48 +1,67 @@
+"use client";
+
 import { useEffect, useState } from 'react'
 
 import styles from './menu.module.css'
 
 import { getUserData } from '@/app/lib/api'
 import { UserData } from '@/app/lib/interfaces'
-import { useUserDataContext } from './userdatacontext'
+import { UserDataProvider, useUserDataContext } from './userdatacontext'
 import Textbox from '@/app/components/settings/textbox'
+import Pfp from '@/app/components/settings/pfp';
 
 export default function Profile() {
     const userDataContext = useUserDataContext();
-
     const [loading, setLoading] = useState<boolean>(true);
 
-    function setUserData(data: UserData) {
-        userDataContext.setName(data.name);
-        userDataContext.setPfp(data.pfp);
-        userDataContext.setEmail(data.email);
-    
-        console.log(data.name + userDataContext.name)
+    const initialData = { ...userDataContext };
+
+    function saveData() {
+        const newName = (document.getElementById('namefield') as HTMLInputElement).value;
+        const newEmail = (document.getElementById('emailfield') as HTMLInputElement).value;
+
+        if (initialData.name !== newName) {
+            userDataContext.setName(newName);
+        }
+        if (initialData.email !== newEmail) {
+            userDataContext.setEmail(newEmail);
+        }
     }
-
-    useEffect(() => {
-        console.log('using effect');
-        getUserData()
-        .then((data) => {
-            userDataContext.setName(data.name);
-            userDataContext.setPfp(data.pfp);
-            userDataContext.setEmail(data.email);
-            // setUserData(data)
-        })
-        .finally(() => setLoading(false));
-    }, []);
-
 
     return (
         <div className={styles.content}>
             <p className={styles.header}> Profile settings </p>
             <hr/>
 
-            <Textbox 
-                header='Name'
-                value={userDataContext.name}
-                callback={userDataContext.setName}
-            />
+            <div className={styles.main}>
+                <div>
+                    <Textbox 
+                        header='Name'
+                        inputId='namefield'
+                        value={userDataContext.name}
+                        callback={userDataContext.setName}
+                    />
+                    <Textbox 
+                        header='Email'
+                        inputId='emailfield'
+                        value={userDataContext.email}
+                        callback={userDataContext.setEmail}
+                    />
+
+                    <div className={styles.textbox}>
+                        <p> Password </p>
+                        <button className={styles.button}> Change password </button>
+                    </div>
+                    
+                    <button onClick={saveData} className={styles.button}> Update profile </button>
+                </div>
+                
+                <Pfp
+                    header='Profile picture'
+                    value={userDataContext.pfp}
+                    callback={userDataContext.setPfp}
+                />
+            </div>
         </div>
     )
 }

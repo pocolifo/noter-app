@@ -1,5 +1,8 @@
+"use client";
+
 import { UserData } from '@/app/lib/interfaces';
-import { createContext, useState, useContext, ReactNode, useEffect } from 'react'
+import { getUserData, changeName, changePfp, changeEmail } from '@/app/lib/api';
+import { createContext, useState, useContext, ReactNode, useEffect, useRef } from 'react'
 
 interface UserDataContextProps {
     name: string;
@@ -14,25 +17,48 @@ interface UserDataContextProps {
 
 const UserDataContext = createContext<UserDataContextProps>({
     name: '',
-    setName: () => {},
+    setName: (_v: string) => {},
 
     pfp: '',
-    setPfp: () => {},
+    setPfp: (_v: string) => {},
 
     email: '',
-    setEmail: () => {}
+    setEmail: (_v: string) => {}
 });
 
 export const useUserDataContext = () => useContext(UserDataContext);
 
 export function UserDataProvider({ children }: { children: ReactNode }) {
-    const [nameState, setNameState] = useState<string>('dddd');
+    const [nameState, setNameState] = useState<string>('');
     const [pfpState, setPfpState] = useState<string>('');
     const [emailState, setEmailState] = useState<string>('');
 
     useEffect(() => {
-        console.log(nameState, pfpState, emailState);
-    }, [nameState, pfpState, emailState])
+        getUserData()
+        .then((data) => {
+            setNameState(data.name);
+            setPfpState(data.pfp);
+            setEmailState(data.email);
+        });
+    }, [])
+    
+    useEffect(() => {
+        if (pfpState !== '') {
+            changePfp(pfpState)
+        }
+    }, [pfpState]);
+
+    useEffect(() => {
+        if (nameState !== '') {
+            changeName(nameState)
+        }
+    }, [nameState]);
+
+    useEffect(() => {
+        if (emailState !== '') {
+            changeEmail(emailState)
+        }
+    }, [emailState]);
 
     return (
         <UserDataContext.Provider value={{
