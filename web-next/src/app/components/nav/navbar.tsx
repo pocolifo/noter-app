@@ -11,6 +11,7 @@ import LoadingSpinner from '../util/LoadingSpinner';
 import type { DraggableProvided, DraggableStateSnapshot, DropResult, DroppableProvided, DroppableStateSnapshot } from 'react-beautiful-dnd';
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import styles from "./nav.module.css";
+import Link from 'next/link';
 
 export default function NavBar() {
     const popupState = usePopupContext();
@@ -171,6 +172,20 @@ export default function NavBar() {
                             </Droppable>
                         </DragDropContext>
                 }
+            </div>
+
+            <div className={styles.navFooter}>
+                <hr/>
+
+                <div className={styles.navFooterContent}>
+                    <Link href={'/settings'} className={styles.navItemLink}>
+                        <Icon
+                            icon='clarity:settings-line'
+                            className={styles.navHeaderButton}
+                            color='#FFFFFF'
+                        />
+                    </Link>
+                </div>
             </div>
         </div>
     );

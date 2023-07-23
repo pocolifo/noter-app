@@ -39,3 +39,9 @@ export interface ContentBlock {
     uuid: string,
     data: any
 }
+
+export interface UserData {
+    name: string;
+    pfp: string;
+    email: string;
+}

@@ -1,0 +1,32 @@
+.nav {
+    background-color: #202123;
+
+    height: 100vh;
+}
+
+.item {
+    margin-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    cursor: pointer;
+}
+
+.title {
+    color: white;
+    vertical-align: middle;
+}
+
+.item:hover {
+    background-color: #383a3d;
+}
+
+.active {
+    border-left: 1px solid white;
+}
+
+.active p {
+    font-weight: 700;
+}
