@@ -6,6 +6,7 @@ import { useUserDataContext } from '@/app/settings/menus/userdatacontext';
 
 interface TextboxProps {
     header: string;
+    inputId: string;
 
     value: string;
     callback: (_v: string) => void;
@@ -13,7 +14,6 @@ interface TextboxProps {
 
 export default function Textbox(props: TextboxProps) {
     const userDataContext = useUserDataContext();
-
     const [editing, setEditing] = useState(true);
     
     return (
@@ -21,8 +21,8 @@ export default function Textbox(props: TextboxProps) {
             <p> {props.header} </p>
 
             {editing ? 
-            <input defaultValue={props.value}/> : 
-            <p>hello</p>}
+            <input id={props.inputId} defaultValue={props.value}/> : 
+            <div>{props.value}</div>}
         </div>
     );
 }

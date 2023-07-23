@@ -44,5 +44,4 @@ export interface UserData {
     name: string;
     pfp: string;
     email: string;
-    password: string; // find safe solution for passing password (for change password feature)
 }

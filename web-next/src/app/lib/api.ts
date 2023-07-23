@@ -162,14 +162,49 @@ export async function getUserData(): Promise<UserData> {
         const userData: UserData = {
             name: responseJson.name,
             pfp: responseJson.pfp,
-            email: responseJson.email,
-            password: 'test'
+            email: responseJson.email
         }
 
         return Promise.resolve(userData);
     } catch (error) {
         return Promise.reject(error)
     }
+}
+
+export async function changeName(name: string): Promise<void> {
+    try {
+        await fetch(`${API}/items/update/name`, {
+            credentials: "include",
+            method: "POST",
+            body: JSON.stringify({
+                name: name
+            })
+        })
+
+        return Promise.resolve()
+    } catch (error) {
+        return Promise.reject(error)
+    }
+}
+
+export async function changePfp(pfp: string): Promise<void> {
+    try {
+        await fetch (`${API}/items/update/pfp`, {
+            credentials: "include",
+            method: "POST",
+            body: JSON.stringify({
+                image: pfp
+            })
+        })
+
+        return Promise.resolve()
+    } catch (error) {
+        return Promise.reject(error)
+    }
+}
+
+export async function changeEmail(email: string): Promise<void> {
+    // TBI
 }
 
 export async function updateItem(id: string, name: string, path: string[]): Promise<void> {
