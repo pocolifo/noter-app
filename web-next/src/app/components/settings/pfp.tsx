@@ -18,7 +18,7 @@ export default function Pfp(props: PfpProps) {
 
     function openSelector() {
         if (inputFile !== null) {
-            inputFile.current.click();
+            inputFile.current!.click();
         }
     }
 
