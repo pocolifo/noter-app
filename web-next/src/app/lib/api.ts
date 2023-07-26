@@ -236,3 +236,17 @@ export async function deleteItem(id: string): Promise<void> {
         return Promise.reject(error)
     }
 }
+
+export async function summarizeNote(id: string): Promise<string> {
+    try {
+        const response = await fetch(`${API}/summarize?${new URLSearchParams({id: id})}`, {
+            credentials: 'include',
+            method: 'POST'
+        })
+        const data = await response.json()
+
+        return Promise.resolve(data)
+    } catch (error) {
+        return Promise.reject(error)
+    }
+}
