@@ -4,6 +4,8 @@ import aiStyles from "./ai.module.css"
 import { Icon } from "@iconify/react";
 
 interface SummaryProps {
+    save: (content: object) => void
+
     bulletData: string;
     sentenceData: string;
     lastGeneratedHash: string; // the note content it was last generated from
@@ -12,7 +14,6 @@ interface SummaryProps {
 
 export default function SummaryBlock(props: SummaryProps) {
     const [mode, setMode] = useState<'bullets' | 'sentences'>('bullets')
-    // const [loading, setLoading] = useState(!!props[mode as keyof SummaryProps]) // TS workaround for dynamic indexing
     const [loading, setLoading] = useState(true)
 
     const [bulletData, setBulletData] = useState(props.bulletData ?? '')
@@ -22,6 +23,12 @@ export default function SummaryBlock(props: SummaryProps) {
         // dummy code API function
         mode === 'bullets' ? 
         setBulletData('- bullet') : setSentenceData('sentences sentences blah blah yap yap')
+
+        props.save({
+            bulletData: bulletData,
+            sentenceData: sentenceData,
+            lastGeneratedHash: props.lastGeneratedHash // do we need this?
+        })
     }
 
     useEffect(() => {

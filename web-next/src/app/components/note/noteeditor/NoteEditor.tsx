@@ -120,6 +120,7 @@ export default function NoteEditor(props: NoteEditorProps) {
 
 			case 'summary':
 				return <SummaryBlock
+					save={(content) => saveBlock(content, blockData.uuid)}
 					bulletData={blockData.data.bulletData}
 					sentenceData={blockData.data.sentenceData}
 					lastGeneratedHash={blockData.data.lastGeneratedHash}
@@ -137,9 +138,6 @@ export default function NoteEditor(props: NoteEditorProps) {
 				<>
 					<div className={styles.noteHeader}>
 						<p className={styles.noteHeaderTitle}>{title}</p>
-						<button onClick={() => addBlock('summary', {
-							lastGeneratedHash: 'hash'
-						})}>add summary</button>
 					</div>
 
 					<DragDropContext onDragEnd={onDragEnd}>

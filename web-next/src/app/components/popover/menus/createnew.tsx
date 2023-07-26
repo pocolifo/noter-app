@@ -28,6 +28,10 @@ export default function PopoverCreateNew(props: PopoverProps) {
             text: 'Image',
             icon: 'fe:picture'
         },
+        {
+            text: 'Summary',
+            icon: 'fe:feather'
+        }
     ]
 
 
