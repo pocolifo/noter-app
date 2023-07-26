@@ -1,7 +1,37 @@
 .nav {
+    position: relative;
     background-color: #202123;
 
     height: 100vh;
+}
+
+.navheader {
+    display: flex;
+    height: 5vh;
+
+    margin: 10px;
+}
+
+.navbutton {
+    width: 25px;
+    min-width: 25px;
+    height: 25px;
+    min-height: 25px;
+
+    margin-right: 2vh;
+
+    cursor: pointer;
+}
+
+.navtitle {
+    font-weight: bold;
+    font-size: large;
+    color: white;
+
+    margin-top: auto;
+    margin-bottom: auto;
+
+    text-align: left;
 }
 
 .item {
@@ -33,4 +63,7 @@
 
 .link {
     text-decoration: none;
+    
+    margin-top: auto;
+    margin-bottom: auto;
 }

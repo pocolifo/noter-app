@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Icon } from '@iconify/react';
 
 import styles from './nav.module.css'
 
@@ -16,6 +17,18 @@ interface NavItemProps {
 export default function Navbar(props: NavProps) {
     return (
         <div className={styles.nav}>
+            <div className={styles.navheader}>
+                <Link href={'/'} className={styles.link}>
+                    <Icon
+                        icon='fe:arrow-left'
+                        className={styles.navbutton}
+                        color='#FFFFFF'
+                    />
+                </Link>
+
+                <p className={styles.navtitle}> Settings </p>
+            </div>
+
             {
                 props.linkList.map((data, i) => {
                     return <NavItem title={data.title} route={data.route} key={i}/>
@@ -36,7 +49,7 @@ function NavItem(props: NavItemProps) {
     }, [path]);
 
     return (
-        <Link href={props.route} class={styles.link}>
+        <Link href={props.route} className={styles.link}>
             <div className={`${styles.item} ${active && styles.active}`}>
                 <div className={styles.title}> {props.title} </div>
             </div>
