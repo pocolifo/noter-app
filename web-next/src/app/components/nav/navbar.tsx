@@ -86,6 +86,10 @@ export default function NavBar() {
             const sourceItem = items[result.source.index]
             const [destinationFolder] = items.filter(item => item.uuid === result.combine?.draggableId)
 
+            if (destinationFolder.type !== 'folder') {
+                return;
+            }
+
             let new_path = navState.path.map(path => path.uuid)
             new_path.push(destinationFolder.uuid)
 
@@ -93,7 +97,7 @@ export default function NavBar() {
 
             setItems(items.filter(item => item.uuid !== sourceItem.uuid))
 
-            return
+            return;
         }
 
         if (!result.destination || result.source.index === result.destination.index) {
