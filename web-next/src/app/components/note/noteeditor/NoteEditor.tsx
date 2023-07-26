@@ -16,6 +16,7 @@ import LoadingSpinner from '../../../components/util/LoadingSpinner';
 import { getNoteByUUID, saveNote } from '../../../lib/api';
 import { ContentBlock, NoteData } from '../../../lib/interfaces';
 
+import SummaryBlock from '../contentblock/ai/summary';
 
 interface NoteEditorProps {
 	noteId: string;
@@ -117,6 +118,14 @@ export default function NoteEditor(props: NoteEditorProps) {
 					alt={blockData.data.alt}
 				/>
 
+			case 'summary':
+				return <SummaryBlock
+					bulletData={blockData.data.bulletData}
+					sentenceData={blockData.data.sentenceData}
+					lastGeneratedHash={blockData.data.lastGeneratedHash}
+					noteID={props.noteId}
+				/>
+
 			default:
 				return <div></div>
 		}
@@ -128,6 +137,9 @@ export default function NoteEditor(props: NoteEditorProps) {
 				<>
 					<div className={styles.noteHeader}>
 						<p className={styles.noteHeaderTitle}>{title}</p>
+						<button onClick={() => addBlock('summary', {
+							lastGeneratedHash: 'hash'
+						})}>add summary</button>
 					</div>
 
 					<DragDropContext onDragEnd={onDragEnd}>
