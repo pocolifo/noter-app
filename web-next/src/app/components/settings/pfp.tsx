@@ -1,9 +1,9 @@
 import { useState, useRef } from 'react'
 import { Icon } from '@iconify/react';
 
-import styles from '@/app/settings/menus/menu.module.css'
+import styles from '@/app/settings/profile/page.module.css'
 
-import { useUserDataContext } from '@/app/settings/menus/userdatacontext'
+import { useUserDataContext } from '@/app/settings/userdatacontext'
 
 interface PfpProps {
     header: string;

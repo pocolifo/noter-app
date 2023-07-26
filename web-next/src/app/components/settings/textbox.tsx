@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import styles from '../../settings/menus/menu.module.css'
+import styles from '@/app/settings/profile/page.module.css'
 
-import { useUserDataContext } from '@/app/settings/menus/userdatacontext';
+import { useUserDataContext } from '@/app/settings/userdatacontext';
 
 interface TextboxProps {
     header: string;
