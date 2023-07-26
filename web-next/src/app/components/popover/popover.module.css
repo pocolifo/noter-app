@@ -8,6 +8,7 @@
 }
 
 .main {
+    cursor: auto;
     position: relative;
 
     width: fit-content;
@@ -63,6 +64,8 @@
     color: white;
     font-size: larger;
     font-weight: bold;
+    display: flex;
+    align-items: center;
 }
 
 .section {
@@ -73,7 +76,7 @@
     width: 30px;
     height: 30px;
     cursor: pointer;
-    float: right;
+    margin-left: auto;
 }
 
 @keyframes fade-in {

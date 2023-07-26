@@ -48,7 +48,7 @@ export default function Popover(props: PopoverProps) {
             <div className={styles.overlay} onClick={props.closeCallback} />
             <div className={`${styles.main} ${alignStyle[props.align]}`}>
                 <p className={styles.title}>
-                    {props.title}
+                    <span>{props.title}</span>
 
                     <Icon
                         className={styles.close}
@@ -57,6 +57,7 @@ export default function Popover(props: PopoverProps) {
                         onClick={() => props.closeCallback()}
                     />
                 </p>
+
                 <div className={styles.section}>
                     {popoverBody}
                 </div>
