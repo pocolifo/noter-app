@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react';
 import NewFolderMenu from './menus/newItem/newFolderMenu';
 import CreateNewMenu from './menus/createNewMenu';
 import NewNoteMenu from './menus/newItem/newNoteMenu';
+import PasswordMenu from './menus/password/passwordmenu';
 import styles from './popup.module.css';
 import { usePopupContext } from './popupcontext';
 
@@ -32,6 +33,13 @@ export default function Popup() {
                 popupState.setEnabled(false);
              } } />
 
+            break;
+        
+        case "changePassword":
+            popupBody = <PasswordMenu closePopup={ () => {
+                popupState.setEnabled(false);
+            }}/>
+        
             break;
     
         default:

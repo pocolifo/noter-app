@@ -4,14 +4,16 @@ import { useEffect, useState } from 'react'
 
 import styles from './page.module.css'
 
-import { getUserData } from '@/app/lib/api'
+import { changePassword, getUserData, requestChangePassword } from '@/app/lib/api'
 import { UserData } from '@/app/lib/interfaces'
 import { UserDataProvider, useUserDataContext } from '../userdatacontext'
 import Textbox from '@/app/components/settings/textbox'
 import Pfp from '@/app/components/settings/pfp';
+import { usePopupContext } from '@/app/components/popup/popupcontext';
 
 export default function Profile() {
     const userDataContext = useUserDataContext();
+    const popupState = usePopupContext();
 
     const initialData = { ...userDataContext };
 
@@ -25,6 +27,15 @@ export default function Profile() {
         if (initialData.email !== newEmail) {
             userDataContext.setEmail(newEmail);
         }
+    }
+
+    function updatePassword() {
+        popupState.setEnabled(true);
+        popupState.setTitle('Change password');
+        popupState.setType('changePassword');
+        popupState.setStateCallback(() => {})
+
+        requestChangePassword();
     }
 
     return (
@@ -49,7 +60,9 @@ export default function Profile() {
 
                     <div className={styles.textbox}>
                         <p> Password </p>
-                        <button className={styles.button}> Change password </button>
+                        <button className={styles.button} onClick={() => {
+                            updatePassword();
+                        }}> Change password </button>
                     </div>
                     
                     <button onClick={saveData} className={styles.button}> Update profile </button>

@@ -8,6 +8,8 @@ import Navbar from './nav'
 import Profile from './profile/page'
 import { PageNotFoundError } from 'next/dist/shared/lib/utils';
 import { UserDataProvider } from './userdatacontext';
+import { PopupProvider } from '../components/popup/popupcontext';
+import Popup from '../components/popup/popup';
 
 export interface LinkItem {
     title: string;
@@ -28,13 +30,17 @@ export default function SettingsLayout({ children }: { children: ReactNode }) {
 
     return (
         <UserDataProvider>
-        <div className={styles.main}>
-            <Navbar linkList={linkList}/>
+        <PopupProvider>
+            <Popup/>
 
-            <div className={styles.content}>
-                {children}
+            <div className={styles.main}>
+                <Navbar linkList={linkList}/>
+
+                <div className={styles.content}>
+                    {children}
+                </div>
             </div>
-        </div>
+        </PopupProvider>
         </UserDataProvider>
     )
 }
