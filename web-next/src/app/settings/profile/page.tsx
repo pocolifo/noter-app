@@ -2,17 +2,16 @@
 
 import { useEffect, useState } from 'react'
 
-import styles from './menu.module.css'
+import styles from './page.module.css'
 
 import { getUserData } from '@/app/lib/api'
 import { UserData } from '@/app/lib/interfaces'
-import { UserDataProvider, useUserDataContext } from './userdatacontext'
+import { UserDataProvider, useUserDataContext } from '../userdatacontext'
 import Textbox from '@/app/components/settings/textbox'
 import Pfp from '@/app/components/settings/pfp';
 
 export default function Profile() {
     const userDataContext = useUserDataContext();
-    const [loading, setLoading] = useState<boolean>(true);
 
     const initialData = { ...userDataContext };
 
