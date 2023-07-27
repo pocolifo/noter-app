@@ -17,7 +17,9 @@ export default function Pfp(props: PfpProps) {
     const inputFile = useRef<HTMLInputElement | null>(null);
 
     function openSelector() {
-        inputFile.current.click();
+        if (inputFile !== null) {
+            inputFile.current.click();
+        }
     }
 
     function changeImage(event) {
