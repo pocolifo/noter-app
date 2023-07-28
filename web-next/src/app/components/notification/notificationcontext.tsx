@@ -24,10 +24,6 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     const [queueState, setQueueState] = useState<{[key: string]: NotificationProps}>({});
     
     function addNotification(data: NotificationProps) {
-        console.log('fired');
-
-        // setQueueState([...queueState, data]);
-
         const newId = crypto.randomUUID();
 
         setQueueState((prevState) => ({
@@ -37,12 +33,10 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     }
 
     function deleteNotification(id: string) {
-        console.log('deleting ' + id);
-
         setQueueState((prevState) => {
             const newState = {...prevState};
             delete newState[id];
-            
+
             return newState
         })
     }

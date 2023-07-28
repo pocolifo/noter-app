@@ -1,33 +1,19 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { Icon } from '@iconify/react';
 
-import { StyleRegistry } from 'styled-jsx'
-import styles from './notification.module.css'
+import { StyleRegistry } from 'styled-jsx';
+import styles from './notification.module.css';
 
 import { NotificationProps } from '@/app/lib/interfaces';
-import { useNotificationContext } from './notificationcontext'
-import { Icon } from '@iconify/react';
+import { useNotificationContext } from './notificationcontext';
 
 export default function NotificationHandler() {
     const notificationContext = useNotificationContext();
-    const [index, setIndex] = useState(1);
-
-    function click() {
-        notificationContext.fire({
-            title: index.toString(),
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at dui lacus.',
-            type: 'alert'
-        })
-
-        console.log(index)
-        setIndex(index + 1)
-    }
 
     return (
         <div className={styles.section}>
-            <button onClick={click}> hi </button>
-
             {
                 Object.entries(notificationContext.queue).map(([key, value]) => (
                     <Notification
