@@ -207,6 +207,36 @@ export async function changeEmail(email: string): Promise<void> {
     // TBI
 }
 
+export async function requestChangePassword(): Promise<void> {
+    try {
+        await fetch(`${API}/items/update/reqpassword`, {
+            credentials: "include",
+            method: "POST"
+        })
+
+        return Promise.resolve()
+    } catch (error) {
+        return Promise.reject(error)
+    }
+}
+
+export async function changePassword(password: string, code: string): Promise<void> {
+    try {
+        await fetch(`${API}/items/update/password`, {
+            credentials: "include",
+            method: "POST",
+            body: JSON.stringify({
+                password: password,
+                code: code
+            })
+        })
+
+        return Promise.resolve()
+    } catch (error) {
+        return Promise.reject(error)
+    }
+}
+
 export async function updateItem(id: string, name: string, path: string[]): Promise<void> {
     try {
         await fetch(`${API}/items/update/metadata?${new URLSearchParams({id: id})}`, {

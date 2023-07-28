@@ -4,27 +4,38 @@ import { useEffect, useState } from 'react'
 
 import styles from './page.module.css'
 
-import { getUserData } from '@/app/lib/api'
+import { changePassword, getUserData, requestChangePassword } from '@/app/lib/api'
 import { UserData } from '@/app/lib/interfaces'
 import { UserDataProvider, useUserDataContext } from '../userdatacontext'
 import Textbox from '@/app/components/settings/textbox'
 import Pfp from '@/app/components/settings/pfp';
+import { usePopupContext } from '@/app/components/popup/popupcontext';
 
 export default function Profile() {
+    const [ name, setName ] = useState('');
+    const [ email, setEmail ] = useState('');
+    
     const userDataContext = useUserDataContext();
+    const popupState = usePopupContext();
 
     const initialData = { ...userDataContext };
 
     function saveData() {
-        const newName = (document.getElementById('namefield') as HTMLInputElement).value;
-        const newEmail = (document.getElementById('emailfield') as HTMLInputElement).value;
+        if (initialData.name !== name) {
+            userDataContext.setName(name);
+        }
+        if (initialData.email !== email) {
+            userDataContext.setEmail(email);
+        }
+    }
 
-        if (initialData.name !== newName) {
-            userDataContext.setName(newName);
-        }
-        if (initialData.email !== newEmail) {
-            userDataContext.setEmail(newEmail);
-        }
+    function updatePassword() {
+        popupState.setEnabled(true);
+        popupState.setTitle('Change password');
+        popupState.setType('changePassword');
+        popupState.setStateCallback(() => {})
+
+        requestChangePassword();
     }
 
     return (
@@ -36,20 +47,22 @@ export default function Profile() {
                 <div>
                     <Textbox 
                         header='Name'
-                        inputId='namefield'
+                        valueSetter={setName}
                         value={userDataContext.name}
                         callback={userDataContext.setName}
                     />
                     <Textbox 
                         header='Email'
-                        inputId='emailfield'
+                        valueSetter={setEmail}
                         value={userDataContext.email}
                         callback={userDataContext.setEmail}
                     />
 
                     <div className={styles.textbox}>
                         <p> Password </p>
-                        <button className={styles.button}> Change password </button>
+                        <button className={styles.button} onClick={() => {
+                            updatePassword();
+                        }}> Change password </button>
                     </div>
                     
                     <button onClick={saveData} className={styles.button}> Update profile </button>

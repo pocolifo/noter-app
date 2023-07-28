@@ -6,8 +6,8 @@ import { useUserDataContext } from '@/app/settings/userdatacontext';
 
 interface TextboxProps {
     header: string;
-    inputId: string;
-
+    valueSetter: (value: string) => void;
+    
     value: string;
     callback: (_v: string) => void;
 }
@@ -21,7 +21,7 @@ export default function Textbox(props: TextboxProps) {
             <p> {props.header} </p>
 
             {editing ? 
-            <input id={props.inputId} defaultValue={props.value}/> : 
+            <input defaultValue={props.value} onChange={e => props.valueSetter(e.target.value)}/> : 
             <div>{props.value}</div>}
         </div>
     );
