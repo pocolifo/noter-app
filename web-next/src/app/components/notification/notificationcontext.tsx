@@ -15,7 +15,7 @@ const NotificationContext = createContext<NotificationContextProps>({
     queue: {},
 
     fire: (_v: NotificationProps) => {},
-    delete: () => {}
+    delete: (_id: string) => {}
 });
 
 export const useNotificationContext = () => useContext(NotificationContext);
