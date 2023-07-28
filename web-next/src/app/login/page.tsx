@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import LoadingSpinner from '../components/util/LoadingSpinner';
 import { userLogin } from '../lib/api';
 import { Playfair_Display } from 'next/font/google';
+import { useNotificationContext } from '../components/notification/notificationcontext';
 
 const playfairDisplay = Playfair_Display({ subsets: ['latin'] })
 
@@ -15,6 +16,7 @@ export default function Login() {
     const [ loggingIn, setLoggingIn ] = useState<boolean>(false);
     const [ errorState, setErrorState ] = useState<string | null>(null);
     const router = useRouter();
+    const notificationContext = useNotificationContext();
 
     async function handleLogin(e: React.FormEvent) {
         setLoggingIn(true);
@@ -25,6 +27,13 @@ export default function Login() {
         let email = formData.get('email');
         if (email === null) {
             setErrorState('Missing email');
+
+            notificationContext.fire({
+                title: 'Error',
+                description: 'Unable to login, please provide an email',
+                type: 'error'
+            });
+            
             setLoggingIn(false);
             return;
         }
@@ -32,6 +41,13 @@ export default function Login() {
         let password = formData.get('password');
         if (password === null) {
             setErrorState('Missing password');
+
+            notificationContext.fire({
+                title: 'Error',
+                description: 'Unable to login, please provide a password',
+                type: 'error'
+            });
+
             setLoggingIn(false);
             return;
         }
@@ -41,11 +57,29 @@ export default function Login() {
             
             if (loggedInSuccessfully) {
                 router.push('/');
+
+                notificationContext.fire({
+                    title: 'Success',
+                    description: 'Successfully logged in',
+                    type: 'success'
+                });
             } else {
                 setErrorState('Bad credentials');
+
+                notificationContext.fire({
+                    title: 'Error',
+                    description: 'Unable to login, bad credentials',
+                    type: 'error'
+                });
             }
         } catch (e) {
             setErrorState(String(e));
+
+            notificationContext.fire({
+                title: 'Error',
+                description: String(e),
+                type: 'error'
+            });
         } finally {
             setLoggingIn(false);
         }
