@@ -45,3 +45,9 @@ export interface UserData {
     pfp: string;
     email: string;
 }
+
+export interface NotificationProps {
+    title: string;
+    description: string;
+    type: string;
+}
