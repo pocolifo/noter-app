@@ -267,9 +267,9 @@ export async function deleteItem(id: string): Promise<void> {
     }
 }
 
-export async function summarizeNote(id: string): Promise<string> {
+export async function summarizeNote(id: string): Promise<any> {
     try {
-        const response = await fetch(`${API}/summarize?${new URLSearchParams({id: id})}`, {
+        const response = await fetch(`${API}/ai/generate/summary?${new URLSearchParams({id: id})}`, {
             credentials: 'include',
             method: 'POST'
         })
