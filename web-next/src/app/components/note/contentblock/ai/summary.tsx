@@ -28,8 +28,8 @@ export default function SummaryBlock(props: SummaryProps) {
         setSentenceData(summaries.sentences)
 
         props.save({
-            bulletData: bulletData,
-            sentenceData: sentenceData,
+            bulletData: summaries.bullets,
+            sentenceData: summaries.sentences,
             lastGeneratedHash: props.lastGeneratedHash // do we need this?
         })
 
