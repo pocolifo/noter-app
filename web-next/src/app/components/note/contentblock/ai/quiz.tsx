@@ -6,7 +6,7 @@ import { Icon } from "@iconify/react";
 import aiStyles from "./ai.module.css"
 import contentBlockStyles from "../contentblock.module.css"
 
-export default function Quiz(props: { questions: QuizQuestion[], noteID: string, save: (content: object) => void }) {
+export default function QuizBlock(props: { questions: QuizQuestion[], noteID: string, save: (content: object) => void }) {
     const [currentQuestion, setCurrentQuestion] = useState(0)
 
     const [questions, setQuestions] = useState<QuizQuestion[]>(props.questions === undefined ? [] : props.questions)

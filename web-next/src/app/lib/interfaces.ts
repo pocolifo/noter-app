@@ -35,7 +35,7 @@ export interface NoteData {
 }
 
 export interface ContentBlock {
-    type: string, // as of the moment this is one of the following: text, image, header, table, vocabulary, diagram
+    type: "header" | "text" | "image" | "summary" | "quiz",
     uuid: string,
     data: any
 }
@@ -49,7 +49,7 @@ export interface UserData {
 export interface NotificationProps {
     title: string;
     description: string;
-    type: string;
+    type: 'error' | 'success' | 'alert';
 }
 
 export interface QuizQuestion {

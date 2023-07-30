@@ -12,12 +12,11 @@ import ImageBlock from '../../../components/note/contentblock/imageblock';
 import TextBlock from '../../../components/note/contentblock/textblock';
 import CreateBlock from '../../../components/note/createblock/createblock';
 import Popover from '../../../components/popover/popover';
-import LoadingSpinner from '../../../components/util/LoadingSpinner';
 import { getNoteByUUID, saveNote } from '../../../lib/api';
-import { ContentBlock, NoteData } from '../../../lib/interfaces';
+import { ContentBlock } from '../../../lib/interfaces';
 
 import SummaryBlock from '../contentblock/ai/summary';
-import Quiz from '../contentblock/ai/quiz';
+import QuizBlock from '../contentblock/ai/quiz';
 
 interface NoteEditorProps {
 	noteId: string;
@@ -28,11 +27,10 @@ export default function NoteEditor(props: NoteEditorProps) {
 	const [title, setTitle] = useState<string>('');
 	const [popoverState, setPopoverState] = useState(false);
 	const [currentHover, setCurrentHover] = useState<string>('');
-	const [isLoading, setLoading] = useState<boolean>(false);
 
 	function addBlock(blockType: string, data?: object) {
 		let newBlock: ContentBlock = {
-			type: blockType,
+			type: blockType as any,
 			uuid: (Math.random() * 100).toString(16), // TODO: MAKE PROPER BACKEND IMPLEMENTATION FOR THIS
 			data: (data ? data : {})
 		};
@@ -127,9 +125,9 @@ export default function NoteEditor(props: NoteEditorProps) {
 					lastGeneratedHash={blockData.data.lastGeneratedHash}
 					noteID={props.noteId}
 				/>
-			
+
 			case 'quiz':
-				return <Quiz 
+				return <QuizBlock
 					questions={blockData.data}
 					noteID={props.noteId}
 					save={(content) => saveBlock(content, blockData.uuid)}
@@ -142,92 +140,88 @@ export default function NoteEditor(props: NoteEditorProps) {
 
 	return (
 		<>
-			{isLoading ? <LoadingSpinner /> :
-				<>
-					<div className={styles.noteHeader}>
-						<p className={styles.noteHeaderTitle}>{title}</p>
-					</div>
+			<div className={styles.noteHeader}>
+				<p className={styles.noteHeaderTitle}>{title}</p>
+			</div>
 
-					<DragDropContext onDragEnd={onDragEnd}>
-						<div className={styles.noteBody}>
-							<Droppable droppableId='droppable'>
-								{(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
-									<div
-										{...provided.droppableProps}
-										ref={provided.innerRef}
-									>
-										{blocks.map((blockData, i) => (
-											<Draggable key={blockData.uuid} draggableId={blockData.uuid} index={i} >
-												{(provided: DraggableProvided, _: DraggableStateSnapshot) => (
-													<div
-														className={`${styles.noteBlock}`}
-														ref={provided.innerRef}
-														{...provided.draggableProps}
-														onMouseOver={() => setCurrentHover(blockData.uuid)}
-														onMouseLeave={() => setCurrentHover('')}
-													>
-														<div {...provided.dragHandleProps}>
-															<Icon
-																color='grey'
-																icon='material-symbols:drag-indicator'
-																className={`${styles.dragIcon} ${currentHover !== blockData.uuid && styles.hidden}`}
-															/>
-														</div>
+			<DragDropContext onDragEnd={onDragEnd}>
+				<div className={styles.noteBody}>
+					<Droppable droppableId='droppable'>
+						{(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
+							<div
+								{...provided.droppableProps}
+								ref={provided.innerRef}
+							>
+								{blocks.map((blockData, i) => (
+									<Draggable key={blockData.uuid} draggableId={blockData.uuid} index={i} >
+										{(provided: DraggableProvided, _: DraggableStateSnapshot) => (
+											<div
+												className={`${styles.noteBlock}`}
+												ref={provided.innerRef}
+												{...provided.draggableProps}
+												onMouseOver={() => setCurrentHover(blockData.uuid)}
+												onMouseLeave={() => setCurrentHover('')}
+											>
+												<div {...provided.dragHandleProps}>
+													<Icon
+														color='grey'
+														icon='material-symbols:drag-indicator'
+														className={`${styles.dragIcon} ${currentHover !== blockData.uuid && styles.hidden}`}
+													/>
+												</div>
 
-														<div className={`${styles.content} ${currentHover === blockData.uuid && !snapshot.isDraggingOver ? styles.active : null}`}>
-															{getBlockComponent(blockData)}
-														</div>
+												<div className={`${styles.content} ${currentHover === blockData.uuid && !snapshot.isDraggingOver ? styles.active : null}`}>
+													{getBlockComponent(blockData)}
+												</div>
 
-														<button
-															className={styles.deleteButton}
-															onClick={() => deleteBlock(blockData.uuid)}
-														>
-															<Icon
-																icon='fe:trash'
-																className={`${styles.deleteIcon} ${currentHover !== blockData.uuid && styles.hidden}`}
-															/>
-														</button>
-													</div>
-												)}
-											</Draggable>
-										))}
+												<button
+													className={styles.deleteButton}
+													onClick={() => deleteBlock(blockData.uuid)}
+												>
+													<Icon
+														icon='fe:trash'
+														className={`${styles.deleteIcon} ${currentHover !== blockData.uuid && styles.hidden}`}
+													/>
+												</button>
+											</div>
+										)}
+									</Draggable>
+								))}
 
-										{/* 
+								{/* 
 											* The placeholder fixes the dimensions of the container when an item is being dragged.
 											* See https://github.com/atlassian/react-beautiful-dnd/issues/462
 											*/}
-										{provided.placeholder}
-									</div>
-								)}
-							</Droppable>
-						</div>
+								{provided.placeholder}
+							</div>
+						)}
+					</Droppable>
+				</div>
 
-						<CreateBlock onDrop={(e) => {
-							e.preventDefault()
-							e.stopPropagation()
+				<CreateBlock onDrop={(e) => {
+					e.preventDefault()
+					e.stopPropagation()
 
-							let src = ''
-							let file = e.dataTransfer.files.item(0);
-							let reader = new FileReader()
-							reader.onload = () => {
-								src = (reader.result as string)
-							}
-							if (file) {
-								reader.readAsDataURL(file)
-							}
-							addBlock("image", { src: src })
-						}} onClick={togglePopover} />
+					let src = ''
+					let file = e.dataTransfer.files.item(0);
+					let reader = new FileReader()
+					reader.onload = () => {
+						src = (reader.result as string)
+					}
+					if (file) {
+						reader.readAsDataURL(file)
+					}
+					addBlock("image", { src: src })
+				}} onClick={togglePopover} />
 
-						{popoverState && <Popover
-							title='Add block'
-							menu='CreateNew'
-							align='top'
-							inputCallback={addBlock}
-							buttonCallback={() => { }}
-							closeCallback={() => setPopoverState(false)} />}
-					</DragDropContext>
-				</>
-			}
+				{popoverState && <Popover
+					title='Add block'
+					menu='CreateNew'
+					align='top'
+					inputCallback={addBlock}
+					buttonCallback={() => { }}
+					closeCallback={() => setPopoverState(false)} />}
+			</DragDropContext>
 		</>
 	)
 }
