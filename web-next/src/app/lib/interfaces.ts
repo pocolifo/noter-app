@@ -51,3 +51,9 @@ export interface NotificationProps {
     description: string;
     type: string;
 }
+
+export interface QuizQuestion {
+    question: string,
+    options: string[],
+    correct: number
+}

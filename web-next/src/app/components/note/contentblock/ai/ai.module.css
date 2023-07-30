@@ -6,7 +6,7 @@
     border-radius: 1rem;
     background-size: 200%;
     animation: magic-in 1s ease 1,
-               magic-move 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+        magic-move 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
     color: transparent;
     user-select: none;
 }
@@ -15,7 +15,7 @@
     text-align: left;
     height: auto;
     animation: none;
-    user-select: all;
+    user-select: auto;
     color: #000000;
     background: transparent;
     animation: magic-loaded-in 1s ease 1;
@@ -73,4 +73,27 @@
     border-radius: 6px;
     outline: none;
     cursor: pointer;
+}
+
+.option {
+    border: none;
+    background-color: #DCECFF;
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+
+    border: none;
+    cursor: pointer;
+
+    transition: transform 0.15s ease
+                background-color 0.15s ease;
+}
+
+.correct {
+    background-color: #34d399;
+}
+
+.wrong {
+    background-color: #FB4B4B;
 }

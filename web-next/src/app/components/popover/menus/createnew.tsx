@@ -31,6 +31,10 @@ export default function PopoverCreateNew(props: PopoverProps) {
         {
             text: 'Summary',
             icon: 'fe:feather'
+        },
+        {
+            text: 'Quiz',
+            icon: 'material-symbols:quiz'
         }
     ]
 
