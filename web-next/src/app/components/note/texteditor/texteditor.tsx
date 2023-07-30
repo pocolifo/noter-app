@@ -3,6 +3,7 @@ import StarterKit from '@tiptap/starter-kit';
 import { Icon } from '@iconify/react';
 
 import styles from './texteditor.module.css';
+import { useRef } from 'react';
 
 interface TextEditorProps {
     htmlContent: string;
@@ -30,15 +31,21 @@ export default function TextEditor(props: TextEditorProps) {
         ],
         content: props.htmlContent
     });
+    const isFirstMount = useRef(true)
 
     if (!editor) {
         return null;
     }
 
-    editor?.commands.focus('end')
+    if (isFirstMount.current) {
+        editor?.commands.focus('end')
+        isFirstMount.current = false
+    }
+
 
     function saveContent() {
         const htmlContent = editor?.getHTML() as string;
+        isFirstMount.current = true
         props.closeCallback(htmlContent);
     }
 

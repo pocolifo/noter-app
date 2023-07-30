@@ -1,12 +1,12 @@
 .magic {
-    margin-bottom: 0.5rem;
+    /* margin-bottom: 0.5rem; */
     min-height: 20px;
     width: 100%;
     background: linear-gradient(90deg, #ecfff5, #dcecff, #fcefff, #ecfff5);
     border-radius: 1rem;
     background-size: 200%;
     animation: magic-in 1s ease 1,
-               magic-move 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+        magic-move 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
     color: transparent;
     user-select: none;
 }
@@ -15,7 +15,7 @@
     text-align: left;
     height: auto;
     animation: none;
-    user-select: all;
+    user-select: auto;
     color: #000000;
     background: transparent;
     animation: magic-loaded-in 1s ease 1;
@@ -63,6 +63,8 @@
     border: none;
     outline: none;
     font-size: 16px;
+
+    cursor: pointer;
 }
 
 .regenerate {
@@ -70,6 +72,56 @@
     border: 1px solid black;
     border-radius: 6px;
     outline: none;
+    cursor: pointer;
+}
 
-    display: flexbox;
+.option {
+    border: none;
+    background-color: #DCECFF;
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 10px;
+    margin: 5px;
+    width: 30em;
+
+    border: none;
+    cursor: pointer;
+
+    transition: transform 0.15s ease
+                background-color 0.15s ease;
+}
+
+.correct {
+    background-color: #34d399;
+}
+
+.wrong {
+    background-color: #FB4B4B;
+}
+
+.wrong.selected {
+    background-color: #951616;
+}
+
+.questionContainer li {
+    list-style-type: none;
+}
+
+.navButtons {
+    display: flex;
+    float: left;
+    outline: none;
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+    margin-right: 5px;
+    padding: 5px;
+
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.navButtons:disabled {
+    background-color: lightgrey;
+    color: grey;
 }

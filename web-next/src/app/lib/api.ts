@@ -1,4 +1,4 @@
-import { FolderData, NoteData, UserData } from "./interfaces";
+import { FolderData, NoteData, QuizQuestion, UserData } from "./interfaces";
 
 // the base api path
 export const API = "http://localhost:8000"
@@ -267,15 +267,35 @@ export async function deleteItem(id: string): Promise<void> {
     }
 }
 
-export async function summarizeNote(id: string): Promise<string> {
+export async function summarizeNote(id: string): Promise<any> {
     try {
-        const response = await fetch(`${API}/summarize?${new URLSearchParams({id: id})}`, {
+        const response = await fetch(`${API}/ai/generate/summary?${new URLSearchParams({id: id})}`, {
             credentials: 'include',
             method: 'POST'
         })
         const data = await response.json()
 
         return Promise.resolve(data)
+    } catch (error) {
+        return Promise.reject(error)
+    }
+}
+
+export async function generateQuiz(id: string, n: number): Promise<QuizQuestion[]> {
+    try {
+        const response = await fetch(`${API}/ai/generate/quiz?${new URLSearchParams({id: id, n: n.toString()})}`, {
+            credentials: 'include',
+            method: 'POST'
+        })
+        const data = await response.json() as Array<any>
+
+        return Promise.resolve(data.map(d => {
+            return {
+                question: d.question,
+                options: d.options,
+                correct: Number(d.correct)
+            }
+        }))
     } catch (error) {
         return Promise.reject(error)
     }
