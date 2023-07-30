@@ -10,7 +10,7 @@ export default function Quiz(props: { questions: QuizQuestion[], noteID: string,
     const [currentQuestion, setCurrentQuestion] = useState(0)
 
     const [questions, setQuestions] = useState<QuizQuestion[]>(props.questions === undefined ? [] : props.questions)
-    const [loading, setLoading] = useState(props.questions === undefined)
+    const [loading, setLoading] = useState(props.questions.length == undefined)
     const [reveal, setReveal] = useState(false)
     const [solved, setSolved] = useState<Array<number>>([])
     const [correct, setCorrect] = useState(0)
