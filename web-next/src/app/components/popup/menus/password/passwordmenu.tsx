@@ -4,6 +4,7 @@ import styles from './passwordmenu.module.css';
 
 import { changePassword } from '@/app/lib/api';
 import { useUserDataContext } from '@/app/settings/userdatacontext';
+import { useNotificationContext } from '@/app/components/notification/notificationcontext';
 
 interface MenuProps {
     submitCallback: () => void;
@@ -24,6 +25,8 @@ enum Menu {
 }
 
 export default function ChangePasswordMenu(props: { closePopup: () => void }) {
+    const notificationContext = useNotificationContext();
+
     const [ menu, setMenu ] = useState<Menu>(Menu.VERIFICATION_CODE);
     const [ password, setPassword ] = useState<string>('');
     const [ confirmPassword, setConfirmPassword ] = useState<string>('');
@@ -34,6 +37,12 @@ export default function ChangePasswordMenu(props: { closePopup: () => void }) {
             changePassword(confirmPassword, verificationCode);
 
             props.closePopup();
+        } else {
+            notificationContext.fire({
+                title: 'Try again',
+                description: 'Passwords do not match',
+                type: 'error'
+            })
         }
     }
 
