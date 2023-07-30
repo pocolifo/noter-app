@@ -9,6 +9,7 @@
 
     width: 40vh;
     height: 100%;
+    pointer-events: none;
 }
 
 .main {

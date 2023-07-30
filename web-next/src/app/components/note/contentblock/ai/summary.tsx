@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import contentBlockStyles from "../contentblock.module.css"
 import aiStyles from "./ai.module.css"
 import { Icon } from "@iconify/react";
+import { summarizeNote } from "@/app/lib/api";
 
 interface SummaryProps {
     save: (content: object) => void
 
-    bulletData: string;
+    bulletData: string[];
     sentenceData: string;
     lastGeneratedHash: string; // the note content it was last generated from
     noteID: string;
@@ -16,27 +17,29 @@ export default function SummaryBlock(props: SummaryProps) {
     const [mode, setMode] = useState<'bullets' | 'sentences'>('bullets')
     const [loading, setLoading] = useState(true)
 
-    const [bulletData, setBulletData] = useState(props.bulletData ?? '')
-    const [sentenceData, setSentenceData] = useState(props.sentenceData ?? '')
+    const [bulletData, setBulletData] = useState<string[]>(props.bulletData ?? [])
+    const [sentenceData, setSentenceData] = useState<string>(props.sentenceData ?? '')
 
-    function summarize() {
-        // dummy code API function
-        mode === 'bullets' ? 
-        setBulletData('- bullet') : setSentenceData('sentences sentences blah blah yap yap')
+    async function summarize() {
+        await setLoading(true)
+
+        const summaries = await summarizeNote(props.noteID)
+        setBulletData(summaries.bullets)
+        setSentenceData(summaries.sentences)
 
         props.save({
-            bulletData: bulletData,
-            sentenceData: sentenceData,
+            bulletData: summaries.bullets,
+            sentenceData: summaries.sentences,
             lastGeneratedHash: props.lastGeneratedHash // do we need this?
         })
+
+        await setLoading(false)
     }
 
     useEffect(() => {
-        if (mode === 'bullets' && bulletData === '') {
-            setLoading(true)
+        if (mode === 'bullets' && bulletData.length == 0) {
             summarize()
         } else if (mode === 'sentences' && sentenceData === '') {
-            setLoading(true)
             summarize()
         } else {
             setLoading(false)
@@ -48,7 +51,7 @@ export default function SummaryBlock(props: SummaryProps) {
             <h1>Summary
                 <span className={aiStyles.toggleContainer}>
                     <button className={aiStyles.regenerate} onClick={() => summarize()}>
-                        <Icon 
+                        <Icon
                             icon='material-symbols:refresh'
                             color="black"
                         />
@@ -71,7 +74,13 @@ export default function SummaryBlock(props: SummaryProps) {
                 </span>
             </h1>
             <div className={`${aiStyles.magic} ${!loading && aiStyles.done}`}>
-                <p>{mode === 'bullets' ? bulletData : sentenceData}</p>
+                {mode === 'bullets' ?
+                    <ul>
+                        {
+                            bulletData.map(value => <li>{value}</li>)
+                        }
+                    </ul>
+                    : <p>{sentenceData}</p>}
             </div>
         </div>
     )

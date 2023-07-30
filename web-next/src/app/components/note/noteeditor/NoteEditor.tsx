@@ -17,6 +17,7 @@ import { getNoteByUUID, saveNote } from '../../../lib/api';
 import { ContentBlock, NoteData } from '../../../lib/interfaces';
 
 import SummaryBlock from '../contentblock/ai/summary';
+import Quiz from '../contentblock/ai/quiz';
 
 interface NoteEditorProps {
 	noteId: string;
@@ -125,6 +126,13 @@ export default function NoteEditor(props: NoteEditorProps) {
 					sentenceData={blockData.data.sentenceData}
 					lastGeneratedHash={blockData.data.lastGeneratedHash}
 					noteID={props.noteId}
+				/>
+			
+			case 'quiz':
+				return <Quiz 
+					questions={blockData.data}
+					noteID={props.noteId}
+					save={(content) => saveBlock(content, blockData.uuid)}
 				/>
 
 			default:
