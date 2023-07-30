@@ -1,5 +1,5 @@
 .magic {
-    margin-bottom: 0.5rem;
+    /* margin-bottom: 0.5rem; */
     min-height: 20px;
     width: 100%;
     background: linear-gradient(90deg, #ecfff5, #dcecff, #fcefff, #ecfff5);
@@ -81,7 +81,8 @@
     border-radius: 8px;
     font-size: 16px;
     padding: 10px;
-    width: 100%;
+    margin: 5px;
+    width: 30em;
 
     border: none;
     cursor: pointer;
@@ -96,4 +97,31 @@
 
 .wrong {
     background-color: #FB4B4B;
+}
+
+.wrong.selected {
+    background-color: #951616;
+}
+
+.questionContainer li {
+    list-style-type: none;
+}
+
+.navButtons {
+    display: flex;
+    float: left;
+    outline: none;
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+    margin-right: 5px;
+    padding: 5px;
+
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.navButtons:disabled {
+    background-color: lightgrey;
+    color: grey;
 }

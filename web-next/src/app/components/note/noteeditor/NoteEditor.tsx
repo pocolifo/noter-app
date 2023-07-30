@@ -130,8 +130,9 @@ export default function NoteEditor(props: NoteEditorProps) {
 			
 			case 'quiz':
 				return <Quiz 
-					questions={blockData.data.questions}
+					questions={blockData.data}
 					noteID={props.noteId}
+					save={(content) => saveBlock(content, blockData.uuid)}
 				/>
 
 			default:

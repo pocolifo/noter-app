@@ -1,11 +1,12 @@
 import { QuizQuestion } from "@/app/lib/interfaces";
 import { generateQuiz } from "@/app/lib/api";
 import { useEffect, useState } from "react";
+import { Icon } from "@iconify/react";
 
 import aiStyles from "./ai.module.css"
 import contentBlockStyles from "../contentblock.module.css"
 
-export default function Quiz(props: { questions: QuizQuestion[], noteID: string }) {
+export default function Quiz(props: { questions: QuizQuestion[], noteID: string, save: (content: object) => void }) {
     const [currentQuestion, setCurrentQuestion] = useState(0)
 
     const [questions, setQuestions] = useState<QuizQuestion[]>(props.questions === undefined ? [] : props.questions)
@@ -21,12 +22,12 @@ export default function Quiz(props: { questions: QuizQuestion[], noteID: string 
             .then((data) => {
                 setQuestions(data)
                 setLoading(false)
+
+                props.save(data)
             })
     }, [loading])
 
     useEffect(() => {
-        console.log(currentQuestion)
-        console.log(solved)
         solved.includes(currentQuestion) ? setReveal(true) : setReveal(false)
     }, [currentQuestion])
 
@@ -50,15 +51,15 @@ export default function Quiz(props: { questions: QuizQuestion[], noteID: string 
                                 </div>
                             </> :
                             <>
-                                <p>Question #{currentQuestion + 1}: {questions[currentQuestion].question}</p>
+                                <p style={{ fontWeight: 700 }}>{currentQuestion + 1}. {questions[currentQuestion].question}</p>
                                 <ul className={aiStyles.questionContainer}>
                                     {questions[currentQuestion].options.map((option, i) => {
                                         return <li key={i}>
                                             <button
                                                 // poop code
-                                                className={`${aiStyles.option} ${reveal && (questions[currentQuestion].correct == i ? aiStyles.correct : aiStyles.wrong)}`}
+                                                className={`${aiStyles.option} ${reveal && (questions[currentQuestion].correct == i ? aiStyles.correct : aiStyles.wrong)} `}
                                                 onClick={() => submitQuestion(i)}
-                                                disabled={solved.includes(i)}
+                                                disabled={solved.includes(currentQuestion)}
                                             >
                                                 {option}
                                             </button>
@@ -67,18 +68,29 @@ export default function Quiz(props: { questions: QuizQuestion[], noteID: string 
                                 </ul>
                             </>
                         }
-                        <button
-                            disabled={currentQuestion == 0}
-                            onClick={() => setCurrentQuestion(currentQuestion - 1)}
-                        >
-                            Previous
-                        </button>
-                        <button 
-                            disabled={currentQuestion == questions.length}
-                            onClick={() => setCurrentQuestion(currentQuestion + 1)}
-                        >
-                            Next
-                        </button>
+                        <div style={{display: 'flex'}}>
+                            <button
+                                className={aiStyles.navButtons}
+                                disabled={currentQuestion == 0}
+                                onClick={() => setCurrentQuestion(currentQuestion - 1)}
+                            >
+                                <Icon
+                                    icon="material-symbols:chevron-left"
+                                />
+                                Previous
+                            </button>
+                            <button
+                                className={aiStyles.navButtons}
+                                disabled={currentQuestion == questions.length}
+                                onClick={() => setCurrentQuestion(currentQuestion + 1)}
+                            >
+                                Next
+                                <Icon
+                                    icon="material-symbols:chevron-left"
+                                    rotate={2}
+                                />
+                            </button>
+                        </div>
                     </>
                 }
             </div>
