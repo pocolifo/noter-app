@@ -67,28 +67,33 @@
 
     border-radius: 50%;
 
-    cursor: pointer;
 }
 
-.pfp:hover + .pfpButton {
-    display: block;
-
-    background-color: rgba(0, 0, 0, 0.25);
-}
 
 .pfpButton {
-    display: none;
+    display: contents;
     position: absolute;
     bottom: 0;
-
+    
     width: 192px;
     height: 192px;
     
     border-radius: 50%;
+    cursor: pointer;
+}
+
+.pfpButton:hover {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.pfpButton:hover .pfp {
+    filter: brightness(75%);
 }
 
 .pfpIcon {
     position: absolute;
+    display: inherit;
     top: 50%;
     left: 50%;
 

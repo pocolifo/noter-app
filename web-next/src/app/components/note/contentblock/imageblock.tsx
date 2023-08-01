@@ -11,9 +11,9 @@ interface ImageBlockProps {
 }
 
 export default function ImageBlock(props: ImageBlockProps) {
-    const [imageSrc, setImageSrc] = useState(props.src)
-    const [imageAlt, setImageAlt] = useState(props.alt)
-    const [isLarge, setIsLarge] = useState(false)
+    const [imageSrc, setImageSrc] = useState(props.src);
+    const [imageAlt, setImageAlt] = useState(props.alt);
+    const [isLarge, setIsLarge] = useState(false);
 
     return (
         <div className={styles.contentBlock}>

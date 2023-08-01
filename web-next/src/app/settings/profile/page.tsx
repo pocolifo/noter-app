@@ -16,6 +16,7 @@ export default function Profile() {
     const [ email, setEmail ] = useState('');
     
     const userDataContext = useUserDataContext();
+
     const popupState = usePopupContext();
 
     const initialData = { ...userDataContext };
