@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, ChangeEvent, useEffect } from 'react'
 import { Icon } from '@iconify/react';
 
 import styles from '@/app/settings/profile/page.module.css'
@@ -13,7 +13,7 @@ interface PfpProps {
 }
 
 export default function Pfp(props: PfpProps) {
-    const [imageSrc, setImageSrc] = useState(props.value);
+    const pfp = useUserDataContext().pfp;
     const inputFile = useRef<HTMLInputElement | null>(null);
 
     function openSelector() {
@@ -22,34 +22,26 @@ export default function Pfp(props: PfpProps) {
         }
     }
 
-    function changeImage(event) {
-        const image = event.target.files[0];
+    function changeImage(event: ChangeEvent<HTMLInputElement>) {
+        const files = event.target.files as FileList
+        const file = files.item(0)
+        const reader = new FileReader()
 
-        try {
-            let reader = new FileReader();
+        reader.onload = () => {
+            props.callback(reader.result as string)
+        }
 
-            reader.readAsDataURL(image);
-            reader.onload = () => {
-                const result = reader.result as string;
-
-                setImageSrc(result);
-                props.callback(result);
-            };
-
-            reader.onerror = (error) => {
-                throw new Error(error as unknown as string); // receive as unknown first to silence error
-            }
-        } catch (error) {
-            console.log(error);
+        if (file) {
+            reader.readAsDataURL(file)
         }
     }
 
     return (
         <div className={styles.textbox}>
             <p> {props.header} </p>
-            <div className={styles.container} onClick={props.callback}>
-                <img src={imageSrc} className={styles.pfp}/>
+            <div className={styles.container} onClick={() => props.callback}>
                 <div onClick={openSelector} className={styles.pfpButton}>
+                    <img src={pfp} alt="profile picture" className={styles.pfp}/>
                     <input 
                         type='file' 
                         accept='image/*' 
