@@ -77,7 +77,7 @@ export default function SummaryBlock(props: SummaryProps) {
                 {mode === 'bullets' ?
                     <ul>
                         {
-                            bulletData.map(value => <li>{value}</li>)
+                            bulletData.map((value, i) => <li key={i}>{value}</li>)
                         }
                     </ul>
                     : <p>{sentenceData}</p>}

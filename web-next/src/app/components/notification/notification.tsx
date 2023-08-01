@@ -19,6 +19,7 @@ export default function NotificationHandler() {
                     <Notification
                         data={value}
                         id={key}
+                        key={key}
                     />
                 ))
             }
