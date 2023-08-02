@@ -1,104 +1,102 @@
 .content {
-    margin: 40px;
+	margin: 40px;
 }
 
 .content > hr {
-    margin-bottom: 5vh;
+	margin-bottom: 5vh;
 }
 
 .header {
-    font-size: xx-large;
-    margin: 0;
+	font-size: xx-large;
+	margin: 0;
 }
 
 .main {
-    display: flex;
-    gap: 10vh;
+	display: flex;
+	gap: 10vh;
 }
 
 .textbox {
-    margin-bottom: 5vh;
+	margin-bottom: 5vh;
 }
 
 .textbox > p {
-    margin: 2px;
-    color: gray;
+	margin: 2px;
+	color: gray;
 }
 
 .textbox > input {
-    height: 30px;
-    width: 400px;
+	height: 30px;
+	width: 400px;
 
-    font-size: large;
+	font-size: large;
 
-    outline: none;
-    border: none;
-    border-bottom: 1px solid gray;
-    font-size: 20px;
+	outline: none;
+	border: none;
+	border-bottom: 1px solid gray;
+	font-size: 20px;
 }
 
 .button {
-    height: 30px;
-    width: 150px;
-    
-    background-color: #202123;
-    color: white;
+	height: 30px;
+	width: 150px;
 
-    outline: none;
-    border: none;
-    border-color: gray;
-    border-radius: 5px;
+	background-color: #202123;
+	color: white;
 
-    cursor: pointer;
+	outline: none;
+	border: none;
+	border-color: gray;
+	border-radius: 5px;
+
+	cursor: pointer;
 }
 
 .container {
-    position: relative;
+	position: relative;
 
-    width: 192px;
-    height: 192px
+	width: 192px;
+	height: 192px;
 }
 
 .pfp {
-    position: absolute;
+	position: absolute;
 
-    width: 192px;
-    height: 192px;
+	width: 192px;
+	height: 192px;
 
-    border-radius: 50%;
-
+	border-radius: 50%;
 }
 
-
 .pfpButton {
-    display: contents;
-    position: absolute;
-    bottom: 0;
-    
-    width: 192px;
-    height: 192px;
-    
-    border-radius: 50%;
-    cursor: pointer;
+	display: contents;
+	position: absolute;
+	bottom: 0;
+
+	width: 192px;
+	height: 192px;
+
+	border-radius: 50%;
+	cursor: pointer;
 }
 
 .pfpButton:hover {
-    display: block;
-    background-color: rgba(0, 0, 0, 0.25);
+	display: block;
+	background-color: rgba(0, 0, 0, 0.25);
 }
 
 .pfpButton:hover .pfp {
-    filter: brightness(75%);
+	filter: brightness(75%);
 }
 
 .pfpIcon {
-    position: absolute;
-    display: inherit;
-    top: 50%;
-    left: 50%;
+	position: absolute;
+	display: inherit;
+	top: 50%;
+	left: 50%;
 
-    margin: -32px 0 0 -32px;
+	margin: -32px 0 0 -32px;
 
-    width: 64px;
-    height: 64px;
+	width: 64px;
+	height: 64px;
 }
