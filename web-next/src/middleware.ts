@@ -1,17 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { API, authenticate } from './app/lib/api';
+
+// Also in next.config.js
+const API = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
 
 export async function middleware(request: NextRequest) {
 	if (
 		request.nextUrl.pathname.startsWith('/_next/static') ||
+		request.nextUrl.pathname.startsWith('/api') ||
 		request.nextUrl.pathname.startsWith('/login')
 	) {
 		return;
 	}
 
-	const response = await fetch(`${API}/`, {
-		headers: request.headers // includes Cookie header
-	});
+	const response = await fetch(API, {
+		headers: request.headers, // includes Cookie header
+	})
 
 	const responseJson = await response.json();
 

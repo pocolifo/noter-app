@@ -1,11 +1,9 @@
 import { FolderData, NoteData, QuizQuestion, UserData } from './interfaces';
 
-// the base api path
-export const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 export async function getNoteByUUID(uuid: string): Promise<NoteData> {
 	try {
-		const response = await fetch(`${API}/items/${uuid}`, { credentials: 'include' });
+		const response = await fetch(`/api/items/${uuid}`, { credentials: 'include' });
 		const data = await response.json();
 
 		return Promise.resolve(<NoteData>{
@@ -20,7 +18,7 @@ export async function getNoteByUUID(uuid: string): Promise<NoteData> {
 
 export async function getItemsByFolder(path: string[]): Promise<(NoteData | FolderData)[]> {
 	try {
-		const response = await fetch(`${API}/items/list`, {
+		const response = await fetch(`/api/items/list`, {
 			credentials: 'include',
 			method: 'POST',
 			body: JSON.stringify(path)
@@ -53,13 +51,16 @@ export async function getItemsByFolder(path: string[]): Promise<(NoteData | Fold
 
 export async function createFolder(name: string, path: string[]): Promise<FolderData> {
 	try {
-		const response = await fetch(`${API}/items/create/folder`, {
+		const response = await fetch(`/api/items/create/folder`, {
 			credentials: 'include',
 			method: 'POST',
 			body: JSON.stringify({
 				name: name,
 				path: path
-			})
+			}),
+			headers: {
+				'Content-Type': 'application/json'
+			}
 		});
 		const data = await response.json();
 
@@ -75,13 +76,16 @@ export async function createFolder(name: string, path: string[]): Promise<Folder
 
 export async function createNote(name: string, path: string[]): Promise<NoteData> {
 	try {
-		const response = await fetch(`${API}/items/create/note`, {
+		const response = await fetch(`/api/items/create/note`, {
 			credentials: 'include',
 			method: 'POST',
 			body: JSON.stringify({
 				name: name,
 				path: path
-			})
+			}),
+			headers: {
+				'Content-Type': 'application/json'
+			}
 		});
 		const data = await response.json();
 
@@ -98,10 +102,13 @@ export async function createNote(name: string, path: string[]): Promise<NoteData
 
 export async function saveNote(note: NoteData): Promise<void> {
 	try {
-		await fetch(`${API}/items/update/blocks?${new URLSearchParams({ id: note.uuid })}`, {
+		await fetch(`/api/items/update/blocks?${new URLSearchParams({ id: note.uuid })}`, {
 			credentials: 'include',
 			method: 'PUT',
-			body: JSON.stringify(note.content)
+			body: JSON.stringify(note.content),
+			headers: {
+				'Content-Type': 'application/json'
+			}
 		});
 
 		return Promise.resolve();
@@ -112,7 +119,7 @@ export async function saveNote(note: NoteData): Promise<void> {
 
 export async function userLogin(email: string, password: string): Promise<boolean> {
 	try {
-		const response = await fetch(`${API}/authenticate`, {
+		const response = await fetch(`/api/authenticate`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -135,7 +142,7 @@ export async function userLogin(email: string, password: string): Promise<boolea
 // check if the user is logged in
 export async function authenticate(): Promise<boolean> {
 	try {
-		const response = await fetch(`${API}/`, {
+		const response = await fetch(`/api`, {
 			credentials: 'include'
 		});
 
@@ -149,7 +156,7 @@ export async function authenticate(): Promise<boolean> {
 
 export async function getUserData(): Promise<UserData> {
 	try {
-		const response = await fetch(`${API}/`, {
+		const response = await fetch(`/api`, {
 			credentials: 'include'
 		});
 
@@ -173,12 +180,15 @@ export async function getUserData(): Promise<UserData> {
 
 export async function changeName(name: string): Promise<void> {
 	try {
-		await fetch(`${API}/items/update/name`, {
+		await fetch(`/api/items/update/name`, {
 			credentials: 'include',
 			method: 'POST',
 			body: JSON.stringify({
 				name: name
-			})
+			}),
+			headers: {
+				'Content-Type': 'application/json'
+			}
 		});
 
 		return Promise.resolve();
@@ -189,12 +199,15 @@ export async function changeName(name: string): Promise<void> {
 
 export async function changePfp(pfp: string): Promise<void> {
 	try {
-		await fetch(`${API}/items/update/pfp`, {
+		await fetch(`/api/items/update/pfp`, {
 			credentials: 'include',
 			method: 'POST',
 			body: JSON.stringify({
 				image: pfp
-			})
+			}),
+			headers: {
+				'Content-Type': 'application/json'
+			}
 		});
 
 		return Promise.resolve();
@@ -209,7 +222,7 @@ export async function changeEmail(email: string): Promise<void> {
 
 export async function requestChangePassword(): Promise<void> {
 	try {
-		await fetch(`${API}/items/update/reqpassword`, {
+		await fetch(`/api/items/update/reqpassword`, {
 			credentials: 'include',
 			method: 'POST'
 		});
@@ -222,13 +235,16 @@ export async function requestChangePassword(): Promise<void> {
 
 export async function changePassword(password: string, code: string): Promise<void> {
 	try {
-		await fetch(`${API}/items/update/password`, {
+		await fetch(`/api/items/update/password`, {
 			credentials: 'include',
 			method: 'POST',
 			body: JSON.stringify({
 				password: password,
 				code: code
-			})
+			}),
+			headers: {
+				'Content-Type': 'application/json'
+			}
 		});
 
 		return Promise.resolve();
@@ -239,13 +255,16 @@ export async function changePassword(password: string, code: string): Promise<vo
 
 export async function updateItem(id: string, name: string, path: string[]): Promise<void> {
 	try {
-		await fetch(`${API}/items/update/metadata?${new URLSearchParams({ id: id })}`, {
+		await fetch(`/api/items/update/metadata?${new URLSearchParams({ id: id })}`, {
 			credentials: 'include',
 			method: 'POST',
 			body: JSON.stringify({
 				name: name,
 				path: path
-			})
+			}),
+			headers: {
+				'Content-Type': 'application/json'
+			}
 		});
 
 		return Promise.resolve();
@@ -256,7 +275,7 @@ export async function updateItem(id: string, name: string, path: string[]): Prom
 
 export async function deleteItem(id: string): Promise<void> {
 	try {
-		await fetch(`${API}/items/delete?${new URLSearchParams({ id: id })}`, {
+		await fetch(`/api/items/delete?${new URLSearchParams({ id: id })}`, {
 			credentials: 'include',
 			method: 'DELETE'
 		});
@@ -270,7 +289,7 @@ export async function deleteItem(id: string): Promise<void> {
 export async function summarizeNote(id: string): Promise<any> {
 	try {
 		const response = await fetch(
-			`${API}/ai/generate/summary?${new URLSearchParams({ id: id })}`,
+			`/api/ai/generate/summary?${new URLSearchParams({ id: id })}`,
 			{
 				credentials: 'include',
 				method: 'POST'
@@ -287,7 +306,7 @@ export async function summarizeNote(id: string): Promise<any> {
 export async function generateQuiz(id: string, n: number): Promise<QuizQuestion[]> {
 	try {
 		const response = await fetch(
-			`${API}/ai/generate/quiz?${new URLSearchParams({ id: id, n: n.toString() })}`,
+			`/api/ai/generate/quiz?${new URLSearchParams({ id: id, n: n.toString() })}`,
 			{
 				credentials: 'include',
 				method: 'POST'
