@@ -1,0 +1,86 @@
+.loginPage {
+	background-size: 5vh 5vh;
+	background-image: linear-gradient(to right, #eeeeee 1px, transparent 1px),
+		linear-gradient(to bottom, #eeeeee 1px, transparent 1px);
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	height: 100vh;
+	width: 100vw;
+}
+
+.loginPage * {
+	font-family: 'Playfair Display';
+}
+
+.loginPanel {
+	width: 50em;
+
+	border: #000000 2px solid;
+	border-radius: 1rem;
+	padding: 1rem;
+	background: #ffffff;
+	box-shadow: #0004 0 0 20px;
+}
+
+.loginTitle {
+	text-align: center;
+	margin: 5vh;
+
+	font-size: 48px;
+}
+
+.hr {
+	width: 80%;
+	color: rgba(211, 211, 211, 0.51);
+
+	margin-bottom: 5vh;
+}
+
+.loginFields {
+	display: flex;
+	flex-direction: column;
+}
+
+.loginFields > input {
+	margin-top: 2vh;
+	margin-left: 5vh;
+	margin-right: 5vh;
+
+	border: #000000 1px solid;
+	padding: 1rem;
+	border-radius: 0.5rem;
+	font-size: 30px;
+	background: #ffffff;
+	outline: none;
+	color: black;
+}
+
+.loginFields > input:focus {
+	border-width: 2px;
+}
+
+.loginFields p {
+	margin: 0;
+}
+
+.loginButton {
+	margin: 5vh;
+	margin-right: auto;
+	margin-left: auto;
+
+	width: 50%;
+
+	text-align: center;
+	color: white;
+	font-size: 30px;
+	padding: 20px;
+
+	border: none;
+	border-radius: 10px;
+
+	cursor: pointer;
+	background-color: black;
+}
