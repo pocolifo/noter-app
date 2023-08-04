@@ -1,7 +1,7 @@
 import { FolderData, NoteData, QuizQuestion, UserData } from './interfaces';
 
 // the base api path
-export const API = 'http://localhost:8000';
+export const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 export async function getNoteByUUID(uuid: string): Promise<NoteData> {
 	try {
