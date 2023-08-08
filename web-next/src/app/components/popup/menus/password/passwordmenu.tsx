@@ -27,16 +27,34 @@ enum Menu {
 export default function ChangePasswordMenu(props: { closePopup: () => void }) {
     const notificationContext = useNotificationContext();
 
-    const [ menu, setMenu ] = useState<Menu>(Menu.VERIFICATION_CODE);
+    const [ menu, setMenu ] = useState<Menu>(Menu.PASSWORD);
     const [ password, setPassword ] = useState<string>('');
     const [ confirmPassword, setConfirmPassword ] = useState<string>('');
     const [ verificationCode, setVerificationCode ] = useState<string>('');
 
-	function handleClick() {
-		if (password === confirmPassword) {
-			changePassword(confirmPassword, verificationCode);
+    async function handleSubmit() {
+        try {
+            await changePassword(confirmPassword, verificationCode);
+
+            notificationContext.fire({
+                title: 'Success',
+                description: 'Successfully changed password',
+                type: 'success'
+            });
 
             props.closePopup();
+        } catch (error) {
+            notificationContext.fire({
+                title: 'Error',
+                description: 'Invalid verification code',
+                type: 'error'
+            })
+        }
+    }
+
+    function changeMenu() {
+        if (password === confirmPassword) {
+            setMenu(Menu.VERIFICATION_CODE);
         } else {
             notificationContext.fire({
                 title: 'Try again',
@@ -50,12 +68,12 @@ export default function ChangePasswordMenu(props: { closePopup: () => void }) {
 		<div className={styles.main}>
 			{menu === Menu.VERIFICATION_CODE ? (
 				<CodeMenu
-					submitCallback={() => setMenu(Menu.PASSWORD)}
+					submitCallback={handleSubmit}
 					verificationCodeSetter={setVerificationCode}
 				/>
 			) : (
 				<PasswordMenu
-					submitCallback={handleClick}
+					submitCallback={changeMenu}
 					passwordSetter={setPassword}
 					confirmPasswordSetter={setConfirmPassword}
 				/>
