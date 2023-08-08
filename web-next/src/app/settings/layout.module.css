@@ -1,12 +1,10 @@
 .main {
-    display: grid;
-    grid-template-columns: 300px 1fr;
+	display: grid;
+	grid-template-columns: 300px 1fr;
 }
 
 .content {
-
 }
 
 .header {
-
 }

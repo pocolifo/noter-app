@@ -1,63 +1,63 @@
 .noteBody {
-    text-align: left;
-    margin: 15px;
+	text-align: left;
+	margin: 15px;
 }
 
 .noteHeader {
-    display: grid;
-    grid-template-columns: 1fr;
+	display: grid;
+	grid-template-columns: 1fr;
 }
 
 .noteHeaderTitle {
-    font-size: 48px;
-    font-weight: bolder;
+	font-size: 48px;
+	font-weight: bolder;
 
-    margin: 15px;
-    text-align: left;
+	margin: 15px;
+	text-align: left;
 }
 
 .content {
-    border: solid;
-    border-color: white;
-    border-width: 1px;
-    border-radius: 10px;
+	border: solid;
+	border-color: white;
+	border-width: 1px;
+	border-radius: 10px;
 }
 
 .content.active {
-    border-color: lightgray;
+	border-color: lightgray;
 }
 
 .dragIcon {
-    height: 30px;
-    width: 30px;
+	height: 30px;
+	width: 30px;
 }
 
 .hidden {
-    display: none;
+	display: none;
 }
 
 .noteBlock {
-    display: grid;
-    grid-template-columns: 32px 1fr 32px;
-    gap: 10px;
+	display: grid;
+	grid-template-columns: 32px 1fr 32px;
+	gap: 10px;
 
-    align-items: center;
-    margin: 1em;
+	align-items: center;
+	margin: 1em;
 }
 
 .deleteButton {
-    display: contents;
+	display: contents;
 }
 
 .deleteIcon {
-    color: grey;
-    width: 30px;
-    height: 30px;
+	color: grey;
+	width: 30px;
+	height: 30px;
 
-    transition: 0.2s ease;
-    cursor: pointer;
+	transition: 0.2s ease;
+	cursor: pointer;
 }
 
 .deleteIcon:hover {
-    color: #FB4B4B;
+	color: #fb4b4b;
 }

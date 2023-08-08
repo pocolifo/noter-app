@@ -1,70 +1,58 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, ChangeEvent, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 
-import styles from '@/app/settings/profile/page.module.css'
+import styles from '@/app/settings/profile/page.module.css';
 
-import { useUserDataContext } from '@/app/settings/userdatacontext'
+import { useUserDataContext } from '@/app/settings/userdatacontext';
 
 interface PfpProps {
-    header: string;
+	header: string;
 
-    value: string;
-    callback: (_v: string) => void;
+	value: string;
+	callback: (_v: string) => void;
 }
 
 export default function Pfp(props: PfpProps) {
-    const [imageSrc, setImageSrc] = useState(props.value);
-    const inputFile = useRef<HTMLInputElement | null>(null);
+	const pfp = useUserDataContext().pfp;
+	const inputFile = useRef<HTMLInputElement | null>(null);
 
-    function openSelector() {
-        if (inputFile !== null) {
-            inputFile.current!.click();
-        }
-    }
+	function openSelector() {
+		if (inputFile !== null) {
+			inputFile.current!.click();
+		}
+	}
 
-    function changeImage(event) {
-        const image = event.target.files[0];
+	function changeImage(event: ChangeEvent<HTMLInputElement>) {
+		const files = event.target.files as FileList;
+		const file = files.item(0);
+		const reader = new FileReader();
 
-        try {
-            let reader = new FileReader();
+		reader.onload = () => {
+			props.callback(reader.result as string);
+		};
 
-            reader.readAsDataURL(image);
-            reader.onload = () => {
-                const result = reader.result as string;
+		if (file) {
+			reader.readAsDataURL(file);
+		}
+	}
 
-                setImageSrc(result);
-                props.callback(result);
-            };
-
-            reader.onerror = (error) => {
-                throw new Error(error as unknown as string); // receive as unknown first to silence error
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    return (
-        <div className={styles.textbox}>
-            <p> {props.header} </p>
-            <div className={styles.container} onClick={props.callback}>
-                <img src={imageSrc} className={styles.pfp}/>
-                <div onClick={openSelector} className={styles.pfpButton}>
-                    <input 
-                        type='file' 
-                        accept='image/*' 
-                        id='pfpupload' 
-                        style={{display: 'none'}} 
-                        ref={inputFile}
-                        onChange={changeImage}
-                    />
-                    <Icon
-                        icon='bx:edit'
-                        className={styles.pfpIcon}
-                        color='#FFFFFF'
-                    />
-                </div>
-            </div>
-        </div>
-    )
+	return (
+		<div className={styles.textbox}>
+			<p> {props.header} </p>
+			<div className={styles.container} onClick={() => props.callback}>
+				<div onClick={openSelector} className={styles.pfpButton}>
+					<img src={pfp} alt="profile picture" className={styles.pfp} />
+					<input
+						type="file"
+						accept="image/*"
+						id="pfpupload"
+						style={{ display: 'none' }}
+						ref={inputFile}
+						onChange={changeImage}
+					/>
+					<Icon icon="bx:edit" className={styles.pfpIcon} color="#FFFFFF" />
+				</div>
+			</div>
+		</div>
+	);
 }

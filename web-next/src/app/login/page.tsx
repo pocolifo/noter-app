@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState } from 'react';
 
@@ -10,99 +10,102 @@ import { userLogin } from '../lib/api';
 import { Playfair_Display } from 'next/font/google';
 import { useNotificationContext } from '../components/notification/notificationcontext';
 
-const playfairDisplay = Playfair_Display({ subsets: ['latin'] })
+const playfairDisplay = Playfair_Display({ subsets: ['latin'] });
 
 export default function Login() {
-    const [ loggingIn, setLoggingIn ] = useState<boolean>(false);
-    const [ errorState, setErrorState ] = useState<string | null>(null);
-    const router = useRouter();
-    const notificationContext = useNotificationContext();
+	const [loggingIn, setLoggingIn] = useState<boolean>(false);
+	const [errorState, setErrorState] = useState<string | null>(null);
+	const router = useRouter();
+	const notificationContext = useNotificationContext();
 
-    async function handleLogin(e: React.FormEvent) {
-        setLoggingIn(true);
-        e.preventDefault();
-        let target = e.currentTarget as HTMLFormElement;
-        let formData = new FormData(target);
+	async function handleLogin(e: React.FormEvent) {
+		setLoggingIn(true);
+		e.preventDefault();
+		let target = e.currentTarget as HTMLFormElement;
+		let formData = new FormData(target);
 
-        let email = formData.get('email');
-        if (email === null) {
-            setErrorState('Missing email');
+		let email = formData.get('email');
+		if (email === null) {
+			setErrorState('Missing email');
 
-            notificationContext.fire({
-                title: 'Error',
-                description: 'Unable to login, please provide an email',
-                type: 'error'
-            });
-            
-            setLoggingIn(false);
-            return;
-        }
+			notificationContext.fire({
+				title: 'Error',
+				description: 'Unable to login, please provide an email',
+				type: 'error'
+			});
 
-        let password = formData.get('password');
-        if (password === null) {
-            setErrorState('Missing password');
+			setLoggingIn(false);
+			return;
+		}
 
-            notificationContext.fire({
-                title: 'Error',
-                description: 'Unable to login, please provide a password',
-                type: 'error'
-            });
+		let password = formData.get('password');
+		if (password === null) {
+			setErrorState('Missing password');
 
-            setLoggingIn(false);
-            return;
-        }
+			notificationContext.fire({
+				title: 'Error',
+				description: 'Unable to login, please provide a password',
+				type: 'error'
+			});
 
-        try {
-            let loggedInSuccessfully = await userLogin(email.toString(), password.toString());
-            
-            if (loggedInSuccessfully) {
-                router.push('/');
+			setLoggingIn(false);
+			return;
+		}
 
-                notificationContext.fire({
-                    title: 'Success',
-                    description: 'Successfully logged in',
-                    type: 'success'
-                });
-            } else {
-                setErrorState('Bad credentials');
+		try {
+			let loggedInSuccessfully = await userLogin(email.toString(), password.toString());
 
-                notificationContext.fire({
-                    title: 'Error',
-                    description: 'Unable to login, bad credentials',
-                    type: 'error'
-                });
-            }
-        } catch (e) {
-            setErrorState(String(e));
+			if (loggedInSuccessfully) {
+				router.push('/');
 
-            notificationContext.fire({
-                title: 'Error',
-                description: String(e),
-                type: 'error'
-            });
-        } finally {
-            setLoggingIn(false);
-        }
-    }
+				notificationContext.fire({
+					title: 'Success',
+					description: 'Successfully logged in',
+					type: 'success'
+				});
+			} else {
+				setErrorState('Bad credentials');
 
-    return (
-        <div className={`${styles.loginPage} ${playfairDisplay}`}>
-            <div className={styles.loginPanel}>
-                <div className={styles.loginTitle}> Log in to <strong>Noter.</strong></div>
+				notificationContext.fire({
+					title: 'Error',
+					description: 'Unable to login, bad credentials',
+					type: 'error'
+				});
+			}
+		} catch (e) {
+			setErrorState(String(e));
 
-                <hr className={styles.hr} />
+			notificationContext.fire({
+				title: 'Error',
+				description: String(e),
+				type: 'error'
+			});
+		} finally {
+			setLoggingIn(false);
+		}
+	}
 
-                <form className={styles.loginFields} onSubmit={ handleLogin }>
-                    <input placeholder='Email' type="email" name="email" required />
-                    <input placeholder='Password' type="password" name="password" required />
+	return (
+		<div className={`${styles.loginPage} ${playfairDisplay}`}>
+			<div className={styles.loginPanel}>
+				<div className={styles.loginTitle}>
+					{' '}
+					Log in to <strong>Noter.</strong>
+				</div>
 
-                    <p>{errorState}</p>
+				<hr className={styles.hr} />
 
-                    <button className={styles.loginButton} type='submit' disabled={loggingIn}>
-                        { loggingIn ? <LoadingSpinner /> : 'Log in'}
-                    </button>
-                </form>
-            </div>
-        </div>
-    )
+				<form className={styles.loginFields} onSubmit={handleLogin}>
+					<input placeholder="Email" type="email" name="email" required />
+					<input placeholder="Password" type="password" name="password" required />
+
+					<p>{errorState}</p>
+
+					<button className={styles.loginButton} type="submit" disabled={loggingIn}>
+						{loggingIn ? <LoadingSpinner /> : 'Log in'}
+					</button>
+				</form>
+			</div>
+		</div>
+	);
 }

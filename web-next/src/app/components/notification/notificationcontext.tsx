@@ -1,54 +1,56 @@
-"use client";
+'use client';
 
 import { createContext, ReactNode, useContext, useId, useState } from 'react';
 
 import { NotificationProps } from '@/app/lib/interfaces';
 
 interface NotificationContextProps {
-    queue: {[key: string]: NotificationProps};
+	queue: { [key: string]: NotificationProps };
 
-    fire: (_v: NotificationProps) => void;
-    delete: (_id: string) => void;
+	fire: (_v: NotificationProps) => void;
+	delete: (_id: string) => void;
 }
 
 const NotificationContext = createContext<NotificationContextProps>({
-    queue: {},
+	queue: {},
 
-    fire: (_v: NotificationProps) => {},
-    delete: (_id: string) => {}
+	fire: (_v: NotificationProps) => {},
+	delete: (_id: string) => {}
 });
 
 export const useNotificationContext = () => useContext(NotificationContext);
 
 export function NotificationProvider({ children }: { children: ReactNode }) {
-    const [queueState, setQueueState] = useState<{[key: string]: NotificationProps}>({});
-    
-    function addNotification(data: NotificationProps) {
-        const newId = crypto.randomUUID();
+	const [queueState, setQueueState] = useState<{ [key: string]: NotificationProps }>({});
 
-        setQueueState((prevState) => ({
-            ...prevState,
-            [newId]: data
-        }));
-    }
+	function addNotification(data: NotificationProps) {
+		const newId = crypto.randomUUID();
 
-    function deleteNotification(id: string) {
-        setQueueState((prevState) => {
-            const newState = {...prevState};
-            delete newState[id];
+		setQueueState((prevState) => ({
+			...prevState,
+			[newId]: data
+		}));
+	}
 
-            return newState
-        })
-    }
+	function deleteNotification(id: string) {
+		setQueueState((prevState) => {
+			const newState = { ...prevState };
+			delete newState[id];
 
-    return (
-        <NotificationContext.Provider value={{
-            queue: queueState,
+			return newState;
+		});
+	}
 
-            fire: addNotification,
-            delete: deleteNotification,
-        }}>
-            { children }
-        </NotificationContext.Provider>
-    )
+	return (
+		<NotificationContext.Provider
+			value={{
+				queue: queueState,
+
+				fire: addNotification,
+				delete: deleteNotification
+			}}
+		>
+			{children}
+		</NotificationContext.Provider>
+	);
 }
