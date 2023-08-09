@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 import styles from '@/app/settings/profile/page.module.css';
 
 import { useUserDataContext } from '@/app/settings/userdatacontext';
+import { Icon } from '@iconify/react';
 
 interface TextboxProps {
 	header: string;
@@ -10,23 +11,63 @@ interface TextboxProps {
 
 	value: string;
 	callback: (_v: string) => void;
+
+	editCallback?: () => void;
 }
 
 export default function Textbox(props: TextboxProps) {
 	const userDataContext = useUserDataContext();
 	const [editing, setEditing] = useState(true);
+	const [editCallback, setEditCallback] = useState<() => void>(toggleEditing);
+	const [inputValue, setInputValue] = useState<string>('');
+
+	function toggleEditing() {
+		setEditing(!editing);
+	}
+
+	function handleChange(e: ChangeEvent<HTMLInputElement>) {
+		setInputValue(e.target.value);
+	}
+
+	useEffect(() => {
+		if (typeof props.editCallback === 'function') {
+			setEditCallback(props.editCallback);
+		}
+	}, []);
 
 	return (
 		<div className={styles.textbox}>
 			<p> {props.header} </p>
 
 			{editing ? (
-				<input
-					defaultValue={props.value}
-					onChange={(e) => props.valueSetter(e.target.value)}
-				/>
+				<div className={styles.side}>
+					<input
+						className={styles.input}
+						defaultValue={props.value}
+						onChange={handleChange}
+					/>
+
+					<Icon
+						icon='fe:check'
+						className={styles.textIcon}
+						onClick={() => {
+							props.callback(inputValue);
+							toggleEditing();
+						}}
+					/>
+				</div>
 			) : (
-				<div>{props.value}</div>
+				<div className={styles.side}>
+					<p> {props.value} </p>
+
+					<Icon
+						icon='fe:edit'
+						className={styles.textIcon}
+						onClick={() => {
+							editCallback();
+						}}
+					/>
+				</div>
 			)}
 		</div>
 	);

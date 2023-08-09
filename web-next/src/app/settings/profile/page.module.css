@@ -23,9 +23,11 @@
 .textbox > p {
 	margin: 2px;
 	color: gray;
+
+	font-size: large;
 }
 
-.textbox > input {
+.input {
 	height: 30px;
 	width: 400px;
 
@@ -57,6 +59,21 @@
 
 	width: 192px;
 	height: 192px;
+}
+
+.side {
+	display: flex;
+
+	cursor: pointer;
+}
+
+.textIcon {
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-left: 2vh;
+
+	width: 20px;
+	height: 20px;
 }
 
 .pfp {

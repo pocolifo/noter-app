@@ -12,7 +12,7 @@ import Pfp from '@/app/components/settings/pfp';
 import { usePopupContext } from '@/app/components/popup/popupcontext';
 
 export default function Profile() {
-	const [name, setName] = useState('');
+	// const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 
 	const userDataContext = useUserDataContext();
@@ -21,12 +21,9 @@ export default function Profile() {
 
 	const initialData = { ...userDataContext };
 
-	function saveData() {
+	function changeName(name: string) {
 		if (initialData.name !== name) {
 			userDataContext.setName(name);
-		}
-		if (initialData.email !== email) {
-			userDataContext.setEmail(email);
 		}
 	}
 
@@ -48,9 +45,9 @@ export default function Profile() {
 				<div>
 					<Textbox
 						header="Name"
-						valueSetter={setName}
+						valueSetter={() => {}}
 						value={userDataContext.name}
-						callback={userDataContext.setName}
+						callback={changeName}
 					/>
 					<Textbox
 						header="Email"
@@ -72,7 +69,7 @@ export default function Profile() {
 						</button>
 					</div>
 
-					<button onClick={saveData} className={styles.button}>
+					<button onClick={() => {}} className={styles.button}>
 						{' '}
 						Update profile{' '}
 					</button>
