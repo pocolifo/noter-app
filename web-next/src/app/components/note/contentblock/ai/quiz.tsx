@@ -2,6 +2,7 @@ import { QuizQuestion } from '@/app/lib/interfaces';
 import { generateQuiz } from '@/app/lib/api';
 import { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
+import Results from './results/results';
 
 import aiStyles from './ai.module.css';
 import contentBlockStyles from '../contentblock.module.css';
@@ -42,6 +43,13 @@ export default function QuizBlock(props: {
 		questions[currentQuestion].correct == n && setCorrect(correct + 1);
 	}
 
+	function regenerate() {
+		setSolved([])
+		setCorrect(0)
+		setCurrentQuestion(0)
+		setLoading(true)
+	}
+
 	return (
 		<div className={contentBlockStyles.contentBlock}>
 			<h1>Quiz</h1>
@@ -52,7 +60,7 @@ export default function QuizBlock(props: {
 							<>
 								<p>Results:</p>
 								<div>
-									{correct}/{questions.length}
+									<Results correct={correct} wrong={solved.length-correct} total={4}/>
 								</div>
 							</>
 						) : (
@@ -100,6 +108,15 @@ export default function QuizBlock(props: {
 								Next
 								<Icon icon="material-symbols:chevron-left" rotate={2} />
 							</button>
+							{currentQuestion == questions.length &&
+								<button
+									className={aiStyles.navButtons}
+									onClick={() => regenerate()}
+								>
+									<Icon icon="material-symbols:refresh" />
+									Regenerate
+								</button>
+							}
 						</div>
 					</>
 				)}
