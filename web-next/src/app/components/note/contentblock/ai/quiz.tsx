@@ -58,9 +58,8 @@ export default function QuizBlock(props: {
 					<>
 						{currentQuestion == questions.length ? (
 							<>
-								<p>Results:</p>
-								<div>
-									<Results correct={correct} wrong={solved.length-correct} total={4}/>
+								<div style={{padding: '20px'}}>
+									<Results correct={correct} wrong={solved.length-correct} total={questions.length}/>
 								</div>
 							</>
 						) : (
@@ -79,7 +78,7 @@ export default function QuizBlock(props: {
 														(questions[currentQuestion].correct == i
 															? aiStyles.correct
 															: aiStyles.wrong)
-													} `}
+													}`}
 													onClick={() => submitQuestion(i)}
 													disabled={solved.includes(currentQuestion)}
 												>
