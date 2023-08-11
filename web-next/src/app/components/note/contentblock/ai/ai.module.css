@@ -88,7 +88,11 @@
 	border: none;
 	cursor: pointer;
 
-	transition: transform 0.15s ease background-color 0.15s ease;
+	transition: background-color 0.15s ease;
+}
+
+.option:disabled {
+	color: black;
 }
 
 .correct {
@@ -97,10 +101,6 @@
 
 .wrong {
 	background-color: #fb4b4b;
-}
-
-.wrong.selected {
-	background-color: #951616;
 }
 
 .questionContainer li {
@@ -118,7 +118,7 @@
 	padding: 5px;
 
 	border-radius: 8px;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .navButtons:disabled {
