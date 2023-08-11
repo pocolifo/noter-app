@@ -1,5 +1,7 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import TaskItem from '@tiptap/extension-task-item'
+import TaskList from '@tiptap/extension-task-list'
 import { Icon } from '@iconify/react';
 
 import styles from './texteditor.module.css';
@@ -26,7 +28,7 @@ interface ButtonProps {
 
 export default function TextEditor(props: TextEditorProps) {
 	const editor = useEditor({
-		extensions: [StarterKit],
+		extensions: [StarterKit, TaskList, TaskItem],
 		content: props.htmlContent
 	});
 	const isFirstMount = useRef(true);
@@ -61,6 +63,21 @@ export default function TextEditor(props: TextEditorProps) {
 function Toolbar(props: ToolbarProps) {
 	const buttonList: ButtonProps[] = [
 		{
+			id: 'undo',
+			icon: 'material-symbols:undo',
+			callback: () => props.editor.chain().focus().undo().run()
+		},
+		{
+			id: 'redo',
+			icon: 'material-symbols:redo',
+			callback: () => props.editor.chain().focus().redo().run()
+		},
+		{
+			id: 'divider',
+			icon: 'none',
+			callback: () => {}
+		},
+		{
 			id: 'bold',
 			icon: 'fe:bold',
 			callback: () => props.editor.chain().focus().toggleBold().run()
@@ -94,6 +111,11 @@ function Toolbar(props: ToolbarProps) {
 			id: 'orderedList',
 			icon: 'fe:list-order',
 			callback: () => props.editor.chain().focus().toggleOrderedList().run()
+		},
+		{
+			id: 'taskList',
+			icon: 'fe:list-task',
+			callback: () => props.editor.chain().focus().toggleTaskList().run()
 		}
 	];
 
@@ -118,13 +140,6 @@ function Toolbar(props: ToolbarProps) {
 					);
 				}
 			})}
-
-			<Icon
-				icon="fe:close"
-				color="#FFFFFF"
-				onClick={props.closeCallback}
-				className={styles.editorCloseButton}
-			/>
 		</div>
 	);
 }

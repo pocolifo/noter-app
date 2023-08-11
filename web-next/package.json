@@ -10,6 +10,8 @@
 		"format": "npx prettier . --write"
 	},
 	"dependencies": {
+		"@tiptap/extension-task-item": "^2.0.4",
+		"@tiptap/extension-task-list": "^2.0.4",
 		"@tiptap/pm": "^2.0.4",
 		"@tiptap/react": "^2.0.4",
 		"@tiptap/starter-kit": "^2.0.4",
