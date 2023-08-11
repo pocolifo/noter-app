@@ -44,10 +44,10 @@ export default function QuizBlock(props: {
 	}
 
 	function regenerate() {
-		setSolved([])
-		setCorrect(0)
-		setCurrentQuestion(0)
-		setLoading(true)
+		setSolved([]);
+		setCorrect(0);
+		setCurrentQuestion(0);
+		setLoading(true);
 	}
 
 	return (
@@ -58,8 +58,12 @@ export default function QuizBlock(props: {
 					<>
 						{currentQuestion == questions.length ? (
 							<>
-								<div style={{padding: '20px'}}>
-									<Results correct={correct} wrong={solved.length-correct} total={questions.length}/>
+								<div style={{ padding: '20px' }}>
+									<Results
+										correct={correct}
+										wrong={solved.length - correct}
+										total={questions.length}
+									/>
 								</div>
 							</>
 						) : (
@@ -107,7 +111,7 @@ export default function QuizBlock(props: {
 								Next
 								<Icon icon="material-symbols:chevron-left" rotate={2} />
 							</button>
-							{currentQuestion == questions.length &&
+							{currentQuestion == questions.length && (
 								<button
 									className={aiStyles.navButtons}
 									onClick={() => regenerate()}
@@ -115,7 +119,7 @@ export default function QuizBlock(props: {
 									<Icon icon="material-symbols:refresh" />
 									Regenerate
 								</button>
-							}
+							)}
 						</div>
 					</>
 				)}

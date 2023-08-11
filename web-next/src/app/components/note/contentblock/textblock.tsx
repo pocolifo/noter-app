@@ -31,9 +31,7 @@ export default function TextBlock(props: TextBlockProps) {
 			{editing ? (
 				<Editor htmlContent={content} closeCallback={saveContent} />
 			) : (
-				<div>
-					{parse(content)}
-				</div>
+				<div style={{ padding: '10px' }}>{parse(content)}</div>
 			)}
 		</div>
 	);
