@@ -1,8 +1,6 @@
 import parse from 'html-react-parser';
 import { useState } from 'react';
 
-import styles from './contentblock.module.css';
-
 import Editor from '../texteditor/texteditor';
 
 interface TextBlockProps {
@@ -29,11 +27,13 @@ export default function TextBlock(props: TextBlockProps) {
 	}
 
 	return (
-		<div className={styles.contentBlock} onClick={handleClick}>
+		<div onClick={handleClick}>
 			{editing ? (
 				<Editor htmlContent={content} closeCallback={saveContent} />
 			) : (
-				parse(content)
+				<div>
+					{parse(content)}
+				</div>
 			)}
 		</div>
 	);
