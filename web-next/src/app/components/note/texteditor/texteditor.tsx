@@ -2,10 +2,14 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
+import TextStyle from '@tiptap/extension-text-style'
+import Color from '@tiptap/extension-color'
+import Highlight from '@tiptap/extension-highlight'
 import { Icon } from '@iconify/react';
-
-import styles from './texteditor.module.css';
 import { useRef } from 'react';
+
+import ColorPicker from './colorpicker/colorpicker'
+import styles from './texteditor.module.css';
 
 interface TextEditorProps {
 	htmlContent: string;
@@ -28,7 +32,7 @@ interface ButtonProps {
 
 export default function TextEditor(props: TextEditorProps) {
 	const editor = useEditor({
-		extensions: [StarterKit, TaskList, TaskItem],
+		extensions: [StarterKit, TaskList, TaskItem, TextStyle, Color, Highlight.configure({ multicolor: true })],
 		content: props.htmlContent
 	});
 	const isFirstMount = useRef(true);
@@ -75,7 +79,7 @@ function Toolbar(props: ToolbarProps) {
 		{
 			id: 'divider',
 			icon: 'none',
-			callback: () => {}
+			callback: () => { }
 		},
 		{
 			id: 'bold',
@@ -100,7 +104,7 @@ function Toolbar(props: ToolbarProps) {
 		{
 			id: 'divider',
 			icon: 'none',
-			callback: () => {}
+			callback: () => { }
 		},
 		{
 			id: 'bulletList',
@@ -116,7 +120,17 @@ function Toolbar(props: ToolbarProps) {
 			id: 'taskList',
 			icon: 'fe:list-task',
 			callback: () => props.editor.chain().focus().toggleTaskList().run()
-		}
+		},
+		{
+			id: 'divider',
+			icon: 'none',
+			callback: () => { }
+		},
+		{
+			id: 'colorPicker',
+			icon: 'fe:text-size',
+			callback: () => { }
+		},
 	];
 
 	return (
@@ -124,6 +138,15 @@ function Toolbar(props: ToolbarProps) {
 			{buttonList.map((button, i) => {
 				if (button.id === 'divider') {
 					return <div className={styles.editorDivider} key={i} />;
+				} else if (button.id === 'colorPicker') {
+					return <ColorPicker 
+						key={i}
+						icon={button.icon}
+						textColor={props.editor.getAttributes('textStyle').color} 
+						bgColor={props.editor.getAttributes('textStyle').highlight}
+						setTextColor={(color) => props.editor.chain().focus().setColor(color).run()}
+						setBgColor={(color) => props.editor.chain().focus().toggleHighlight({ color: color }).run()}
+					/>
 				} else {
 					return (
 						<Icon

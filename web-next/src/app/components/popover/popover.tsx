@@ -4,18 +4,21 @@ import PopoverEditItem from './menus/edititem';
 import { Icon } from '@iconify/react';
 
 import styles from './popover.module.css';
+import PopoverColorPicker from './menus/colorpicker';
 
 export interface PopoverProps {
 	title: string;
 
 	// name of menu to render (at the moment is CreateNew or EditItem)
-	menu: 'CreateNew' | 'EditItem';
+	menu: 'CreateNew' | 'EditItem' | 'ColorPicker';
 
 	// where the arrow is relative to the popover body
-	align: 'top' | 'left';
+	align: 'top' | 'left' | 'bottom';
 
-	inputCallback: (_v: string) => void;
-	buttonCallback: () => void;
+	callbacks: Record<string, Function>;
+
+	data: Record<string, any>;
+
 	closeCallback: () => void;
 }
 
@@ -31,6 +34,10 @@ export default function Popover(props: PopoverProps) {
 			popoverBody = <PopoverEditItem {...props} />;
 			break;
 
+		case 'ColorPicker':
+			popoverBody = <PopoverColorPicker {...props} />;
+			break;
+
 		default:
 			popoverBody = <></>;
 			break;
@@ -38,7 +45,8 @@ export default function Popover(props: PopoverProps) {
 
 	const alignStyle = {
 		top: styles.top,
-		left: styles.left
+		left: styles.left,
+		bottom: styles.bottom
 	};
 
 	return (
