@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.row p {
+    text-transform: uppercase;
+    color: #DDDDDD;
+}
+
+.row input {
+    height: 3em;
+    width: 3em;
+    border: none;
+    outline: none;
+    background: none;
+}

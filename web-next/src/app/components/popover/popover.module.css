@@ -59,6 +59,22 @@
 	border-right-color: #202123;
 }
 
+.bottom {
+	/* TODO: put something here */
+}
+
+.bottom::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	/* transform: translate(-50%, -100%); */
+	width: 0;
+	height: 0;
+	border: 15px solid transparent;
+	border-top-color: #202123;
+}
+
 .title {
 	text-align: left;
 	padding: 10px;

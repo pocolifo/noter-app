@@ -44,7 +44,7 @@ export default function PopoverCreateNew(props: PopoverProps) {
 				<Button
 					info={buttonData}
 					onClick={() => {
-						props.inputCallback(buttonData.text.toLowerCase());
+						props.callbacks['input'](buttonData.text.toLowerCase());
 						props.closeCallback();
 					}}
 					key={i}

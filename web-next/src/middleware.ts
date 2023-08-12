@@ -13,8 +13,8 @@ export async function middleware(request: NextRequest) {
 	}
 
 	const response = await fetch(API, {
-		headers: request.headers, // includes Cookie header
-	})
+		headers: request.headers // includes Cookie header
+	});
 
 	const responseJson = await response.json();
 

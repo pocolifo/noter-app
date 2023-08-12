@@ -7,16 +7,16 @@ export default function Results(props: { correct: number; wrong: number; total: 
 		cy: 16,
 		r: 12,
 		strokeWidth: 8,
-		fill: 'none',
+		fill: 'none'
 	};
 
-	const [animate, setAnimate] = useState(true)
+	const [animate, setAnimate] = useState(true);
 	useEffect(() => {
-		if (animate) setAnimate(false)
-	}, [animate])
+		if (animate) setAnimate(false);
+	}, [animate]);
 
 	// circumfrence of the circle
-	const C = 2 * Math.PI * 12
+	const C = 2 * Math.PI * 12;
 
 	return (
 		<div className={styles.container}>
@@ -26,22 +26,28 @@ export default function Results(props: { correct: number; wrong: number; total: 
 					stroke={'#fb7185'}
 					{...circleProps}
 					style={{
-						strokeDasharray: animate ? `0 ${C}` : `${C * (props.wrong + props.correct) / props.total} ${C}`,
-						transition: "stroke-dasharray 1s ease"
+						strokeDasharray: animate
+							? `0 ${C}`
+							: `${(C * (props.wrong + props.correct)) / props.total} ${C}`,
+						transition: 'stroke-dasharray 1s ease'
 					}}
 				/>
 				<circle
 					stroke={'#34d399'}
 					{...circleProps}
 					style={{
-						strokeDasharray: animate ? `0 ${C}` : `${C * props.correct / props.total} ${C}`,
-						transition: "stroke-dasharray 1s ease"
+						strokeDasharray: animate
+							? `0 ${C}`
+							: `${(C * props.correct) / props.total} ${C}`,
+						transition: 'stroke-dasharray 1s ease'
 					}}
 				/>
 			</svg>
 
 			<div className={styles.stats}>
-				<p style={{fontWeight: 700, fontSize: '30px'}}>{Math.round((props.correct * 100) / props.total)}%</p>
+				<p style={{ fontWeight: 700, fontSize: '30px' }}>
+					{Math.round((props.correct * 100) / props.total)}%
+				</p>
 			</div>
 		</div>
 	);
