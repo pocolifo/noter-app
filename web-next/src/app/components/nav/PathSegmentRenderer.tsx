@@ -20,7 +20,7 @@ export default function PathSegmentRenderer() {
                 </div>
             ) : (
                 navState.path.map((segment, i) => (
-                    <div className={styles.segment} onClick={ () => navState.setPath(navState.path.filter((_, i2) => i2 <= i)) }>
+                    <div className={styles.segment} onClick={ () => navState.setPath(navState.path.filter((_, i2) => i2 <= i)) } key={segment.uuid}>
                         <span>{segment.title}</span>
                         { navState.path.length-1 !== i && <Icon icon="fe:arrow-right" color="#888888" /> }
                     </div>
