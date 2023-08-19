@@ -1,3 +1,4 @@
+import { Editor } from "@tiptap/core";
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import TaskItem from '@tiptap/extension-task-item'
@@ -18,7 +19,7 @@ interface TextEditorProps {
 }
 
 interface ToolbarProps {
-	editor: any;
+	editor: Editor;
 
 	closeCallback: () => void;
 }
@@ -143,7 +144,7 @@ function Toolbar(props: ToolbarProps) {
 						key={i}
 						icon={button.icon}
 						textColor={props.editor.getAttributes('textStyle').color} 
-						bgColor={props.editor.getAttributes('textStyle').highlight}
+						bgColor={props.editor.getAttributes('highlight').color}
 						setTextColor={(color) => props.editor.chain().focus().setColor(color).run()}
 						setBgColor={(color) => props.editor.chain().focus().toggleHighlight({ color: color }).run()}
 					/>

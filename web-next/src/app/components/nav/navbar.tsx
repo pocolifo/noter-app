@@ -18,6 +18,7 @@ import type {
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import styles from './nav.module.css';
 import Link from 'next/link';
+import PathSegmentRenderer from './PathSegmentRenderer';
 
 export default function NavBar() {
 	const popupState = usePopupContext();
@@ -141,7 +142,9 @@ export default function NavBar() {
 						color="#FFFFFF"
 					/>
 				)}
-				<p className={styles.navHeaderTitle}>{updateHeader()}</p>
+				
+				<PathSegmentRenderer />
+
 				<Icon
 					icon="fe:plus"
 					className={styles.navHeaderButton}
