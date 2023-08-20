@@ -1,0 +1,36 @@
+.pfp {
+    width: 100%;
+    height: 100%;
+}
+
+.pfpButton {
+	position: relative;
+    width: 192px;
+	height: 192px;
+	border-radius: 50%;
+	cursor: pointer;
+    overflow: hidden;
+}
+
+.pfpButton:hover {
+	display: block;
+	background-color: rgba(0, 0, 0, 0.25);
+}
+
+.pfpButton:hover .pfp {
+	filter: brightness(75%);
+}
+
+.pfpButton:hover .pfpIcon {
+    display: block;
+}
+
+.pfpIcon {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+	width: 50%;
+	height: 50%;
+}

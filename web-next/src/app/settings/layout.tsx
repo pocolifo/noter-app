@@ -1,15 +1,13 @@
 'use client';
 
-import { ReactNode, useState, useEffect } from 'react';
+import { ReactNode } from 'react';
 
 import styles from './layout.module.css';
 
-import Navbar from './nav';
-import Profile from './profile/page';
-import { PageNotFoundError } from 'next/dist/shared/lib/utils';
-import { UserDataProvider } from './userdatacontext';
-import { PopupProvider } from '../components/popup/popupcontext';
 import Popup from '../components/popup/popup';
+import { PopupProvider } from '../components/popup/popupcontext';
+import Navbar from './nav';
+import { UserDataProvider } from './userdatacontext';
 
 export interface LinkItem {
 	title: string;
@@ -21,6 +19,10 @@ export default function SettingsLayout({ children }: { children: ReactNode }) {
 		{
 			title: 'Profile',
 			route: 'profile'
+		},
+		{
+			title: 'Password',
+			route: 'password'
 		},
 		{
 			title: 'Test 1',
@@ -36,7 +38,7 @@ export default function SettingsLayout({ children }: { children: ReactNode }) {
 				<div className={styles.main}>
 					<Navbar linkList={linkList} />
 
-					<div className={styles.content}>{children}</div>
+					<main className={styles.content}>{children}</main>
 				</div>
 			</PopupProvider>
 		</UserDataProvider>

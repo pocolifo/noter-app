@@ -1,7 +1,7 @@
 import { useState, useRef, ChangeEvent, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 
-import styles from '@/app/settings/profile/page.module.css';
+import styles from './pfp.module.css';
 
 import { useUserDataContext } from '@/app/settings/userdatacontext';
 
@@ -37,22 +37,19 @@ export default function Pfp(props: PfpProps) {
 	}
 
 	return (
-		<div className={styles.textbox}>
-			<p> {props.header} </p>
-			<div className={styles.container} onClick={() => props.callback}>
-				<div onClick={openSelector} className={styles.pfpButton}>
-					<img src={pfp} alt="profile picture" className={styles.pfp} />
-					<input
-						type="file"
-						accept="image/*"
-						id="pfpupload"
-						style={{ display: 'none' }}
-						ref={inputFile}
-						onChange={changeImage}
-					/>
-					<Icon icon="bx:edit" className={styles.pfpIcon} color="#FFFFFF" />
-				</div>
-			</div>
+		<div onClick={openSelector} className={styles.pfpButton}>
+			<img src={pfp} alt="User profile picture" className={styles.pfp} />
+			
+			<input
+				type="file"
+				accept="image/*"
+				id="pfpupload"
+				style={{ display: 'none' }}
+				ref={inputFile}
+				onChange={changeImage}
+			/>
+
+			<Icon icon="fe:edit" className={styles.pfpIcon} color="#FFFFFF" />
 		</div>
 	);
 }

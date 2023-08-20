@@ -17,7 +17,7 @@ export default function NavigationLayout({ children }: { children: React.ReactNo
 				<div className={styles.container}>
 					<NavBar />
 
-					<div>{children}</div>
+					<main>{children}</main>
 				</div>
 			</NavigationProvider>
 		</PopupProvider>
