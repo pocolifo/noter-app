@@ -17,16 +17,8 @@ export interface LinkItem {
 export default function SettingsLayout({ children }: { children: ReactNode }) {
 	const linkList: LinkItem[] = [
 		{
-			title: 'Profile',
-			route: 'profile'
-		},
-		{
-			title: 'Password',
-			route: 'password'
-		},
-		{
-			title: 'Test 1',
-			route: 'test'
+			title: 'Account',
+			route: 'account'
 		}
 	];
 

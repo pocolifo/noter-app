@@ -42,14 +42,16 @@ export default function TextField(props: Props) {
         <div>
             <label htmlFor={props.id} className={styles.label}>{ props.label }</label>
             <br />
-            <input
-                id={props.id}
-                type={ props.type || 'text' }
-                onBlur={ e => handleChange(e.target.value) }
-                disabled={ changeState === ChangeState.UPDATING }
-                defaultValue={props.defaultValue}
-                className={styles.textField}
-            />
+            <div>
+                <input
+                    id={props.id}
+                    type={ props.type || 'text' }
+                    onBlur={ e => handleChange(e.target.value) }
+                    disabled={ changeState === ChangeState.UPDATING }
+                    defaultValue={props.defaultValue}
+                    className={styles.textField}
+                />
+            </div>
         </div>
     )
 }

@@ -10,6 +10,15 @@ const nextConfig = {
                 destination: `${API}/:path*`
             }
         ]
+    },
+    redirects: async () => {
+        return [
+            {
+                source: '/settings',
+                destination: '/settings/account',
+                permanent: false
+            }
+        ]
     }
 }
 

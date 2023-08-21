@@ -4,6 +4,20 @@
 }
 
 .content {
+	max-width: 64em;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.content section {
+	display: grid;
+	align-items: center;
+	grid-template-columns: 24em 1fr;
+	border-bottom: 1px solid #ddd;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	gap: 1rem;
 }
 
 .header {
