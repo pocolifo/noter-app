@@ -5,3 +5,36 @@
     gap: 1rem;
     height: 128px;
 }
+
+.pfpSection {
+    padding: 16px;
+}
+
+.button {
+    text-align: center;
+    padding: 1rem 2rem;
+    font-size: 16px;
+    border: none;
+    border-radius: 0.5rem;
+    background: #202123;
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.button:hover {
+    background: #444444;
+}
+
+.button:active {
+    transform: scale(0.9);
+    background: #666666;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

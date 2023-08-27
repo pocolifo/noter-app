@@ -248,7 +248,7 @@ export default function NavBar() {
 				<hr />
 
 				<div className={styles.navFooterContent}>
-					<Link href={'/settings/profile'} className={styles.navItemLink}>
+					<Link href={'/settings'} className={styles.navItemLink}>
 						<Icon
 							icon="clarity:settings-line"
 							className={styles.navHeaderButton}

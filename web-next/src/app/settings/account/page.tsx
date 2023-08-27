@@ -35,7 +35,7 @@ export default function Profile() {
 	return (
 		<div className={styles.content}>
 			<section>
-				<div className={styles.pfpRow}>
+				<div className={`${styles.pfpRow} ${styles.pfpSection}`}>
 					<Pfp
 						header="Profile picture"
 						value={userDataContext.pfp}
@@ -68,8 +68,8 @@ export default function Profile() {
 					<p>You will have to confirm your identity when you change your password.</p>
 				</div>
 
-				<div>
-					<button onClick={updatePassword}>Change Password</button>
+				<div className={styles.center}>
+					<button onClick={updatePassword} className={styles.button}>Change Password</button>
 				</div>
 			</section>
 		</div>

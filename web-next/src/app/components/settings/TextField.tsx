@@ -39,7 +39,7 @@ export default function TextField(props: Props) {
     }
 
     return (
-        <div>
+        <div className={styles.outer}>
             <label htmlFor={props.id} className={styles.label}>{ props.label }</label>
             <br />
             <div>
