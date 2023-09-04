@@ -46,7 +46,6 @@ export default function Textbox(props: TextboxProps) {
 						type="text"
 						className={styles.input}
 						defaultValue={props.value}
-						value={props.value}
 						onChange={handleChange}
 					/>
 
@@ -54,7 +53,12 @@ export default function Textbox(props: TextboxProps) {
 						icon='fe:check'
 						className={styles.textIcon}
 						onClick={() => {
-							props.callback(inputValue);
+							if (inputValue === '') {
+								props.callback(props.value)
+							} else {
+								props.callback(inputValue);
+							}
+
 							toggleEditing();
 						}}
 					/>
