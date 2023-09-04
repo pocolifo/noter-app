@@ -3,6 +3,7 @@ import NewFolderMenu from './menus/newItem/newFolderMenu';
 import CreateNewMenu from './menus/createNewMenu';
 import NewNoteMenu from './menus/newItem/newNoteMenu';
 import PasswordMenu from './menus/password/passwordmenu';
+import EmailMenu from './menus/email/emailmenu';
 import styles from './popup.module.css';
 import { usePopupContext } from './popupcontext';
 
@@ -49,6 +50,17 @@ export default function Popup() {
 					}}
 				/>
 			);
+
+			break;
+
+		case 'changeEmail':
+			popupBody = (
+				<EmailMenu
+					closePopup={() => {
+						popupState.setEnabled(false);
+					}}
+				/>
+			)
 
 			break;
 

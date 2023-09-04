@@ -234,7 +234,7 @@ export async function requestChangePassword(): Promise<void> {
 
 export async function changePassword(password: string, code: string): Promise<void> {
 	try {
-		await fetch(`/api/items/update/password`, {
+		const response = await fetch(`/api/items/update/password`, {
 			credentials: 'include',
 			method: 'POST',
 			body: JSON.stringify({
@@ -245,6 +245,10 @@ export async function changePassword(password: string, code: string): Promise<vo
 				'Content-Type': 'application/json'
 			}
 		});
+
+		if (response.status === 400) {
+			throw new Error('Invalid code');
+		}
 
 		return Promise.resolve();
 	} catch (error) {

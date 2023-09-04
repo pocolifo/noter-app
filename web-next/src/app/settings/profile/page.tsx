@@ -12,7 +12,7 @@ import Pfp from '@/app/components/settings/pfp';
 import { usePopupContext } from '@/app/components/popup/popupcontext';
 
 export default function Profile() {
-	const [name, setName] = useState('');
+	// const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 
 	const userDataContext = useUserDataContext();
@@ -21,12 +21,9 @@ export default function Profile() {
 
 	const initialData = { ...userDataContext };
 
-	function saveData() {
+	function changeName(name: string) {
 		if (initialData.name !== name) {
 			userDataContext.setName(name);
-		}
-		if (initialData.email !== email) {
-			userDataContext.setEmail(email);
 		}
 	}
 
@@ -39,6 +36,15 @@ export default function Profile() {
 		requestChangePassword();
 	}
 
+	function updateEmail() {
+		popupState.setEnabled(true);
+		popupState.setTitle('Change email');
+		popupState.setType('changeEmail');
+		popupState.setStateCallback(() => {});
+
+		// add email api integration
+	}
+
 	return (
 		<div className={styles.content}>
 			<p className={styles.header}> Profile settings </p>
@@ -48,15 +54,16 @@ export default function Profile() {
 				<div>
 					<Textbox
 						header="Name"
-						valueSetter={setName}
+						valueSetter={() => {}}
 						value={userDataContext.name}
-						callback={userDataContext.setName}
+						callback={changeName}
 					/>
 					<Textbox
 						header="Email"
 						valueSetter={setEmail}
 						value={userDataContext.email}
 						callback={userDataContext.setEmail}
+						editCallback={updateEmail}
 					/>
 
 					<div className={styles.textbox}>
@@ -71,11 +78,6 @@ export default function Profile() {
 							Change password{' '}
 						</button>
 					</div>
-
-					<button onClick={saveData} className={styles.button}>
-						{' '}
-						Update profile{' '}
-					</button>
 				</div>
 
 				<Pfp

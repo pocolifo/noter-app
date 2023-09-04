@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import styles from './passwordmenu.module.css';
+import styles from './emailmenu.module.css';
 
 import { changePassword } from '@/app/lib/api';
 import { useUserDataContext } from '@/app/settings/userdatacontext';
@@ -10,9 +10,9 @@ interface MenuProps {
 	submitCallback: () => void;
 }
 
-interface PasswordMenuProps extends MenuProps {
-	passwordSetter: (value: string) => void;
-	confirmPasswordSetter: (value: string) => void;
+interface EmailMenuProps extends MenuProps {
+	emailSetter: (value: string) => void;
+	confirmEmailSetter: (value: string) => void;
 }
 
 interface CodeMenuProps extends MenuProps {
@@ -21,24 +21,24 @@ interface CodeMenuProps extends MenuProps {
 
 enum Menu {
 	VERIFICATION_CODE,
-	PASSWORD
+	EMAIL
 }
 
-export default function ChangePasswordMenu(props: { closePopup: () => void }) {
+export default function ChangeEmailMenu(props: { closePopup: () => void }) {
     const notificationContext = useNotificationContext();
 
-    const [ menu, setMenu ] = useState<Menu>(Menu.PASSWORD);
-    const [ password, setPassword ] = useState<string>('');
-    const [ confirmPassword, setConfirmPassword ] = useState<string>('');
+    const [ menu, setMenu ] = useState<Menu>(Menu.EMAIL);
+    const [ email, setEmail ] = useState<string>('');
+    const [ confirmEmail, setConfirmEmail ] = useState<string>('');
     const [ verificationCode, setVerificationCode ] = useState<string>('');
 
     async function handleSubmit() {
         try {
-            await changePassword(confirmPassword, verificationCode);
+            await changePassword(confirmEmail, verificationCode);
 
             notificationContext.fire({
                 title: 'Success',
-                description: 'Successfully changed password',
+                description: 'Successfully changed email',
                 type: 'success'
             });
 
@@ -53,12 +53,12 @@ export default function ChangePasswordMenu(props: { closePopup: () => void }) {
     }
 
     function changeMenu() {
-        if (password === confirmPassword) {
+        if (email === confirmEmail) {
             setMenu(Menu.VERIFICATION_CODE);
         } else {
             notificationContext.fire({
                 title: 'Try again',
-                description: 'Passwords do not match',
+                description: 'Emails do not match',
                 type: 'error'
             })
         }
@@ -72,10 +72,10 @@ export default function ChangePasswordMenu(props: { closePopup: () => void }) {
 					verificationCodeSetter={setVerificationCode}
 				/>
 			) : (
-				<PasswordMenu
+				<EmailMenu
 					submitCallback={changeMenu}
-					passwordSetter={setPassword}
-					confirmPasswordSetter={setConfirmPassword}
+					emailSetter={setEmail}
+					confirmEmailSetter={setConfirmEmail}
 				/>
 			)}
 		</div>
@@ -104,22 +104,22 @@ function CodeMenu(props: CodeMenuProps) {
 	);
 }
 
-function PasswordMenu(props: PasswordMenuProps) {
+function EmailMenu(props: EmailMenuProps) {
 	return (
 		<div>
 			<input
 				className={styles.password}
-				type="password"
-				placeholder="New password"
+				type="text"
+				placeholder="New email"
 				required
-				onChange={(e) => props.passwordSetter(e.target.value)}
+				onChange={(e) => props.emailSetter(e.target.value)}
 			/>
 			<input
 				className={styles.password}
-				type="password"
-				placeholder="Confirm password"
+				type="text"
+				placeholder="Confirm email"
 				required
-				onChange={(e) => props.confirmPasswordSetter(e.target.value)}
+				onChange={(e) => props.confirmEmailSetter(e.target.value)}
 			/>
 
 			<button onClick={props.submitCallback}> Submit </button>
