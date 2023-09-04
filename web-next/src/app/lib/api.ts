@@ -1,6 +1,5 @@
 import { FolderData, NoteData, QuizQuestion, UserData } from './interfaces';
 
-
 export async function getNoteByUUID(uuid: string): Promise<NoteData> {
 	try {
 		const response = await fetch(`/api/items/${uuid}`, { credentials: 'include' });

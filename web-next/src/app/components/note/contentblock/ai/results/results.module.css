@@ -1,0 +1,17 @@
+.container {
+	display: flex;
+	align-items: center;
+	width: 200px;
+	justify-content: center;
+}
+
+.svg {
+	width: 200px;
+	height: 200px;
+	transform: rotate(-90deg);
+}
+
+.stats {
+	position: absolute;
+	text-align: center;
+}

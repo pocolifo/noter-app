@@ -259,8 +259,10 @@ export default function NoteEditor(props: NoteEditorProps) {
 						title="Add block"
 						menu="CreateNew"
 						align="top"
-						inputCallback={addBlock}
-						buttonCallback={() => {}}
+						data={{}}
+						callbacks={{
+							input: addBlock,
+						}}
 						closeCallback={() => setPopoverState(false)}
 					/>
 				)}

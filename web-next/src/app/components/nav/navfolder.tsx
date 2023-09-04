@@ -41,8 +41,11 @@ export default function Folder(props: FolderProps) {
 					title="Actions"
 					menu="EditItem"
 					align="left"
-					inputCallback={props.setTitle}
-					buttonCallback={props.delete}
+					data={{}}
+					callbacks={{
+						input: props.setTitle,
+						button: props.delete
+					}}
 					closeCallback={() => setShowOptions(false)}
 				/>
 			)}
