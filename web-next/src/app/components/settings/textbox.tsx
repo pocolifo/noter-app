@@ -12,13 +12,12 @@ interface TextboxProps {
 	value: string;
 	callback: (_v: string) => void;
 
-	editCallback?: () => void;
+	editCallback?: any;
 }
 
 export default function Textbox(props: TextboxProps) {
 	const userDataContext = useUserDataContext();
-	const [editing, setEditing] = useState(true);
-	const [editCallback, setEditCallback] = useState<() => void>(toggleEditing);
+	const [editing, setEditing] = useState(false);
 	const [inputValue, setInputValue] = useState<string>('');
 
 	function toggleEditing() {
@@ -29,11 +28,13 @@ export default function Textbox(props: TextboxProps) {
 		setInputValue(e.target.value);
 	}
 
-	useEffect(() => {
+	function editCallback() {
 		if (typeof props.editCallback === 'function') {
-			setEditCallback(props.editCallback);
+			props.editCallback();
+		} else {
+			toggleEditing();
 		}
-	}, []);
+	}
 
 	return (
 		<div className={styles.textbox}>
@@ -42,8 +43,10 @@ export default function Textbox(props: TextboxProps) {
 			{editing ? (
 				<div className={styles.side}>
 					<input
+						type="text"
 						className={styles.input}
 						defaultValue={props.value}
+						value={props.value}
 						onChange={handleChange}
 					/>
 

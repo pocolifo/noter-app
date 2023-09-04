@@ -36,6 +36,15 @@ export default function Profile() {
 		requestChangePassword();
 	}
 
+	function updateEmail() {
+		popupState.setEnabled(true);
+		popupState.setTitle('Change email');
+		popupState.setType('changeEmail');
+		popupState.setStateCallback(() => {});
+
+		// add email api integration
+	}
+
 	return (
 		<div className={styles.content}>
 			<p className={styles.header}> Profile settings </p>
@@ -54,6 +63,7 @@ export default function Profile() {
 						valueSetter={setEmail}
 						value={userDataContext.email}
 						callback={userDataContext.setEmail}
+						editCallback={updateEmail}
 					/>
 
 					<div className={styles.textbox}>
@@ -68,11 +78,6 @@ export default function Profile() {
 							Change password{' '}
 						</button>
 					</div>
-
-					<button onClick={() => {}} className={styles.button}>
-						{' '}
-						Update profile{' '}
-					</button>
 				</div>
 
 				<Pfp
