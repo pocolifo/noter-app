@@ -47,10 +47,27 @@ export default function Profile() {
 
 	return (
 		<div className={styles.content}>
-			<p className={styles.header}> Profile settings </p>
-			<hr />
+			<section>
+				<div className={`${styles.pfpRow} ${styles.pfpSection}`}>
+					<Pfp
+						header=""
+						value={userDataContext.pfp}
+						callback={userDataContext.setPfp}
+					/>
 
-			<div className={styles.main}>
+					<div>
+						<h2>{ userDataContext.name }</h2>
+						<p>{ userDataContext.email }</p>
+					</div>
+				</div>
+			</section>
+
+			<section>
+				<div className={styles.textSection}>
+					<h2>Profile</h2>
+					<p>Others can see this information about you when you share notes with them. Your changes save automatically.</p>
+				</div>
+
 				<div>
 					<Textbox
 						header="Name"
@@ -65,27 +82,19 @@ export default function Profile() {
 						callback={userDataContext.setEmail}
 						editCallback={updateEmail}
 					/>
+				</div>
+			</section>
 
-					<div className={styles.textbox}>
-						<p> Password </p>
-						<button
-							className={styles.button}
-							onClick={() => {
-								updatePassword();
-							}}
-						>
-							{' '}
-							Change password{' '}
-						</button>
-					</div>
+			<section>
+				<div className={styles.textSection}>
+					<h2>Password</h2>
+					<p>You will have to confirm your identity when you change your password.</p>
 				</div>
 
-				<Pfp
-					header="Profile picture"
-					value={userDataContext.pfp}
-					callback={userDataContext.setPfp}
-				/>
-			</div>
+				<div className={styles.center}>
+					<button onClick={updatePassword} className={styles.button}>Change Password</button>
+				</div>
+			</section>
 		</div>
 	);
 }
