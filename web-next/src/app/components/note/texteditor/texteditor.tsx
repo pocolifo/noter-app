@@ -1,4 +1,4 @@
-import { useEditor, EditorContent } from '@tiptap/react';
+import { useEditor, EditorContent, Extension } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
@@ -7,18 +7,21 @@ import Color from '@tiptap/extension-color'
 import Highlight from '@tiptap/extension-highlight'
 import { Icon } from '@iconify/react';
 import { useRef } from 'react';
+import { Editor } from '@tiptap/core';
 
 import ColorPicker from './colorpicker/colorpicker'
 import styles from './texteditor.module.css';
 
 interface TextEditorProps {
 	htmlContent: string;
+	editing: boolean;
 
 	closeCallback: (_content: string) => void;
 }
 
 interface ToolbarProps {
-	editor: any;
+	editor: Editor;
+	editing: boolean;
 
 	closeCallback: () => void;
 }
@@ -30,10 +33,19 @@ interface ButtonProps {
 	callback: () => void;
 }
 
+const ExitEscapeExtension = Extension.create({
+	name: 'ExitEscapeExtension',
+	addKeyboardShortcuts() {
+		return {
+			'Escape': () => this.options.closeCallback()
+		}
+	},
+});
+
 export default function TextEditor(props: TextEditorProps) {
 	const editor = useEditor({
-		extensions: [StarterKit, TaskList, TaskItem, TextStyle, Color, Highlight.configure({ multicolor: true })],
-		content: props.htmlContent
+		extensions: [StarterKit, TaskList, TaskItem, TextStyle, Color, Highlight.configure({ multicolor: true }), ExitEscapeExtension.configure({ closeCallback: saveContent })],
+		content: props.htmlContent,
 	});
 	const isFirstMount = useRef(true);
 
@@ -50,16 +62,17 @@ export default function TextEditor(props: TextEditorProps) {
 		const htmlContent = editor?.getHTML() as string;
 		isFirstMount.current = true;
 		props.closeCallback(htmlContent);
+		editor?.commands.blur();
 	}
 
 	return (
 		<div>
-			<div className={styles.editorWrapper}>
-				<Toolbar editor={editor} closeCallback={saveContent} />
+			<div className={`${styles.editorWrapper} ${props.editing && styles.editing}`}>
+				<Toolbar editor={editor} closeCallback={saveContent} editing={props.editing} />
 				<EditorContent className={styles.editorContent} editor={editor} />
 			</div>
 
-			<div className={styles.editorOverlay} onClick={saveContent} />
+			{ props.editing && <div className={styles.editorOverlay} onClick={saveContent} /> }
 		</div>
 	);
 }
@@ -134,7 +147,7 @@ function Toolbar(props: ToolbarProps) {
 	];
 
 	return (
-		<div className={styles.editorToolbar}>
+		<div className={`${styles.editorToolbar} ${!props.editing && styles.hidden}`}>
 			{buttonList.map((button, i) => {
 				if (button.id === 'divider') {
 					return <div className={styles.editorDivider} key={i} />;
@@ -142,8 +155,8 @@ function Toolbar(props: ToolbarProps) {
 					return <ColorPicker 
 						key={i}
 						icon={button.icon}
-						textColor={props.editor.getAttributes('textStyle').color} 
-						bgColor={props.editor.getAttributes('textStyle').highlight}
+						textColor={props.editor.getAttributes('textStyle').color || '#000000'} // ALL 6 characters after # required
+						bgColor={props.editor.getAttributes('highlight').color || '#ffffff'} // ALL 6 characters after # required
 						setTextColor={(color) => props.editor.chain().focus().setColor(color).run()}
 						setBgColor={(color) => props.editor.chain().focus().toggleHighlight({ color: color }).run()}
 					/>

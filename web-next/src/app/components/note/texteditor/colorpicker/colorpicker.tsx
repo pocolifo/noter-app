@@ -10,16 +10,14 @@ export default function ColorPicker(props: {
     setBgColor: (_v: string) => void,
     setTextColor: (_v: string) => void,
 }) {
-    const [showMenu, setShowMenu] = useState(false)
+    const [showMenu, setShowMenu] = useState(false);
 
     return <>
         <Icon 
             icon={props.icon}
             className={styles.editorButton}
             color={props.textColor}
-            // style={{backgroundColor: props.bgColor}}
-            // TODO: uncomment this once we figure out how to get the current highlight color
-            style={{backgroundColor: '#ffffff'}}
+            style={{backgroundColor: props.bgColor}}
             onClick={() => setShowMenu(!showMenu)}
         />
 
@@ -28,8 +26,7 @@ export default function ColorPicker(props: {
             menu="ColorPicker"
             align="bottom"
             data={{
-                // bgColor: props.bgColor,
-                bgColor: '#ffffff', // same as above, uncomment later
+                bgColor: props.bgColor,
                 textColor: props.textColor
             }}
             callbacks={{

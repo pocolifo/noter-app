@@ -29,11 +29,11 @@ export default function TextBlock(props: TextBlockProps) {
 
 	return (
 		<div className={styles.textContainer} onClick={handleClick}>
-			{editing ? (
-				<Editor htmlContent={content} closeCallback={saveContent} />
+			<Editor htmlContent={content} closeCallback={saveContent} editing={editing} />
+			{/* {editing ? (
 			) : (
 				<div style={{ padding: '10px' }}>{parse(content)}</div>
-			)}
+			)} */}
 		</div>
 	);
 }

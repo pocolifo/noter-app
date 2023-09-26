@@ -23,8 +23,7 @@ export default function CreateBlock(props: CreateBlockProps) {
 			onDrop={props.onDrop}
 		>
 			<span className={styles.text}>
-				<Icon icon="fe:plus" color="#202123"></Icon>
-				New block or drop media
+				<Icon icon="fe:plus" width={24} height={24}></Icon>
 			</span>
 		</button>
 	);

@@ -23,6 +23,7 @@ import { ContentBlock } from '../../../lib/interfaces';
 
 import SummaryBlock from '../contentblock/ai/summary';
 import QuizBlock from '../contentblock/ai/quiz';
+import { lockToVerticalAxis } from '@/app/lib/dnd';
 
 interface NoteEditorProps {
 	noteId: string;
@@ -177,51 +178,54 @@ export default function NoteEditor(props: NoteEditorProps) {
 									>
 										{(
 											provided: DraggableProvided,
-											_: DraggableStateSnapshot
-										) => (
-											<div
-												className={`${styles.noteBlock}`}
-												ref={provided.innerRef}
-												{...provided.draggableProps}
-												onMouseOver={() => setCurrentHover(blockData.uuid)}
-												onMouseLeave={() => setCurrentHover('')}
-											>
-												<div {...provided.dragHandleProps}>
-													<Icon
-														color="grey"
-														icon="material-symbols:drag-indicator"
-														className={`${styles.dragIcon} ${
-															currentHover !== blockData.uuid &&
-															styles.hidden
-														}`}
-													/>
-												</div>
-
+											draggableSnapshot: DraggableStateSnapshot
+										) => {
+											return (
 												<div
-													className={`${styles.content} ${
-														currentHover === blockData.uuid &&
-														!snapshot.isDraggingOver
-															? styles.active
-															: null
-													}`}
+													className={`${styles.noteBlock}`}
+													ref={provided.innerRef}
+													{...provided.draggableProps}
+													onMouseOver={() => setCurrentHover(blockData.uuid)}
+													onMouseLeave={() => setCurrentHover('')}
+													style={lockToVerticalAxis(provided, draggableSnapshot)}
 												>
-													{getBlockComponent(blockData)}
-												</div>
+													<div {...provided.dragHandleProps}>
+														<Icon
+															color="grey"
+															icon="material-symbols:drag-indicator"
+															className={`${styles.dragIcon} ${
+																currentHover !== blockData.uuid &&
+																styles.hidden
+															}`}
+														/>
+													</div>
 
-												<button
-													className={styles.deleteButton}
-													onClick={() => deleteBlock(blockData.uuid)}
-												>
-													<Icon
-														icon="fe:trash"
-														className={`${styles.deleteIcon} ${
-															currentHover !== blockData.uuid &&
-															styles.hidden
+													<div
+														className={`${styles.content} ${
+															currentHover === blockData.uuid &&
+															!snapshot.isDraggingOver
+																? styles.active
+																: null
 														}`}
-													/>
-												</button>
-											</div>
-										)}
+													>
+														{getBlockComponent(blockData)}
+													</div>
+
+													<button
+														className={styles.deleteButton}
+														onClick={() => deleteBlock(blockData.uuid)}
+													>
+														<Icon
+															icon="fe:trash"
+															className={`${styles.deleteIcon} ${
+																currentHover !== blockData.uuid &&
+																styles.hidden
+															}`}
+														/>
+													</button>
+												</div>
+											)
+										}}
 									</Draggable>
 								))}
 
@@ -233,26 +237,27 @@ export default function NoteEditor(props: NoteEditorProps) {
 							</div>
 						)}
 					</Droppable>
+
+					<CreateBlock
+						onDrop={(e) => {
+							e.preventDefault();
+							e.stopPropagation();
+
+							let src = '';
+							let file = e.dataTransfer.files.item(0);
+							let reader = new FileReader();
+							reader.onload = () => {
+								src = reader.result as string;
+							};
+							if (file) {
+								reader.readAsDataURL(file);
+							}
+							addBlock('image', { src: src });
+						}}
+						onClick={togglePopover}
+					/>
 				</div>
 
-				<CreateBlock
-					onDrop={(e) => {
-						e.preventDefault();
-						e.stopPropagation();
-
-						let src = '';
-						let file = e.dataTransfer.files.item(0);
-						let reader = new FileReader();
-						reader.onload = () => {
-							src = reader.result as string;
-						};
-						if (file) {
-							reader.readAsDataURL(file);
-						}
-						addBlock('image', { src: src });
-					}}
-					onClick={togglePopover}
-				/>
 
 				{popoverState && (
 					<Popover

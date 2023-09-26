@@ -18,6 +18,7 @@ import type {
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import styles from './nav.module.css';
 import Link from 'next/link';
+import { lockToVerticalAxis } from '@/app/lib/dnd';
 
 export default function NavBar() {
 	const popupState = usePopupContext();
@@ -180,6 +181,7 @@ export default function NavBar() {
 													ref={provided.innerRef}
 													{...provided.draggableProps}
 													{...provided.dragHandleProps}
+													style={lockToVerticalAxis(provided, childSnapshot)}
 												>
 													{(() => {
 														switch (item.type) {

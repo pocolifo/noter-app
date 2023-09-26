@@ -1,23 +1,30 @@
 .createBlock {
-	margin: auto;
-	text-align: center;
-	width: calc(100% - 2 * 15px - 2 * 32px);
-	padding: 4em;
+	margin-top: 50px;
 
-	border: 2px dashed #202123;
-	background-color: white;
+	border: none;
+	border-radius: 8px;
+	width: 100%;
+	background-color: #f4f4f4;
+	color: #ccc;
 
 	cursor: pointer;
 }
 
+.createBlock:hover {
+	background: #ddd;
+	color: #aaa;
+}
+
 .text {
-	font-size: 24px;
+	font-size: 16px;
 	display: flex;
-	gap: 10px;
 	justify-content: center;
 	align-items: center;
+	gap: 2px;
+	padding: 10px;
 }
 
 .draggedOver {
-	background-color: #add8e6;
+	background-color: #7dd3fc;
+	color: #fff;
 }

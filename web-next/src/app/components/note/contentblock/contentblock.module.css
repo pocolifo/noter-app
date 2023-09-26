@@ -1,7 +1,5 @@
 .contentBlock {
 	background-color: white;
-	margin: 10px;
-	padding: 10px;
 }
 
 /* header styles */
@@ -15,7 +13,8 @@
 	outline: none;
 
 	padding-bottom: 4px;
-	border-bottom: 2px solid #888888;
+	margin-bottom: 8px;
+	margin-top: 20px;
 }
 
 .header::placeholder {
@@ -29,7 +28,13 @@
 .selectImage {
 	border: 1px dashed rgb(62, 62, 62);
 	padding: 1em;
-	width: fit-content;
+	width: auto;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.selectImage:hover {
+	background: #eee;
 }
 
 .selectImage label {
@@ -44,7 +49,6 @@
 	flex-direction: column;
 	text-align: center;
 	gap: 10px;
-	width: 50%;
 }
 
 .imageContainer.large {
@@ -53,6 +57,7 @@
 
 .imageContainer img {
 	max-width: 100%;
+	border-radius: 8px;
 }
 
 .imageCaption {

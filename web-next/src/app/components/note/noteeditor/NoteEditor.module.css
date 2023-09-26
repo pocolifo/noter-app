@@ -1,35 +1,25 @@
 .noteBody {
 	text-align: left;
-	margin: 15px;
+	max-width: 900px;
+	margin: auto;
+	padding-bottom: 50px;
 }
 
 .noteHeader {
 	display: grid;
 	grid-template-columns: 1fr;
+	padding: 4px;
 }
 
 .noteHeaderTitle {
-	font-size: 48px;
-	font-weight: bolder;
-
-	margin: 15px;
-	text-align: left;
-}
-
-.content {
-	border: solid;
-	border-color: white;
-	border-width: 1px;
-	border-radius: 10px;
-}
-
-.content.active {
-	border-color: lightgray;
+	font-size: 3em;
+    font-weight: bold;
+    text-align: center;
 }
 
 .dragIcon {
-	height: 30px;
-	width: 30px;
+	height: 24px;
+	width: 24px;
 }
 
 .hidden {
@@ -38,11 +28,10 @@
 
 .noteBlock {
 	display: grid;
-	grid-template-columns: 32px 1fr 32px;
+	grid-template-columns: 16px 1fr 16px;
 	gap: 10px;
 
 	align-items: center;
-	margin: 1em;
 }
 
 .deleteButton {
@@ -51,8 +40,8 @@
 
 .deleteIcon {
 	color: grey;
-	width: 30px;
-	height: 30px;
+	width: 24px;
+	height: 24px;
 
 	transition: 0.2s ease;
 	cursor: pointer;
